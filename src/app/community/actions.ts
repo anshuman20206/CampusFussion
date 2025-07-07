@@ -33,7 +33,10 @@ export async function shareThoughtAction(formData: FormData) {
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+    match /thoughts/{thoughtId} {
+      allow read, write: if true;
+    }
+    match /blogs/{blogId} {
       allow read, write: if true;
     }
   }
