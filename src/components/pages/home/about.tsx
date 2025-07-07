@@ -17,7 +17,7 @@ export function About() {
         </div>
         <div className="order-1 md:order-2 flex justify-center">
           <Image
-            src="/gdg-logo.png"
+            src="https://placehold.co/500x500.png"
             data-ai-hint="event logo"
             alt="GDG Chapter Event Logo"
             width={500}
