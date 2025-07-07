@@ -29,10 +29,17 @@ async function uploadFile(file: File): Promise<string> {
 }
 
 export async function createBlogAction(formData: FormData) {
-  if (!db) {
+  if (!db || !storage) {
     return {
       success: false,
-      error: 'Firestore is not initialized. Please check your Firebase configuration.',
+      error: 'Firestore or Storage is not initialized. Please check your Firebase configuration in .env and lib/firebase.ts.',
+    };
+  }
+  
+  if (!process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET) {
+    return {
+        success: false,
+        error: "Firebase Storage Bucket is not configured. Please add NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET to your .env file."
     };
   }
 
@@ -99,7 +106,7 @@ export async function createBlogAction(formData: FormData) {
     
     let errorMessage = error.message || 'Could not create the blog post. Please try again.';
     if (error.code && (error.code === 'storage/unknown' || error.code === 'storage/unauthorized')) {
-        errorMessage = "Image upload failed. This is likely due to Firebase Storage security rules. Please go to your Firebase Console, navigate to Storage > Rules, and ensure your rules allow writes. For development, you can start with `allow read, write: if true;` and secure it later.";
+        errorMessage = "Image upload failed. This can be caused by two main issues: 1) Your Storage security rules are too restrictive. Go to Firebase Console > Storage > Rules and set them to `allow read, write: if true;` for development. 2) The `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` variable in your .env file is missing or incorrect. Please double-check it.";
     }
 
     return {
