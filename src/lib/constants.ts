@@ -175,12 +175,13 @@ export const ANNOUNCEMENTS = [
 ];
 
 export const GALLERY_IMAGES = [
-    { src: "/gdgiec.png", dataAiHint: "students coding", alt: "Students collaborating at a hackathon.", title: "Hackathon 2023" },
-    { src: "https://placehold.co/600x400.png", dataAiHint: "speaker presentation", alt: "Guest speaker presenting at a tech talk.", title: "Tech Talk: AI" },
-    { src: "https://placehold.co/600x400.png", dataAiHint: "group workshop", alt: "Attendees at a Firebase workshop.", title: "Firebase Workshop" },
-    { src: "https://placehold.co/600x400.png", dataAiHint: "team discussion", alt: "Team members planning an event.", title: "Event Planning" },
-    { src: "https://placehold.co/600x400.png", dataAiHint: "networking event", alt: "Students networking at a community mixer.", title: "Community Mixer" },
-    { src: "https://placehold.co/600x400.png", dataAiHint: "award ceremony", alt: "Winners of the coding competition.", title: "Code Competition" },
+    { src: "/1.jpg", dataAiHint: "event audience", alt: "A picture from one of our events.", title: "Community Event" },
+    { src: "/2.jpg", dataAiHint: "speaker presentation", alt: "A speaker presenting to the audience.", title: "Speaker Session" },
+    { src: "/3.jpg", dataAiHint: "students collaborating", alt: "Students working together during a workshop.", title: "Workshop" },
+    { src: "/4.jpg", dataAiHint: "group photo", alt: "A group photo of event attendees.", title: "Group Photo" },
+    { src: "/5.jpg", dataAiHint: "coding hackathon", alt: "Participants focused on coding during a hackathon.", title: "Hackathon Fun" },
+    { src: "/6.jpeg", dataAiHint: "networking people", alt: "Networking session in progress.", title: "Networking" },
+    { src: "/7.HEIC", dataAiHint: "team meeting", alt: "The core team during a planning session.", title: "Team Meeting" },
 ];
 
 export const ROADMAP_PHASES = [
