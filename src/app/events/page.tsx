@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { EVENTS } from "@/lib/constants";
 import { MapPin } from "lucide-react";
-import Link from "next/link";
 
 export default function EventsPage() {
+  const sortedEvents = [...EVENTS].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
   return (
     <div className="container mx-auto px-6 py-12">
       <div className="text-center">
@@ -17,7 +17,7 @@ export default function EventsPage() {
       <div className="relative mt-12 mx-auto max-w-3xl">
         <div className="absolute left-4 top-0 h-full w-0.5 -translate-x-1/2 bg-border md:left-1/2"></div>
         <div className="space-y-12">
-          {EVENTS.map((event, index) => (
+          {sortedEvents.map((event, index) => (
             <div key={index} className="relative flex items-start gap-6">
               <div className="absolute left-4 top-1 z-10 -translate-x-1/2 transform rounded-full bg-primary p-2 text-primary-foreground md:left-1/2">
                 <event.icon className="h-5 w-5" />
@@ -38,11 +38,6 @@ export default function EventsPage() {
                 <CardContent>
                   <p className="text-muted-foreground">{event.description}</p>
                 </CardContent>
-                <CardFooter>
-                  <Button asChild>
-                    <Link href={event.registrationLink}>Register Now</Link>
-                  </Button>
-                </CardFooter>
               </Card>
             </div>
           ))}

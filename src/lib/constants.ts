@@ -78,7 +78,6 @@ export const EVENTS = [
     name: "Intro to AI with Gemini",
     description: "An introductory workshop on building with Google's Gemini.",
     location: "Online",
-    registrationLink: "#",
     icon: BrainCircuit,
   },
   {
@@ -86,7 +85,6 @@ export const EVENTS = [
     name: "Firebase for Web Developers",
     description: "Learn how to build powerful web apps with Firebase.",
     location: "Campus Auditorium",
-    registrationLink: "#",
     icon: PenTool,
   },
   {
@@ -94,7 +92,6 @@ export const EVENTS = [
     name: "Fall Hackathon 2024",
     description: "A 24-hour coding competition with exciting prizes.",
     location: "Tech Hub",
-    registrationLink: "#",
     icon: Rocket,
   },
   {
@@ -102,7 +99,6 @@ export const EVENTS = [
     name: "Speaker Session: Life at Google",
     description: "Hear from a Google engineer about their career journey.",
     location: "Online",
-    registrationLink: "#",
     icon: Users,
   },
   {
@@ -110,8 +106,14 @@ export const EVENTS = [
     name: "Info Session x Gen AI Study Jam",
     description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
     location: "IEC Campus",
-    registrationLink: "#",
     icon: Lightbulb,
+  },
+  {
+    date: "2024-11-25",
+    name: "Full Stack Development Speaker Session",
+    description: "Join a speaker session with Dhruv Panjali to dive into Full Stack Development, from front-end to back-end technologies.",
+    location: "IEC College Of Engineering & Technology, Greater Noida",
+    icon: Users,
   },
 ];
 
