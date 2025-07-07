@@ -1,4 +1,4 @@
-import { Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Rocket, BrainCircuit, Lightbulb, PenTool } from "lucide-react";
+import { Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Rocket, BrainCircuit, Lightbulb, PenTool, Rss } from "lucide-react";
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -6,6 +6,7 @@ export const NAV_LINKS = [
   { href: "/gallery", label: "Gallery" },
   { href: "/announcements", label: "Announcements" },
   { href: "/community", label: "Community" },
+  { href: "/blog", label: "Blog" },
   { href: "/chatbot", label: "AI Assistant" },
 ];
 
