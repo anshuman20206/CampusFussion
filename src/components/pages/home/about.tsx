@@ -15,12 +15,12 @@ export function About() {
             Our mission is to bridge the gap between academic learning and real-world development. We provide a platform for students to connect with peers, learn from industry experts, and gain hands-on experience through workshops and projects, all under the supportive umbrella of GDG.
           </p>
         </div>
-        <div className="order-1 md:order-2">
+        <div className="order-1 md:order-2 flex justify-center">
           <Image
-            src="https://placehold.co/600x400.png"
-            data-ai-hint="students collaborating"
-            alt="Students collaborating"
-            width={600}
+            src="https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_1080,q_100,w_1080/v1/gcs/platform-data-goog/events/GDG+IEC_P357Vi9.png"
+            data-ai-hint="event logo"
+            alt="GDG Chapter Event Logo"
+            width={400}
             height={400}
             className="rounded-lg shadow-md"
           />
