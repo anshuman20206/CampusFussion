@@ -20,9 +20,9 @@ export function About() {
             src="https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_1080,q_100,w_1080/v1/gcs/platform-data-goog/events/GDG+IEC_P357Vi9.png"
             data-ai-hint="event logo"
             alt="GDG Chapter Event Logo"
-            width={400}
-            height={400}
-            className="rounded-lg shadow-md"
+            width={500}
+            height={500}
+            className=""
           />
         </div>
       </div>
