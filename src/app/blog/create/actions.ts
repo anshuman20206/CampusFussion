@@ -96,9 +96,15 @@ export async function createBlogAction(formData: FormData) {
     revalidatePath(`/blog/${slug}`);
   } catch (error: any) {
     console.error("Error creating blog post: ", error);
+    
+    let errorMessage = error.message || 'Could not create the blog post. Please try again.';
+    if (error.code && (error.code === 'storage/unknown' || error.code === 'storage/unauthorized')) {
+        errorMessage = "Image upload failed. This is likely due to Firebase Storage security rules. Please go to your Firebase Console, navigate to Storage > Rules, and ensure your rules allow writes. For development, you can start with `allow read, write: if true;` and secure it later.";
+    }
+
     return {
       success: false,
-      error: error.message || 'Could not create the blog post. Please try again.',
+      error: errorMessage,
     };
   }
 
