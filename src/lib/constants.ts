@@ -115,6 +115,13 @@ export const EVENTS = [
     location: "IEC College Of Engineering & Technology, Greater Noida",
     icon: Users,
   },
+  {
+    date: "2024-12-23",
+    name: "DevByte: A Web Development Odyssey",
+    description: "Dive deep into web development with sessions on essentials, frameworks, and tools. Showcase your own projects and connect with fellow enthusiasts.",
+    location: "Online",
+    icon: PenTool,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
