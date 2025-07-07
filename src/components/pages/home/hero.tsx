@@ -4,10 +4,6 @@ import { Button } from '@/components/ui/button';
 export function Hero() {
   return (
     <section className="relative h-[70vh] w-full flex flex-col items-center justify-center text-center bg-transparent">
-       <div
-        className="absolute inset-0 -z-10 h-full w-full bg-background 
-        [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#83c5be_100%)]"
-      ></div>
       <div className="z-10 container mx-auto px-6">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
           Empowering Innovators.

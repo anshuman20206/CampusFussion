@@ -4,60 +4,62 @@
 
 @layer base {
   :root {
-    --background: 220 20% 98%; /* Ice Blue White */
-    --foreground: 215 25% 27%; /* Dark Slate */
-    --card: 220 20% 100%; /* White for glass effect */
-    --card-foreground: 215 25% 27%;
-    --popover: 220 20% 100%;
-    --popover-foreground: 215 25% 27%;
-    --primary: 187 100% 23%; /* Cool Teal */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 175 44% 69%; /* Mint */
-    --secondary-foreground: 215 25% 27%;
-    --muted: 220 9% 45%; /* Muted Text */
-    --muted-foreground: 220 9% 65%;
-    --accent: 346 84% 61%; /* Punch Pink */
-    --accent-foreground: 210 40% 98%;
+    --background: 19 36% 13%; /* #2E1E17 */
+    --foreground: 27 100% 95%; /* #FFF1E6 */
+    --card: 14 55% 14%; /* #3A100C */
+    --card-foreground: 27 100% 95%;
+    --popover: 19 36% 13%;
+    --popover-foreground: 27 100% 95%;
+    --primary: 6 100% 68%; /* #FF6B5C */
+    --primary-foreground: 27 100% 95%;
+    --secondary: 32 100% 67%; /* #FFB55E */
+    --secondary-foreground: 19 36% 13%;
+    --muted: 14 55% 14%;
+    --muted-foreground: 27 25% 85%; /* #e2dcd7 */
+    --accent: 11 67% 50%; /* #D4472B */
+    --accent-foreground: 27 100% 95%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 187 100% 23%;
-    --radius: 0.75rem;
+    --border: 6 100% 68%; /* Primary with alpha for borders */
+    --input: 6 100% 68%;
+    --ring: 6 100% 68%;
+    --radius: 0.875rem;
   }
 
   .dark {
-    --background: 220 20% 98%; /* Ice Blue White */
-    --foreground: 215 25% 27%; /* Dark Slate */
-    --card: 220 20% 100%; /* White for glass effect */
-    --card-foreground: 215 25% 27%;
-    --popover: 220 20% 100%;
-    --popover-foreground: 215 25% 27%;
-    --primary: 187 100% 23%; /* Cool Teal */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 175 44% 69%; /* Mint */
-    --secondary-foreground: 215 25% 27%;
-    --muted: 220 9% 45%; /* Muted Text */
-    --muted-foreground: 220 9% 65%;
-    --accent: 346 84% 61%; /* Punch Pink */
-    --accent-foreground: 210 40% 98%;
+    --background: 19 36% 13%; /* #2E1E17 */
+    --foreground: 27 100% 95%; /* #FFF1E6 */
+    --card: 14 55% 14%; /* #3A100C */
+    --card-foreground: 27 100% 95%;
+    --popover: 19 36% 13%;
+    --popover-foreground: 27 100% 95%;
+    --primary: 6 100% 68%; /* #FF6B5C */
+    --primary-foreground: 27 100% 95%;
+    --secondary: 32 100% 67%; /* #FFB55E */
+    --secondary-foreground: 19 36% 13%;
+    --muted: 14 55% 14%;
+    --muted-foreground: 27 25% 85%; /* #e2dcd7 */
+    --accent: 11 67% 50%; /* #D4472B */
+    --accent-foreground: 27 100% 95%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 187 100% 23%;
+    --border: 6 100% 68%; /* Primary with alpha for borders */
+    --input: 6 100% 68%;
+    --ring: 6 100% 68%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border/20;
   }
   body {
     @apply bg-background text-foreground;
+    background-image: linear-gradient(135deg, #452312, #3A100C, #2E1E17);
     font-family: var(--font-body), sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
+    @apply font-headline;
     font-family: var(--font-headline), sans-serif;
   }
 }

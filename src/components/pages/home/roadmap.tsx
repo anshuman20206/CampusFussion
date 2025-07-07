@@ -3,14 +3,14 @@ import { ROADMAP_PHASES } from '@/lib/constants';
 
 export function Roadmap() {
   return (
-    <section id="roadmap" className="bg-secondary/50">
+    <section id="roadmap" className="bg-transparent">
       <div className="container mx-auto px-6 py-16 text-center md:py-24">
         <h2 className="text-3xl font-bold tracking-tight">Our Roadmap</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
           Our journey is just beginning. Here's a look at what we have planned to continuously empower our community.
         </p>
         <div className="relative mt-12">
-          <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-border"></div>
+          <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-primary/20"></div>
           <div className="grid gap-8 md:grid-cols-1">
             {ROADMAP_PHASES.map((phase, index) => (
               <div key={phase.title} className="relative flex w-full items-center">

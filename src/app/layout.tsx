@@ -12,6 +12,13 @@ const font = Inter({
   display: 'swap',
 });
 
+const headlineFont = Inter({
+  subsets: ['latin'],
+  variable: '--font-headline',
+  weight: ['700', '800'],
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'CampusConnect',
   description: 'Empowering Developers. Building Tech Communities.',
@@ -23,12 +30,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={cn(
         'min-h-screen font-sans antialiased', 
-        font.variable
+        font.variable,
+        headlineFont.variable
       )}>
-        <div className="relative flex min-h-dvh flex-col bg-background">
+        <div className="relative flex min-h-dvh flex-col bg-background/80">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

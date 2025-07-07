@@ -66,7 +66,7 @@ export default function ChatbotPage() {
                 <Avatar className="h-8 w-8 border">
                   <AvatarFallback><Bot size={18} /></AvatarFallback>
                 </Avatar>
-                <div className="rounded-lg bg-secondary p-4 text-sm max-w-[80%]">
+                <div className="rounded-lg bg-card p-4 text-sm max-w-[80%]">
                   <p>Hello! I'm the CampusConnect AI assistant. How can I help you today? Feel free to ask me a programming question or for advice on your resume.</p>
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function ChatbotPage() {
                   <div
                     className={cn(
                       'rounded-lg p-4 text-sm max-w-[80%]',
-                      message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-secondary'
+                      message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-card'
                     )}
                   >
                     <ReactMarkdown className="prose dark:prose-invert prose-sm max-w-none">
@@ -106,7 +106,7 @@ export default function ChatbotPage() {
                     <Avatar className="h-8 w-8 border">
                       <AvatarFallback><Bot size={18} /></AvatarFallback>
                     </Avatar>
-                    <div className="rounded-lg bg-secondary p-4 text-sm max-w-[80%] flex items-center gap-2">
+                    <div className="rounded-lg bg-card p-4 text-sm max-w-[80%] flex items-center gap-2">
                         <Loader2 className="h-4 w-4 animate-spin"/>
                         <span>Thinking...</span>
                     </div>

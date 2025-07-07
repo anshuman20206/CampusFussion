@@ -19,7 +19,7 @@ export default {
       fontFamily: {
         sans: ['var(--font-body)', 'sans-serif'],
         body: ['var(--font-body)', 'sans-serif'],
-        headline: ['var(--font-body)', 'sans-serif'],
+        headline: ['var(--font-headline)', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -78,10 +78,15 @@ export default {
             height: '0',
           },
         },
+        'pulse-glow': {
+          '0%, 100%': { opacity: '0.7', filter: 'drop-shadow(0 0 2px hsl(var(--accent)))' },
+          '50%': { opacity: '1', filter: 'drop-shadow(0 0 5px hsl(var(--accent)))' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
       },
     },
   },
