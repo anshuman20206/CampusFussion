@@ -1,11 +1,13 @@
-import { Code2, Users, Calendar, ImageIcon, Mic, MessageCircle, Twitter, Linkedin, Github } from "lucide-react";
+import { Code2, Users, Calendar, Mic, MessageCircle, Twitter, Linkedin, Github, Home, Bot, Image as ImageIcon, Megaphone, Users2, LayoutDashboard } from "lucide-react";
 
 export const NAV_LINKS = [
-  { href: "/chatbot", label: "Chatbot" },
-  { href: "/events", label: "Events" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/announcements", label: "Announcements" },
-  { href: "/community", label: "Community" },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/chatbot", label: "Chatbot", icon: Bot },
+  { href: "/events", label: "Events", icon: Calendar },
+  { href: "/gallery", label: "Gallery", icon: ImageIcon },
+  { href: "/announcements", label: "Announcements", icon: Megaphone },
+  { href: "/community", label: "Community", icon: Users2 },
 ];
 
 export const TEAM_MEMBERS = [
