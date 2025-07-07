@@ -13,8 +13,8 @@ export default function Home() {
         <About />
         <Roadmap />
         <Team />
-        <Connect />
         <AiBanner />
+        <Connect />
       </div>
     </div>
   );
