@@ -1,6 +1,8 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { EVENTS } from "@/lib/constants";
 import { MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function EventsPage() {
   const sortedEvents = [...EVENTS].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -38,6 +40,15 @@ export default function EventsPage() {
                 <CardContent>
                   <p className="text-muted-foreground">{event.description}</p>
                 </CardContent>
+                {event.link && (
+                  <CardFooter>
+                    <Button asChild>
+                      <Link href={event.link} target="_blank" rel="noopener noreferrer">
+                        Register Now
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                )}
               </Card>
             </div>
           ))}

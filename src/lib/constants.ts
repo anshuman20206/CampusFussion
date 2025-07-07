@@ -171,6 +171,14 @@ export const EVENTS = [
     location: "F Block Seminar Hall, IEC College of Engineering & Technology",
     icon: Lightbulb,
   },
+  {
+    date: "2025-07-25",
+    name: "India OnChain Builders' Series",
+    description: "Launch Your Career in Web3 & AI with speaker Lakhshay Gupta. Includes a live Q&A session.",
+    location: "Online",
+    icon: Users,
+    link: "https://lu.ma/kdn7hlye",
+  },
 ];
 
 export const ANNOUNCEMENTS = [
