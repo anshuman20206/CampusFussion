@@ -17,52 +17,47 @@ export default function EventsPage() {
         </p>
       </div>
 
-      <div className="relative mt-16 max-w-5xl mx-auto">
-        {/* Vertical timeline bar */}
-        <div className="absolute left-5 top-0 h-full w-0.5 bg-border -translate-x-1/2 md:left-1/2"></div>
-
-        <div className="space-y-16">
+      <div className="relative mt-16 max-w-4xl mx-auto">
+        <div className="absolute left-6 top-2 h-full w-0.5 bg-border -translate-x-1/2"></div>
+        
+        <div className="space-y-12">
           {sortedEvents.map((event, index) => (
-            <div key={index} className="relative">
-              {/* Timeline Dot */}
-              <div className="absolute top-1 left-5 z-10 -translate-x-1/2 transform rounded-full bg-primary p-2 text-primary-foreground ring-8 ring-background md:left-1/2">
-                <event.icon className="h-5 w-5" />
-              </div>
-
-              {/* Card and content */}
-              <div className={cn(
-                "pl-16 md:grid md:grid-cols-2 md:gap-x-16 md:pl-0",
-                index % 2 !== 0 && "md:[&>div:first-child]:order-last"
-              )}>
-                <div className={cn(index % 2 !== 0 && "md:text-right")}>
-                  <Card>
-                    <CardHeader>
-                      <p className="font-semibold text-sm text-muted-foreground">
-                        {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                      </p>
-                      <CardTitle>{event.name}</CardTitle>
-                      <CardDescription className={cn(
-                        "flex items-center gap-2 pt-2",
-                        index % 2 !== 0 && "md:justify-end"
-                      )}>
-                        <MapPin className="h-4 w-4" />
-                        {event.location}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{event.description}</p>
-                    </CardContent>
-                    {event.link && (
-                      <CardFooter className={cn(index % 2 !== 0 && "md:justify-end")}>
-                        <Button asChild>
-                          <Link href={event.link} target="_blank" rel="noopener noreferrer">
-                            Register Now
-                          </Link>
-                        </Button>
-                      </CardFooter>
-                    )}
-                  </Card>
+            <div key={index} className="relative flex items-start gap-6 sm:gap-8">
+              <div className="z-10 mt-1 h-12 w-12 flex-shrink-0 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground">
+                  <event.icon className="h-5 w-5" />
                 </div>
+              </div>
+              
+              <div className="flex-grow pt-1">
+                <Card>
+                  <CardHeader>
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                        <div>
+                            <CardDescription>
+                                {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                            </CardDescription>
+                            <CardTitle className="mt-1">{event.name}</CardTitle>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground pt-1">
+                            <MapPin className="h-4 w-4" />
+                            <span>{event.location}</span>
+                        </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{event.description}</p>
+                  </CardContent>
+                  {event.link && (
+                    <CardFooter>
+                      <Button asChild>
+                        <Link href={event.link} target="_blank" rel="noopener noreferrer">
+                          Register Now
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  )}
+                </Card>
               </div>
             </div>
           ))}
