@@ -30,7 +30,7 @@ export function Connect() {
             </CardContent>
             <CardFooter>
               <Button asChild>
-                <Link href={item.link}>
+                <Link href={item.link} target="_blank" rel="noopener noreferrer">
                   {item.cta}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
