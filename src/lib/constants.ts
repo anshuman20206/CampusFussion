@@ -164,6 +164,13 @@ export const EVENTS = [
     location: "GDG-IEC",
     icon: Rocket,
   },
+  {
+    date: "2025-05-02",
+    name: "Web3 Unchained: Web 3 se judo yatra",
+    description: "Dive into the future of the internet with insights on Web3 & Blockchain technology! A collaboration with CrewSphere ICP INDIA.",
+    location: "F Block Seminar Hall, IEC College of Engineering & Technology",
+    icon: Lightbulb,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
