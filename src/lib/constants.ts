@@ -158,11 +158,11 @@ export const ANNOUNCEMENTS = [
       date: '2025-07-23',
       title: 'Upcoming Event: India OnChain Builders\' Series',
       content: 'Just two days until the "India OnChain Builders\' Series"! Join us online on July 25, 2025, to hear from Lakhshay Gupta and kickstart your career in Web3 & AI.',
-      pinned: false,
+      pinned: true,
     },
     {
       date: '2025-04-30',
-      title: 'Web3 Unchained',
+      title: 'Web3 Unchained: Web 3 se judo yatra',
       content: 'Get ready for "Web3 Unchained"! Join us at the F Block Seminar Hall on May 2, 2025, to dive into the future of the internet with Web3 and Blockchain.',
       pinned: false,
     },
@@ -218,18 +218,6 @@ export const ANNOUNCEMENTS = [
       date: '2024-10-02',
       title: 'Info Session x Gen AI Study Jam Reminder',
       content: 'Our first-ever event, the Info Session x Gen AI Study Jam, is happening in two days on October 4, 2024, at the IEC Campus. See you there!',
-      pinned: false,
-    },
-    {
-      date: '2024-07-28',
-      title: 'Fall Hackathon Registration is Open',
-      content: 'Ready to build something amazing? Registration for our annual Fall Hackathon is now officially open. Sign up now to secure your spot. Limited slots available!',
-      pinned: false,
-    },
-    {
-      date: '2024-07-25',
-      title: 'Call for Mentors',
-      content: 'We are looking for experienced developers to join our mentorship program. If you are passionate about guiding the next generation of tech talent, apply today.',
       pinned: false,
     },
 ];
