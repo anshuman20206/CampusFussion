@@ -105,6 +105,14 @@ export const EVENTS = [
     registrationLink: "#",
     icon: Users,
   },
+  {
+    date: "2024-10-04",
+    name: "Info Session x Gen AI Study Jam",
+    description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
+    location: "IEC Campus",
+    registrationLink: "#",
+    icon: Lightbulb,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
@@ -129,7 +137,7 @@ export const ANNOUNCEMENTS = [
 ];
 
 export const GALLERY_IMAGES = [
-    { src: "https://placehold.co/600x400.png", dataAiHint: "students coding", alt: "Students collaborating at a hackathon.", title: "Hackathon 2023" },
+    { src: "/gdgiec.png", dataAiHint: "students coding", alt: "Students collaborating at a hackathon.", title: "Hackathon 2023" },
     { src: "https://placehold.co/600x400.png", dataAiHint: "speaker presentation", alt: "Guest speaker presenting at a tech talk.", title: "Tech Talk: AI" },
     { src: "https://placehold.co/600x400.png", dataAiHint: "group workshop", alt: "Attendees at a Firebase workshop.", title: "Firebase Workshop" },
     { src: "https://placehold.co/600x400.png", dataAiHint: "team discussion", alt: "Team members planning an event.", title: "Event Planning" },
