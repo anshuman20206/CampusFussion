@@ -3,7 +3,7 @@ import { ROADMAP_PHASES } from '@/lib/constants';
 
 export function Roadmap() {
   return (
-    <section id="roadmap" className="bg-muted">
+    <section id="roadmap" className="bg-secondary/50">
       <div className="container mx-auto px-6 py-16 text-center md:py-24">
         <h2 className="text-3xl font-bold tracking-tight">Our Roadmap</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

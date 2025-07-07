@@ -15,6 +15,9 @@ export default {
         headline: ['var(--font-headline)', 'sans-serif'],
       },
       colors: {
+        'sunset-dark': '#0f2027',
+        'sunset-mid': '#203a43',
+        'sunset-light': '#2c5364',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
