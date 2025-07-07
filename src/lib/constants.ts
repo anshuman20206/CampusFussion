@@ -181,6 +181,9 @@ export const GALLERY_IMAGES = [
     { src: "/4.jpg", dataAiHint: "group photo", alt: "A group photo of event attendees.", title: "Group Photo" },
     { src: "/5.jpg", dataAiHint: "coding hackathon", alt: "Participants focused on coding during a hackathon.", title: "Hackathon Fun" },
     { src: "/6.jpeg", dataAiHint: "networking people", alt: "Networking session in progress.", title: "Networking" },
+    { src: "/7.jpg", dataAiHint: "event group", alt: "A picture from one of our events.", title: "Community Gathering" },
+    { src: "/8.jpg", dataAiHint: "team discussion", alt: "Team members discussing during an event.", title: "Collaboration" },
+    { src: "/9.jpg", dataAiHint: "presentation stage", alt: "A presenter on stage at a tech talk.", title: "Tech Talk" },
 ];
 
 export const ROADMAP_PHASES = [
