@@ -14,7 +14,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="container flex h-20 max-w-screen-2xl items-center">
+      <div className="container mx-auto px-6 flex h-20 max-w-screen-2xl items-center">
         <Logo />
         <nav className="ml-10 hidden items-center space-x-6 text-sm font-medium md:flex">
           {NAV_LINKS.map((link) => (

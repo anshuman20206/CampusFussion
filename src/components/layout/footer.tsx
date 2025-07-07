@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 export function Footer() {
   return (
     <footer className="border-t mt-12">
-      <div className="container flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
+      <div className="container mx-auto px-6 flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <div className="flex flex-col items-center gap-4 sm:items-start">
           <Logo />
           <p className="max-w-xs text-center text-sm text-muted-foreground sm:text-left">
@@ -32,7 +32,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t">
-        <div className="container flex h-14 items-center justify-center">
+        <div className="container mx-auto px-6 flex h-14 items-center justify-center">
           <p className="text-center text-sm text-muted-foreground">
             {new Date().getFullYear()} © CampusConnect // Grid Initialized
           </p>

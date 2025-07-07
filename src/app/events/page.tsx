@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function EventsPage() {
   return (
-    <div className="container py-12">
+    <div className="container mx-auto px-6 py-12">
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight">Upcoming Events</h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

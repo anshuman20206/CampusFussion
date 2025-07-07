@@ -13,7 +13,7 @@ const aiCapabilities = [
 export function AiBanner() {
   return (
     <section id="ai-banner" className="bg-transparent">
-      <div className="container py-16 md:py-24">
+      <div className="container mx-auto px-6 py-16 md:py-24">
         <Card className="overflow-hidden bg-gradient-to-br from-secondary/80 to-primary/80 text-primary-foreground">
           <div className="grid md:grid-cols-2">
             <div className="p-8 md:p-12">

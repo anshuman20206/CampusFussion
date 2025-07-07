@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function Connect() {
   return (
-    <section id="connect" className="container py-16 md:py-24">
+    <section id="connect" className="container mx-auto px-6 py-16 md:py-24">
       <div className="text-center">
         <h2 className="text-3xl font-bold tracking-tight">Connect With Us</h2>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">

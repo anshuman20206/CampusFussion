@@ -53,7 +53,7 @@ export default function ChatbotPage() {
   };
 
   return (
-    <div className="container flex h-[calc(100vh-4rem)] flex-col py-6">
+    <div className="container mx-auto px-6 flex h-[calc(100vh-4rem)] flex-col py-6">
       <Card className="flex flex-1 flex-col">
         <CardHeader className="text-center">
           <h1 className="text-2xl font-bold">AI Assistant</h1>

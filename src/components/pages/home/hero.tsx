@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 export function Hero() {
   return (
     <section className="bg-transparent">
-      <div className="container relative py-24 text-center md:py-40">
+      <div className="container mx-auto px-6 relative py-24 text-center md:py-40">
         <div 
           className="absolute -inset-16 z-0 opacity-20 dark:opacity-30" 
           style={{

@@ -7,7 +7,7 @@ import { TEAM_MEMBERS } from '@/lib/constants';
 
 export function Team() {
   return (
-    <section id="team" className="container py-16 text-center md:py-24">
+    <section id="team" className="container mx-auto px-6 py-16 text-center md:py-24">
       <h2 className="text-3xl font-bold tracking-tight">Meet the Team</h2>
       <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
         The passionate individuals dedicated to building and growing our community.
