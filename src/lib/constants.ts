@@ -116,6 +116,13 @@ export const EVENTS = [
     icon: Users,
   },
   {
+    date: "2024-12-06",
+    name: "Tech Winter Break: Solution Challenge Q&A",
+    description: "Join the Q&A for the Tech Winter Break: Solution Challenge! This session will cover web development fundamentals and details about the global challenge.",
+    location: "Online",
+    icon: Lightbulb,
+  },
+  {
     date: "2024-12-23",
     name: "DevByte: A Web Development Odyssey",
     description: "Dive deep into web development with sessions on essentials, frameworks, and tools. Showcase your own projects and connect with fellow enthusiasts.",
