@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition, useRef } from 'react';
+import { useState, useTransition, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -23,6 +23,32 @@ const timeAgo = (date: Date) => {
     if (interval > 1) return Math.floor(interval) + " minutes ago";
     return Math.floor(seconds) + " seconds ago";
 };
+
+
+function ThoughtCard({ thought }: { thought: Thought }) {
+    const [displayTime, setDisplayTime] = useState<string>('');
+
+    useEffect(() => {
+        // This effect runs only on the client, after hydration
+        const updateDisplayTime = () => setDisplayTime(timeAgo(thought.timestamp));
+        
+        updateDisplayTime();
+        const intervalId = setInterval(updateDisplayTime, 60000); // Update every minute
+
+        return () => clearInterval(intervalId);
+    }, [thought.timestamp]);
+
+    return (
+        <Card>
+            <CardContent className="pt-6">
+                <p className="text-foreground">{thought.text}</p>
+                <p className="text-sm text-muted-foreground mt-4 h-5">
+                    {displayTime || ''}
+                </p>
+            </CardContent>
+        </Card>
+    );
+}
 
 export function CommunityBoard({ initialThoughts }: { initialThoughts: Thought[] }) {
     const [visibleCount, setVisibleCount] = useState(5);
@@ -76,12 +102,7 @@ export function CommunityBoard({ initialThoughts }: { initialThoughts: Thought[]
                 <h2 className="text-2xl font-bold tracking-tight text-center">Latest from the Community</h2>
                 <div className="space-y-4">
                     {initialThoughts.slice(0, visibleCount).map((thought) => (
-                        <Card key={thought.id}>
-                            <CardContent className="pt-6">
-                                <p className="text-foreground">{thought.text}</p>
-                                <p className="text-sm text-muted-foreground mt-4">{timeAgo(thought.timestamp)}</p>
-                            </CardContent>
-                        </Card>
+                        <ThoughtCard key={thought.id} thought={thought} />
                     ))}
                 </div>
                 {visibleCount < initialThoughts.length && (
