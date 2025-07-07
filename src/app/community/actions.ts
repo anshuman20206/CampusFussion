@@ -1,3 +1,4 @@
+
 "use server";
 
 import { db } from "@/lib/firebase";
@@ -27,7 +28,16 @@ export async function shareThoughtAction(formData: FormData) {
     console.error("Error adding thought:", error);
     let errorMessage = 'Could not submit your thought. Please check your Firebase configuration and Firestore rules.';
     if (error.code === 'permission-denied') {
-        errorMessage = "Could not submit thought. The Cloud Firestore API is not enabled for your project or your security rules are not configured to allow writes on the 'thoughts' collection. Please check your Firebase console.";
+        errorMessage = `Could not submit thought. Your security rules are not configured to allow writes. For development, go to your Firebase Console -> Firestore -> Rules and use:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
     }
     return { success: false, error: errorMessage };
   }

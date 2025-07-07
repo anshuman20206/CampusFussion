@@ -1,3 +1,4 @@
+
 'use server';
 
 import { db } from '@/lib/firebase';
@@ -35,7 +36,6 @@ export async function createBlogAction(formData: FormData) {
   const { title, slug, excerpt, content, authorName } = validatedFields.data;
 
   try {
-    // 1. Moderate content
     const moderationResult = await moderateContent({ content });
     if (!moderationResult.isSafe) {
       return {
@@ -44,7 +44,6 @@ export async function createBlogAction(formData: FormData) {
       };
     }
     
-    // 2. Add to Firestore
     await addDoc(collection(db, 'blogs'), {
       title,
       slug,
@@ -61,7 +60,16 @@ export async function createBlogAction(formData: FormData) {
     
     let errorMessage = `Could not create the blog post. Please try again. Error: ${error.message}`;
     if (error.code === 'permission-denied') {
-        errorMessage = "Could not create blog post. Your security rules are not configured to allow writes on the 'blogs' collection. Please check the Rules tab in your Firebase Firestore console.";
+        errorMessage = `Could not create blog post. Your security rules are not configured to allow writes on the 'blogs' collection. For development, go to your Firebase Console -> Firestore -> Rules and use:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
     }
 
     return {
