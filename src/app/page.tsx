@@ -9,11 +9,13 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <Hero />
-      <About />
-      <Roadmap />
-      <Team />
-      <Connect />
-      <AiBanner />
+      <div className="container mx-auto px-6">
+        <About />
+        <Roadmap />
+        <Team />
+        <Connect />
+        <AiBanner />
+      </div>
     </div>
   );
 }

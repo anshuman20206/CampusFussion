@@ -1,39 +1,72 @@
+'use client';
+
+import { Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Stars, Text, Torus } from '@react-three/drei';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
+function RotatingTorus() {
+  const torusRef = useRef<THREE.Mesh>(null!);
+  useFrame(() => {
+    if (torusRef.current) {
+      torusRef.current.rotation.x += 0.001;
+      torusRef.current.rotation.y += 0.002;
+    }
+  });
+
+  return (
+    <Torus ref={torusRef} args={[3, 0.2, 16, 100]} position={[0, 0, 0]}>
+      <meshStandardMaterial color="hsl(var(--primary))" emissive="hsl(var(--primary))" emissiveIntensity={2} wireframe />
+    </Torus>
+  );
+}
+
 export function Hero() {
   return (
-    <section className="bg-transparent">
-      <div className="container mx-auto px-6 relative py-24 text-center md:py-40">
-        <div 
-          className="absolute -inset-16 z-0 opacity-20 dark:opacity-30" 
-          style={{
-            backgroundImage: 'radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.1), transparent 70%)'
-          }}
-        />
-        <div className="relative z-10">
-          <h1 
-            className="text-5xl font-bold tracking-tighter md:text-8xl text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/60"
-            style={{ textShadow: '0 0 20px hsl(var(--primary) / 0.5)' }}
+    <section className="relative h-[80vh] w-full bg-transparent">
+      <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} color="hsl(var(--accent))" intensity={100} />
+          <pointLight position={[-10, -10, -10]} color="hsl(var(--secondary))" intensity={100} />
+          
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+
+          <RotatingTorus />
+
+          <Text
+            position={[0, 0.5, 0]}
+            fontSize={1}
+            color="hsl(var(--foreground))"
+            anchorX="center"
+            anchorY="middle"
+            font="/fonts/SairaStencilOne-Regular.ttf"
+            castShadow
           >
-            Empowering Innovators.
-            <br />
-            <span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
-            >
-              Building The Future.
-            </span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground font-body">
-            CampusConnect is the heart of student developer life, fostering collaboration and growth through events, AI assistance, and a strong affiliation with Google Developer Groups.
-          </p>
-          <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg" variant="outline" asChild>
+            CampusConnect
+          </Text>
+          <Text
+            position={[0, -0.5, 0]}
+            fontSize={0.25}
+            color="hsl(var(--muted-foreground))"
+            anchorX="center"
+            anchorY="middle"
+            maxWidth={4}
+            textAlign="center"
+            font="/fonts/IBMPlexMono-Regular.ttf"
+          >
+            Empowering Innovators. Building The Future.
+          </Text>
+
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+        </Suspense>
+      </Canvas>
+       <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10">
+          <Button size="lg" variant="outline" asChild>
               <Link href="/events">Explore Events</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
+          </Button>
+       </div>
     </section>
   );
 }

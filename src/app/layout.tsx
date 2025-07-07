@@ -9,13 +9,15 @@ import { Toaster } from '@/components/ui/toaster';
 const headlineFont = Saira_Stencil_One({ 
   subsets: ['latin'], 
   weight: "400",
-  variable: '--font-headline' 
+  variable: '--font-headline',
+  display: 'swap',
 });
 
 const bodyFont = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ["400", "700"],
   variable: '--font-body',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
