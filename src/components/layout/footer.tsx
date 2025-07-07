@@ -5,12 +5,12 @@ import { Button } from '@/components/ui/button';
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/40">
+    <footer className="border-t mt-12">
       <div className="container flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <div className="flex flex-col items-center gap-4 sm:items-start">
           <Logo />
           <p className="max-w-xs text-center text-sm text-muted-foreground sm:text-left">
-            Empowering Developers. Building Tech Communities.
+            A decentralized nexus for student developers.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -31,10 +31,10 @@ export function Footer() {
           </Button>
         </div>
       </div>
-      <div className="border-t border-border/40">
+      <div className="border-t">
         <div className="container flex h-14 items-center justify-center">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} CampusConnect. All rights reserved.
+            {new Date().getFullYear()} © CampusConnect // Grid Initialized
           </p>
         </div>
       </div>

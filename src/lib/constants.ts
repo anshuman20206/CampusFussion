@@ -1,4 +1,4 @@
-import { Code2, Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Bot } from "lucide-react";
+import { Orbit, Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Bot, Code, Rocket, BrainCircuit } from "lucide-react";
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -78,7 +78,7 @@ export const EVENTS = [
     description: "An introductory workshop on building with Google's Gemini.",
     location: "Online",
     registrationLink: "#",
-    icon: Bot,
+    icon: BrainCircuit,
   },
   {
     date: "2024-10-02",
@@ -86,7 +86,7 @@ export const EVENTS = [
     description: "Learn how to build powerful web apps with Firebase.",
     location: "Campus Auditorium",
     registrationLink: "#",
-    icon: Code2,
+    icon: Code,
   },
   {
     date: "2024-10-20",
@@ -94,7 +94,7 @@ export const EVENTS = [
     description: "A 24-hour coding competition with exciting prizes.",
     location: "Tech Hub",
     registrationLink: "#",
-    icon: Code2,
+    icon: Rocket,
   },
   {
     date: "2024-11-05",
@@ -148,7 +148,7 @@ export const ROADMAP_PHASES = [
     description: "Launching our first series of workshops, speaker sessions, and regular meetups to foster learning and collaboration.",
   },
   {
-    icon: Code2,
+    icon: Rocket,
     title: "Phase 3: Hackathons & Projects",
     description: "Organizing large-scale hackathons and collaborative projects to apply skills and build innovative solutions.",
   },

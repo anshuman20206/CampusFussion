@@ -13,8 +13,8 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+    <header className="sticky top-0 z-50 w-full">
+      <div className="container flex h-20 max-w-screen-2xl items-center">
         <Logo />
         <nav className="ml-10 hidden items-center space-x-6 text-sm font-medium md:flex">
           {NAV_LINKS.map((link) => (
@@ -22,8 +22,8 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                'transition-colors hover:text-foreground/80',
-                pathname === link.href ? 'text-foreground' : 'text-foreground/60'
+                'transition-colors hover:text-primary',
+                pathname === link.href ? 'text-primary font-bold' : 'text-foreground/70'
               )}
             >
               {link.label}
@@ -31,11 +31,11 @@ export function Header() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" asChild className="hidden md:flex">
-            <Link href="/login">Log In</Link>
+          <Button variant="outline" asChild className="hidden md:flex">
+            <Link href="/login">Authorize</Link>
           </Button>
           <Button asChild className="hidden md:flex">
-            <Link href="/signup">Sign Up</Link>
+            <Link href="/signup">Register</Link>
           </Button>
           <Sheet>
             <SheetTrigger asChild>
@@ -44,7 +44,7 @@ export function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
+            <SheetContent side="left" className="bg-background/90 backdrop-blur-xl">
               <Logo />
               <div className="mt-8 flex flex-col space-y-4">
                 {NAV_LINKS.map((link) => (
@@ -60,11 +60,11 @@ export function Header() {
                   </Link>
                 ))}
                 <div className="flex flex-col space-y-2 pt-4 border-t">
-                  <Button variant="ghost" asChild>
-                    <Link href="/login">Log In</Link>
+                  <Button variant="outline" asChild>
+                    <Link href="/login">Authorize</Link>
                   </Button>
                   <Button asChild>
-                    <Link href="/signup">Sign Up</Link>
+                    <Link href="/signup">Register</Link>
                   </Button>
                 </div>
               </div>

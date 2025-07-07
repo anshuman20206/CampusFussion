@@ -1,12 +1,22 @@
 import type {Metadata} from 'next';
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Saira_Stencil_One, IBM_Plex_Mono } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const headlineFont = Saira_Stencil_One({ 
+  subsets: ['latin'], 
+  weight: "400",
+  variable: '--font-headline' 
+});
+
+const bodyFont = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ["400", "700"],
+  variable: '--font-body',
+});
 
 export const metadata: Metadata = {
   title: 'CampusConnect',
@@ -19,9 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn('min-h-screen bg-background font-sans antialiased', inter.variable)}>
-        <div className="relative flex min-h-dvh flex-col bg-background">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className={cn(
+        'min-h-screen font-sans antialiased', 
+        headlineFont.variable, 
+        bodyFont.variable
+      )}>
+        <div className="relative flex min-h-dvh flex-col bg-gradient-to-br from-[#0e0b1f] via-[#10183b] to-[#0e0b1f]">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

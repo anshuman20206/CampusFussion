@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Zap } from "lucide-react";
 
 function GoogleIcon() {
   return (
@@ -12,39 +13,41 @@ function GoogleIcon() {
   )
 }
 
-
 export default function LoginPage() {
   return (
-    <div className="flex flex-1 items-center justify-center bg-secondary/50 p-4">
+    <div className="flex flex-1 items-center justify-center p-4">
       <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Log In</CardTitle>
+        <CardHeader className="text-center">
+          <Zap className="mx-auto h-12 w-12 text-primary" />
+          <CardTitle className="text-2xl mt-4">System Access</CardTitle>
           <CardDescription>
-            Enter your email below to log in to your account.
+            Authenticate to enter the CampusConnect Grid.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required />
+            <Input id="email" type="email" placeholder="user@domain.io" required />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required />
+            <Input id="password" type="password" required placeholder=">_" />
           </div>
           <Button type="submit" className="w-full">
-            Log In
+            Authorize
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button variant="secondary" className="w-full">
             <GoogleIcon className="mr-2 h-4 w-4" />
-            Sign in with Google
+            Connect with Google
           </Button>
         </CardContent>
         <CardFooter className="text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <Link href="/signup" className="ml-1 underline">
-            Sign up
-          </Link>
+          <p className="w-full">
+            Need an access key?{" "}
+            <Link href="/signup" className="ml-1 text-primary hover:underline">
+              Register Node
+            </Link>
+          </p>
         </CardFooter>
       </Card>
     </div>
