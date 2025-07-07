@@ -122,6 +122,13 @@ export const EVENTS = [
     location: "Online",
     icon: PenTool,
   },
+  {
+    date: "2024-12-28",
+    name: "Dev December: Flutter Your Way to Android",
+    description: "Dive into the world of Flutter and unlock its potential for Android development! Don't miss this opportunity to learn, grow, and connect with fellow tech enthusiasts.",
+    location: "Online",
+    icon: PenTool,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
