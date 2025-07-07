@@ -52,7 +52,7 @@ export const COMMUNITY_LINKS = [
     {
       name: "LinkedIn",
       description: "Follow our professional network for updates and career opportunities.",
-      link: "#",
+      link: "https://www.linkedin.com/groups/14523414",
       icon: Linkedin,
       cta: "Follow on LinkedIn",
     },
