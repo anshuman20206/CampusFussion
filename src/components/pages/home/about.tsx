@@ -17,7 +17,7 @@ export function About() {
         </div>
         <div className="order-1 md:order-2 flex justify-center">
           <Image
-            src="https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2.0,f_auto,g_center,h_1080,q_100,w_1080/v1/gcs/platform-data-goog/events/GDG%2BIEC_P357Vi9.png"
+            src="https://res.cloudinary.com/startup-grind/image/upload/v1/gcs/platform-data-goog/events/GDG+IEC_P357Vi9.png"
             data-ai-hint="event logo"
             alt="GDG Chapter Event Logo"
             width={500}
