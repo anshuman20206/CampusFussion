@@ -6,8 +6,8 @@ export const blogFormSchema = z.object({
   excerpt: z.string().min(10, { message: 'Excerpt must be at least 10 characters long.' }).max(200, { message: 'Excerpt cannot be longer than 200 characters.' }),
   content: z.string().min(50, { message: 'Content must be at least 50 characters long.' }),
   authorName: z.string().min(2, { message: 'Author name is required.' }),
-  authorImage: z.string().url({ message: 'Please enter a valid URL for the author image.' }).optional().or(z.literal('')),
-  coverImage: z.string().url({ message: 'Please enter a valid URL for the cover image.' }).optional().or(z.literal('')),
+  authorImage: z.any().optional(),
+  coverImage: z.any().optional(),
 });
 
 export type BlogFormValues = z.infer<typeof blogFormSchema>;

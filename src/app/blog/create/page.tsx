@@ -18,12 +18,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { createBlogAction } from './actions';
 import { blogFormSchema, type BlogFormValues } from './schema';
-import { useTransition } from 'react';
+import { useTransition, useRef } from 'react';
 import { PenSquare } from 'lucide-react';
 
 export default function CreateBlogPage() {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<BlogFormValues>({
     resolver: zodResolver(blogFormSchema),
@@ -33,14 +34,28 @@ export default function CreateBlogPage() {
       excerpt: '',
       content: '',
       authorName: '',
-      authorImage: '',
-      coverImage: '',
+      authorImage: undefined,
+      coverImage: undefined,
     },
   });
 
-  const onSubmit = (values: BlogFormValues) => {
+  async function onSubmit(data: BlogFormValues) {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('slug', data.slug);
+    formData.append('excerpt', data.excerpt);
+    formData.append('content', data.content);
+    formData.append('authorName', data.authorName);
+
+    if (data.authorImage && data.authorImage.length > 0) {
+      formData.append('authorImage', data.authorImage[0]);
+    }
+    if (data.coverImage && data.coverImage.length > 0) {
+      formData.append('coverImage', data.coverImage[0]);
+    }
+
     startTransition(async () => {
-        const result = await createBlogAction(values);
+        const result = await createBlogAction(formData);
         if (result?.error) {
             toast({
                 variant: 'destructive',
@@ -52,9 +67,11 @@ export default function CreateBlogPage() {
                 title: 'Success!',
                 description: 'Your blog post has been created.',
             });
+            formRef.current?.reset();
+            form.reset();
         }
     });
-  };
+  }
 
   return (
     <div className="container mx-auto px-6 py-12">
@@ -70,7 +87,7 @@ export default function CreateBlogPage() {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
                 name="title"
@@ -157,11 +174,15 @@ export default function CreateBlogPage() {
                 <FormField
                     control={form.control}
                     name="authorImage"
-                    render={({ field }) => (
+                    render={() => (
                     <FormItem>
-                        <FormLabel>Author Image URL</FormLabel>
+                        <FormLabel>Author Image</FormLabel>
                         <FormControl>
-                        <Input placeholder="https://placehold.co/100x100.png" {...field} />
+                          <Input
+                            type="file"
+                            accept="image/png, image/jpeg, image/webp"
+                            {...form.register("authorImage")}
+                          />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -171,11 +192,15 @@ export default function CreateBlogPage() {
               <FormField
                 control={form.control}
                 name="coverImage"
-                render={({ field }) => (
+                render={() => (
                   <FormItem>
-                    <FormLabel>Cover Image URL</FormLabel>
+                    <FormLabel>Cover Image</FormLabel>
                     <FormControl>
-                      <Input placeholder="https://placehold.co/1200x600.png" {...field} />
+                       <Input
+                          type="file"
+                          accept="image/png, image/jpeg, image/webp"
+                          {...form.register("coverImage")}
+                        />
                     </FormControl>
                      <FormDescription>
                       The main image for your blog post.
