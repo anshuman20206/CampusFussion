@@ -31,13 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={cn(
         'min-h-screen font-sans antialiased', 
         headlineFont.variable, 
         bodyFont.variable
       )}>
-        <div className="relative flex min-h-dvh flex-col bg-gradient-to-br from-[#0e0b1f] via-[#10183b] to-[#0e0b1f]">
+        <div className="relative flex min-h-dvh flex-col bg-background">
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

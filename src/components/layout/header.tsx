@@ -13,7 +13,7 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
       <div className="container mx-auto px-6 flex h-20 max-w-screen-2xl items-center">
         <Logo />
         <nav className="ml-10 hidden items-center space-x-6 text-sm font-medium md:flex">
@@ -38,7 +38,7 @@ export function Header() {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="bg-background/90 backdrop-blur-xl">
+            <SheetContent side="left" className="bg-background">
               <Logo />
               <div className="mt-8 flex flex-col space-y-4">
                 {NAV_LINKS.map((link) => (

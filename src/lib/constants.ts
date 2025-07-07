@@ -1,4 +1,4 @@
-import { Orbit, Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Bot, Code, Rocket, BrainCircuit } from "lucide-react";
+import { Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Rocket, BrainCircuit, Lightbulb, PenTool } from "lucide-react";
 
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -86,7 +86,7 @@ export const EVENTS = [
     description: "Learn how to build powerful web apps with Firebase.",
     location: "Campus Auditorium",
     registrationLink: "#",
-    icon: Code,
+    icon: PenTool,
   },
   {
     date: "2024-10-20",
