@@ -41,7 +41,6 @@ export function Hero() {
             color="hsl(var(--foreground))"
             anchorX="center"
             anchorY="middle"
-            font="/fonts/SairaStencilOne-Regular.ttf"
             castShadow
           >
             CampusConnect
@@ -54,7 +53,6 @@ export function Hero() {
             anchorY="middle"
             maxWidth={4}
             textAlign="center"
-            font="/fonts/IBMPlexMono-Regular.ttf"
           >
             Empowering Innovators. Building The Future.
           </Text>
