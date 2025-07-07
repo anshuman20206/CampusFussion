@@ -107,7 +107,7 @@ export default {
             '--tw-prose-pre-bg': "hsl(var(--card))",
             '--tw-prose-th-borders': "hsl(var(--border))",
             '--tw-prose-td-borders': "hsl(var(--border))",
-            '--tw-prose-invert-body': "hsl(var(--muted-foreground))",
+            '--tw-prose-invert-body': "hsl(var(--foreground))",
             '--tw-prose-invert-headings': "hsl(var(--foreground))",
             '--tw-prose-invert-lead': "hsl(var(--muted-foreground))",
             '--tw-prose-invert-links': "hsl(var(--primary))",

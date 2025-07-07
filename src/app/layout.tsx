@@ -38,7 +38,7 @@ export default function RootLayout({
       )}>
         <div className="relative flex min-h-dvh flex-col bg-background/80">
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 flex">{children}</main>
           <Footer />
         </div>
         <Toaster />
