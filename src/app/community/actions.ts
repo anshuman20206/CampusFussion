@@ -23,8 +23,12 @@ export async function shareThoughtAction(formData: FormData) {
 
     revalidatePath('/community');
     return { success: true };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error adding thought:", error);
-    return { success: false, error: 'Could not submit your thought. Please check your Firebase configuration and Firestore rules.' };
+    let errorMessage = 'Could not submit your thought. Please check your Firebase configuration and Firestore rules.';
+    if (error.code === 'permission-denied') {
+        errorMessage = "Could not submit thought. The Cloud Firestore API is not enabled for your project or your security rules are not configured to allow writes on the 'thoughts' collection. Please check your Firebase console.";
+    }
+    return { success: false, error: errorMessage };
   }
 }

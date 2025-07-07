@@ -9,10 +9,11 @@ export interface Thought {
   timestamp: Date;
 }
 
-export async function getThoughts(): Promise<Thought[]> {
+export async function getThoughts(): Promise<{ thoughts: Thought[], error: string | null }> {
   if (!db) {
-    console.warn("Firestore is not initialized. Skipping thought fetching. Make sure Firebase config is in .env");
-    return [];
+    const errorMsg = "Firestore is not initialized. Skipping thought fetching. Make sure Firebase config is in .env";
+    console.warn(errorMsg);
+    return { thoughts: [], error: errorMsg };
   }
 
   try {
@@ -28,10 +29,13 @@ export async function getThoughts(): Promise<Thought[]> {
               timestamp: (data.timestamp as Timestamp).toDate(),
           };
       });
-      return thoughts;
-  } catch (error) {
+      return { thoughts, error: null };
+  } catch (error: any) {
       console.error("Error getting thoughts: ", error);
-      console.error("This might be due to incorrect Firebase security rules or configuration.");
-      return [];
+      let errorMessage = "Could not fetch thoughts. This might be due to incorrect Firebase security rules or configuration.";
+      if (error.code === 'permission-denied') {
+          errorMessage = "Could not fetch thoughts. The Cloud Firestore API is not enabled for your project or your security rules are not configured to allow reads on the 'thoughts' collection. Please check your Firebase console.";
+      }
+      return { thoughts: [], error: errorMessage };
   }
 }
