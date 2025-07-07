@@ -104,9 +104,10 @@ export async function createBlogAction(formData: FormData) {
   } catch (error: any) {
     console.error("Error creating blog post: ", error);
     
-    let errorMessage = error.message || 'Could not create the blog post. Please try again.';
-    if (error.code && (error.code === 'storage/unknown' || error.code === 'storage/unauthorized')) {
-        errorMessage = "Image upload failed. This can be caused by two main issues: 1) Your Storage security rules are too restrictive. Go to Firebase Console > Storage > Rules and set them to `allow read, write: if true;` for development. 2) The `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` variable in your .env file is missing or incorrect. Please double-check it.";
+    let errorMessage = `Could not create the blog post. Please try again. Error: ${error.message}`;
+
+    if (error.code && ['storage/unauthorized', 'storage/unknown'].includes(error.code)) {
+        errorMessage = "Image upload failed. This is a configuration issue. Please check these three things: 1) Your Storage security rules in the Firebase Console are correct (for dev, `allow read, write: if true;`). 2) The `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` variable in your .env file is correct. 3) Your bucket's CORS policy allows requests from your local development environment.";
     }
 
     return {
