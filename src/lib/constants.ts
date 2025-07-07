@@ -136,6 +136,13 @@ export const EVENTS = [
     location: "Online",
     icon: PenTool,
   },
+  {
+    date: "2025-01-30",
+    name: "Web and Flutter Development Workshop",
+    description: "An insightful workshop covering Next-Gen Web Innovation with Gemini, Dart, Flutter, CSS, and Interactive Web Design.",
+    location: "Online",
+    icon: PenTool,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
