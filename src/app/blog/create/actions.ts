@@ -1,4 +1,3 @@
-
 'use server';
 
 import { db } from '@/lib/firebase';
@@ -29,7 +28,7 @@ export async function createBlogAction(formData: FormData) {
   if (!validatedFields.success) {
     return {
       success: false,
-      error: 'Invalid fields: ' + validatedFields.error.flatten().fieldErrors,
+      error: 'Invalid fields: ' + JSON.stringify(validatedFields.error.flatten().fieldErrors),
     };
   }
   
