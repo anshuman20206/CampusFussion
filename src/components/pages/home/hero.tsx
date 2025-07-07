@@ -28,9 +28,6 @@ export function Hero() {
             CampusConnect is the heart of student developer life, fostering collaboration and growth through events, AI assistance, and a strong affiliation with Google Developer Groups.
           </p>
           <div className="mt-8 flex justify-center gap-4">
-            <Button size="lg" asChild>
-              <Link href="/signup">Join The Grid</Link>
-            </Button>
             <Button size="lg" variant="outline" asChild>
               <Link href="/events">Explore Events</Link>
             </Button>

@@ -31,12 +31,6 @@ export function Header() {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="outline" asChild className="hidden md:flex">
-            <Link href="/login">Authorize</Link>
-          </Button>
-          <Button asChild className="hidden md:flex">
-            <Link href="/signup">Register</Link>
-          </Button>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
@@ -59,14 +53,6 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
-                <div className="flex flex-col space-y-2 pt-4 border-t">
-                  <Button variant="outline" asChild>
-                    <Link href="/login">Authorize</Link>
-                  </Button>
-                  <Button asChild>
-                    <Link href="/signup">Register</Link>
-                  </Button>
-                </div>
               </div>
             </SheetContent>
           </Sheet>
