@@ -150,6 +150,13 @@ export const EVENTS = [
     location: "Hosted by GDG IEC x SheBuilds",
     icon: Rocket,
   },
+  {
+    date: "2025-04-12",
+    name: "GSoC Unlocked: Crack the Code!",
+    description: "Get insider tips on succeeding in Google Summer of Code, from finding projects to crafting a winning proposal, with expert Ayush Srivastava.",
+    location: "Online",
+    icon: Users,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
