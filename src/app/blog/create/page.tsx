@@ -16,7 +16,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { blogFormSchema, type BlogFormValues, createBlogAction } from './actions';
+import { createBlogAction } from './actions';
+import { blogFormSchema, type BlogFormValues } from './schema';
 import { useTransition } from 'react';
 import { PenSquare } from 'lucide-react';
 
