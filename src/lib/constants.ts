@@ -143,6 +143,13 @@ export const EVENTS = [
     location: "Online",
     icon: PenTool,
   },
+  {
+    date: "2025-04-25",
+    name: "HACKEMON: The Ultimate 36-Hour Hackathon!",
+    description: "A 36-hour hackathon with prize categories for AI/ML, Social Impact, Women-Led, and Beginner-Friendly hacks. Hosted by GDG IEC x SheBuilds.",
+    location: "Hosted by GDG IEC x SheBuilds",
+    icon: Rocket,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
