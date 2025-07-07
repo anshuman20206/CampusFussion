@@ -155,12 +155,6 @@ export const EVENTS = [
 
 export const ANNOUNCEMENTS = [
     {
-      date: '2024-08-01',
-      title: 'Welcome to CampusConnect!',
-      content: 'We are excited to launch CampusConnect, your new hub for developer activities, learning, and community building. Explore the platform and get ready for an amazing year!',
-      pinned: true,
-    },
-    {
       date: '2025-07-23',
       title: 'Upcoming Event: India OnChain Builders\' Series',
       content: 'Just two days until the "India OnChain Builders\' Series"! Join us online on July 25, 2025, to hear from Lakhshay Gupta and kickstart your career in Web3 & AI.',
@@ -168,7 +162,7 @@ export const ANNOUNCEMENTS = [
     },
     {
       date: '2025-04-30',
-      title: 'Upcoming Event: Web3 Unchained',
+      title: 'Web3 Unchained',
       content: 'Get ready for "Web3 Unchained"! Join us at the F Block Seminar Hall on May 2, 2025, to dive into the future of the internet with Web3 and Blockchain.',
       pinned: false,
     },
