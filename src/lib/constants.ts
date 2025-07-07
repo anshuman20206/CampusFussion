@@ -74,34 +74,6 @@ export const COMMUNITY_LINKS = [
 
 export const EVENTS = [
   {
-    date: "2024-09-15",
-    name: "Intro to AI with Gemini",
-    description: "An introductory workshop on building with Google's Gemini.",
-    location: "Online",
-    icon: BrainCircuit,
-  },
-  {
-    date: "2024-10-02",
-    name: "Firebase for Web Developers",
-    description: "Learn how to build powerful web apps with Firebase.",
-    location: "Campus Auditorium",
-    icon: PenTool,
-  },
-  {
-    date: "2024-10-20",
-    name: "Fall Hackathon 2024",
-    description: "A 24-hour coding competition with exciting prizes.",
-    location: "Tech Hub",
-    icon: Rocket,
-  },
-  {
-    date: "2024-11-05",
-    name: "Speaker Session: Life at Google",
-    description: "Hear from a Google engineer about their career journey.",
-    location: "Online",
-    icon: Users,
-  },
-  {
     date: "2024-10-04",
     name: "Info Session x Gen AI Study Jam",
     description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
