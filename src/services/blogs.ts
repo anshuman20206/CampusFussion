@@ -10,8 +10,6 @@ export interface Blog {
   excerpt: string;
   content: string;
   authorName: string;
-  authorImage: string;
-  coverImage: string;
   publishedDate: Date;
 }
 
@@ -39,8 +37,6 @@ export async function getBlogs(): Promise<{ blogs: Blog[], error: string | null 
         excerpt: data.excerpt,
         content: data.content,
         authorName: data.authorName,
-        authorImage: data.authorImage,
-        coverImage: data.coverImage,
         publishedDate: (data.publishedDate as Timestamp).toDate(),
       };
     });
@@ -83,8 +79,6 @@ export async function getBlogBySlug(slug: string): Promise<{ blog: BlogPost | nu
             excerpt: data.excerpt,
             content: data.content,
             authorName: data.authorName,
-            authorImage: data.authorImage,
-            coverImage: data.coverImage,
             publishedDate: (data.publishedDate as Timestamp).toDate(),
         };
 

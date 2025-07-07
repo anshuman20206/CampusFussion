@@ -34,8 +34,6 @@ export default function CreateBlogPage() {
       excerpt: '',
       content: '',
       authorName: '',
-      authorImage: undefined,
-      coverImage: undefined,
     },
   });
 
@@ -46,13 +44,6 @@ export default function CreateBlogPage() {
     formData.append('excerpt', data.excerpt);
     formData.append('content', data.content);
     formData.append('authorName', data.authorName);
-
-    if (data.authorImage && data.authorImage.length > 0) {
-      formData.append('authorImage', data.authorImage[0]);
-    }
-    if (data.coverImage && data.coverImage.length > 0) {
-      formData.append('coverImage', data.coverImage[0]);
-    }
 
     startTransition(async () => {
         const result = await createBlogAction(formData);
@@ -157,57 +148,18 @@ export default function CreateBlogPage() {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <FormField
-                    control={form.control}
-                    name="authorName"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Author Name</FormLabel>
-                        <FormControl>
-                        <Input placeholder="John Doe" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="authorImage"
-                    render={() => (
-                    <FormItem>
-                        <FormLabel>Author Image</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="file"
-                            accept="image/png, image/jpeg, image/webp"
-                            {...form.register("authorImage")}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                    )}
-                />
-              </div>
               <FormField
-                control={form.control}
-                name="coverImage"
-                render={() => (
+                  control={form.control}
+                  name="authorName"
+                  render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Cover Image</FormLabel>
-                    <FormControl>
-                       <Input
-                          type="file"
-                          accept="image/png, image/jpeg, image/webp"
-                          {...form.register("coverImage")}
-                        />
-                    </FormControl>
-                     <FormDescription>
-                      The main image for your blog post.
-                    </FormDescription>
-                    <FormMessage />
+                      <FormLabel>Author Name</FormLabel>
+                      <FormControl>
+                      <Input placeholder="John Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
                   </FormItem>
-                )}
+                  )}
               />
 
               <div className="flex justify-end">

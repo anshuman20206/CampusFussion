@@ -2,7 +2,6 @@ import { getBlogs } from '@/services/blogs';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle, ArrowRight, PenSquare } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -46,19 +45,10 @@ export default async function BlogPage() {
       <div className="mt-12 grid gap-8 lg:grid-cols-2">
         {blogs.map((blog) => (
           <Card key={blog.id} className="group flex flex-col overflow-hidden">
-            <div className="relative aspect-video">
-              <Image
-                src={blog.coverImage || 'https://placehold.co/600x400.png'}
-                data-ai-hint="technology blog"
-                alt={blog.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
             <CardHeader>
               <CardTitle className="text-2xl">{blog.title}</CardTitle>
               <CardDescription>
-                Posted on {new Date(blog.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                Posted on {new Date(blog.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} by {blog.authorName}
               </CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
