@@ -66,7 +66,7 @@ export const COMMUNITY_LINKS = [
     {
       name: "Twitter",
       description: "Get the latest news, announcements, and tech insights.",
-      link: "#",
+      link: "https://x.com/GdgIec4414",
       icon: Twitter,
       cta: "Follow on Twitter",
     },
