@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export function About() {
   return (
     <section id="about" className="container mx-auto px-6 py-16 md:py-24">
@@ -14,9 +16,8 @@ export function About() {
           </p>
         </div>
         <div className="order-1 md:order-2 flex justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://res.cloudinary.com/startup-grind/image/upload/v1/gcs/platform-data-goog/events/GDG+IEC_P357Vi9.png"
+          <Image
+            src="/gdg-logo.png"
             data-ai-hint="event logo"
             alt="GDG Chapter Event Logo"
             width={500}
