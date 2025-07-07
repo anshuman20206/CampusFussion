@@ -157,6 +157,13 @@ export const EVENTS = [
     location: "Online",
     icon: Users,
   },
+  {
+    date: "2025-04-19",
+    name: "Vibe Coding Hackathon",
+    description: "The new-aged coding with AI for all! No coding skills or laptop required—make anything you like with mobile tools and get featured on our social platforms.",
+    location: "GDG-IEC",
+    icon: Rocket,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
