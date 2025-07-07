@@ -1,13 +1,12 @@
-import { Code2, Users, Calendar, Mic, MessageCircle, Twitter, Linkedin, Github, Home, Bot, Image as ImageIcon, Megaphone, Users2, LayoutDashboard } from "lucide-react";
+import { Code2, Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Bot } from "lucide-react";
 
 export const NAV_LINKS = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/chatbot", label: "Chatbot", icon: Bot },
-  { href: "/events", label: "Events", icon: Calendar },
-  { href: "/gallery", label: "Gallery", icon: ImageIcon },
-  { href: "/announcements", label: "Announcements", icon: Megaphone },
-  { href: "/community", label: "Community", icon: Users2 },
+  { href: "/", label: "Home" },
+  { href: "/events", label: "Events" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/announcements", label: "Announcements" },
+  { href: "/community", label: "Community" },
+  { href: "/chatbot", label: "AI Assistant" },
 ];
 
 export const TEAM_MEMBERS = [
@@ -79,7 +78,7 @@ export const EVENTS = [
     description: "An introductory workshop on building with Google's Gemini.",
     location: "Online",
     registrationLink: "#",
-    icon: Code2,
+    icon: Bot,
   },
   {
     date: "2024-10-02",

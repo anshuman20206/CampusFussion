@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Code2 } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
@@ -13,8 +13,8 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 max-w-screen-2xl items-center">
         <Logo />
         <nav className="ml-10 hidden items-center space-x-6 text-sm font-medium md:flex">
           {NAV_LINKS.map((link) => (
@@ -22,8 +22,8 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                'transition-colors hover:text-primary',
-                pathname === link.href ? 'text-primary' : 'text-muted-foreground'
+                'transition-colors hover:text-foreground/80',
+                pathname === link.href ? 'text-foreground' : 'text-foreground/60'
               )}
             >
               {link.label}
@@ -59,7 +59,7 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
-                <div className="flex flex-col space-y-2 pt-4">
+                <div className="flex flex-col space-y-2 pt-4 border-t">
                   <Button variant="ghost" asChild>
                     <Link href="/login">Log In</Link>
                   </Button>

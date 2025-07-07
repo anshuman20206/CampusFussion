@@ -14,7 +14,7 @@ function GoogleIcon() {
 
 export default function SignupPage() {
   return (
-    <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center bg-secondary/50 p-4">
+    <div className="flex flex-1 items-center justify-center bg-secondary/50 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Sign Up</CardTitle>
