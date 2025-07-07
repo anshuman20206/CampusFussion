@@ -1,84 +1,116 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+'use client';
+
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { COMMUNITY_LINKS, TEAM_MEMBERS } from '@/lib/constants';
-import { ArrowRight } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+
+// Mock data for initial thoughts
+const initialThoughts = [
+  { id: 1, text: "Just discovered a new VS Code extension that's a game-changer for React development!", timestamp: new Date(Date.now() - 3600 * 1000 * 1) },
+  { id: 2, text: "The AI assistant is surprisingly helpful for debugging Python scripts. Saved me hours.", timestamp: new Date(Date.now() - 3600 * 1000 * 3) },
+  { id: 3, text: "Who's going to the Firebase workshop next week? Excited to learn more about Firestore rules.", timestamp: new Date(Date.now() - 3600 * 1000 * 5) },
+  { id: 4, text: "I wish there were more resources on campus for learning advanced CSS animations.", timestamp: new Date(Date.now() - 3600 * 1000 * 8) },
+  { id: 5, text: "The future is definitely built on open source. Great to see so many projects on the community GitHub.", timestamp: new Date(Date.now() - 3600 * 1000 * 12) },
+  { id: 6, text: "Thinking about building a project with Gemini. Anyone interested in collaborating?", timestamp: new Date(Date.now() - 3600 * 1000 * 24) },
+  { id: 7, text: "The roadmap looks promising. Can't wait for the hackathons!", timestamp: new Date(Date.now() - 3600 * 1000 * 30) },
+];
+
+interface Thought {
+  id: number;
+  text: string;
+  timestamp: Date;
+}
 
 export default function CommunityPage() {
+  const [thoughts, setThoughts] = useState<Thought[]>(initialThoughts);
+  const [newThought, setNewThought] = useState('');
+  const [visibleCount, setVisibleCount] = useState(5);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newThought.trim()) return;
+
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      const thought: Thought = {
+        id: Date.now(),
+        text: newThought,
+        timestamp: new Date(),
+      };
+      setThoughts([thought, ...thoughts]);
+      setNewThought('');
+      setIsSubmitting(false);
+    }, 500);
+  };
+  
+  const timeAgo = (date: Date) => {
+    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+    if (seconds < 0) return "just now";
+    let interval = seconds / 31536000;
+    if (interval > 1) return Math.floor(interval) + " years ago";
+    interval = seconds / 2592000;
+    if (interval > 1) return Math.floor(interval) + " months ago";
+    interval = seconds / 86400;
+    if (interval > 1) return Math.floor(interval) + " days ago";
+    interval = seconds / 3600;
+    if (interval > 1) return Math.floor(interval) + " hours ago";
+    interval = seconds / 60;
+    if (interval > 1) return Math.floor(interval) + " minutes ago";
+    return Math.floor(seconds) + " seconds ago";
+  };
+
   return (
     <div className="container py-12">
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Join Our Community</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Community Thoughts</h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Connect with fellow developers, share your projects, and grow together. Our community is the heart of CampusConnect.
+          Share your ideas, questions, or random thoughts with the community. All anonymous.
         </p>
       </div>
 
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
-        {COMMUNITY_LINKS.map((item) => (
-          <Card key={item.name}>
-            <CardHeader>
-              <div className="flex items-center gap-4">
-                <div className="rounded-lg bg-primary/10 p-3 text-primary">
-                  <item.icon className="h-6 w-6" />
-                </div>
-                <CardTitle>{item.name}</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <CardDescription>{item.description}</CardDescription>
-            </CardContent>
-            <CardFooter>
-              <Button asChild>
-                <Link href={item.link}>
-                  {item.cta}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <Card className="mt-12 mx-auto max-w-3xl">
+        <CardHeader>
+          <CardTitle>Share a Thought</CardTitle>
+          <CardDescription>What's on your mind?</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <Textarea
+              value={newThought}
+              onChange={(e) => setNewThought(e.target.value)}
+              placeholder="e.g., 'What's the best way to manage state in large React apps?'"
+              rows={4}
+              disabled={isSubmitting}
+            />
+            <Button type="submit" disabled={isSubmitting || !newThought.trim()} className="self-end">
+              {isSubmitting ? 'Sharing...' : 'Share Anonymously'}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
 
-      <div className="mt-16 text-center md:mt-24">
-        <h2 className="text-3xl font-bold tracking-tight">Member Highlights</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Meet some of the talented members of our community.
-        </p>
-        <Carousel
-          opts={{
-            align: 'start',
-            loop: true,
-          }}
-          className="mx-auto mt-12 w-full max-w-xs sm:max-w-xl lg:max-w-4xl"
-        >
-          <CarouselContent>
-            {TEAM_MEMBERS.map((member, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-1">
-                  <Card>
-                    <CardContent className="flex flex-col items-center p-6">
-                      <Image
-                        src={member.image}
-                        data-ai-hint={member.dataAiHint}
-                        alt={`Photo of ${member.name}`}
-                        width={80}
-                        height={80}
-                        className="mb-4 rounded-full"
-                      />
-                      <h3 className="font-semibold">{member.name}</h3>
-                      <p className="text-sm text-muted-foreground">{member.role}</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
+      <div className="mt-12 mx-auto max-w-3xl space-y-6">
+        <h2 className="text-2xl font-bold tracking-tight text-center">Latest from the Community</h2>
+        <div className="space-y-4">
+            {thoughts.slice(0, visibleCount).map((thought) => (
+                <Card key={thought.id}>
+                  <CardContent className="pt-6">
+                    <p className="text-foreground">{thought.text}</p>
+                    <p className="text-sm text-muted-foreground mt-4">{timeAgo(thought.timestamp)}</p>
+                  </CardContent>
+                </Card>
             ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        </div>
+        {visibleCount < thoughts.length && (
+          <div className="text-center mt-8">
+            <Button variant="outline" onClick={() => setVisibleCount(visibleCount + 5)}>
+              Show More
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
