@@ -59,7 +59,10 @@ export async function createBlogAction(formData: FormData) {
   } catch (error: any) {
     console.error("Error creating blog post: ", error);
     
-    const errorMessage = `Could not create the blog post. Please try again. Error: ${error.message}`;
+    let errorMessage = `Could not create the blog post. Please try again. Error: ${error.message}`;
+    if (error.code === 'permission-denied') {
+        errorMessage = "Could not create blog post. Your security rules are not configured to allow writes on the 'blogs' collection. Please check the Rules tab in your Firebase Firestore console.";
+    }
 
     return {
       success: false,
