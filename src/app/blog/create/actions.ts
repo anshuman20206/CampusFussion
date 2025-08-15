@@ -64,10 +64,8 @@ export async function createBlogAction(formData: FormData) {
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /blogs/{blogId} {
-      allow read, write: if true;
-    }
-    match /thoughts/{thoughtId} {
+    // Allow read/write access to all collections for development
+    match /{document=**} {
       allow read, write: if true;
     }
   }

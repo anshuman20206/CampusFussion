@@ -47,7 +47,17 @@ export async function getBlogs(): Promise<{ blogs: Blog[], error: string | null 
     console.error("Error getting blogs: ", error);
     let errorMessage = "Could not fetch blogs. This might be due to incorrect Firebase security rules or configuration.";
     if (error.code === 'permission-denied') {
-        errorMessage = "Could not fetch blogs. The Cloud Firestore API is not enabled for your project or your security rules are not configured to allow reads on the 'blogs' collection. Please check your Firebase console.";
+        errorMessage = `Could not fetch blogs. Your security rules are not configured to allow reads on the 'blogs' collection. For development, go to your Firebase Console -> Firestore -> Rules and use:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to all collections for development
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
     }
     return { blogs: [], error: errorMessage };
   }
@@ -87,7 +97,17 @@ export async function getBlogBySlug(slug: string): Promise<{ blog: BlogPost | nu
         console.error(`Error getting blog by slug (${slug}): `, error);
         let errorMessage = "Could not fetch blog post. This might be due to incorrect Firebase security rules or configuration.";
         if (error.code === 'permission-denied') {
-            errorMessage = "Could not fetch blog post. Your security rules may not be configured to allow reads on the 'blogs' collection. Please check your Firebase console.";
+            errorMessage = `Could not fetch blog post. Your security rules are not configured to allow reads on the 'blogs' collection. For development, go to your Firebase Console -> Firestore -> Rules and use:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read/write access to all collections for development
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
         }
         return { blog: null, error: errorMessage };
     }
