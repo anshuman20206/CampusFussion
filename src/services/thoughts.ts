@@ -48,6 +48,9 @@ service cloud.firestore {
   }
 }`;
       }
+      if (error.code === 'failed-precondition') {
+        errorMessage = `This query requires a Firestore index. Please create it in your Firebase console. The error message should contain a direct link to create it. Original error: ${error.message}`;
+      }
       return { thoughts: [], error: errorMessage };
   }
 }
