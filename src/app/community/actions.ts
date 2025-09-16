@@ -7,9 +7,14 @@ import { revalidatePath } from "next/cache";
 
 export async function shareThoughtAction(formData: FormData) {
   const text = formData.get('thought') as string;
+  const clubId = formData.get('clubId') as string;
 
   if (!text || !text.trim()) {
     return { success: false, error: 'Thought cannot be empty.' };
+  }
+  
+  if (!clubId) {
+    return { success: false, error: 'Club ID is missing.' };
   }
 
   if (!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
@@ -19,10 +24,11 @@ export async function shareThoughtAction(formData: FormData) {
   try {
     await addDoc(collection(db, 'thoughts'), {
       text,
+      clubId,
       timestamp: new Date(),
     });
 
-    revalidatePath('/community');
+    revalidatePath(`/community/${clubId}`);
     return { success: true };
   } catch (error: any) {
     console.error("Error adding thought:", error);

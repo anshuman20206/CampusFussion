@@ -1,15 +1,16 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, query, orderBy, Timestamp } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
 
 export interface Thought {
   id: string;
   text: string;
+  clubId: string;
   timestamp: Date;
 }
 
-export async function getThoughts(): Promise<{ thoughts: Thought[], error: string | null }> {
+export async function getThoughtsByClub(clubId: string): Promise<{ thoughts: Thought[], error: string | null }> {
   if (!db) {
     const errorMsg = "Firestore is not initialized. Skipping thought fetching. Make sure Firebase config is in .env";
     console.warn(errorMsg);
@@ -18,7 +19,7 @@ export async function getThoughts(): Promise<{ thoughts: Thought[], error: strin
 
   try {
       const thoughtsRef = collection(db, "thoughts");
-      const q = query(thoughtsRef, orderBy("timestamp", "desc"));
+      const q = query(thoughtsRef, where("clubId", "==", clubId), orderBy("timestamp", "desc"));
       
       const querySnapshot = await getDocs(q);
       const thoughts = querySnapshot.docs.map(doc => {
@@ -26,12 +27,13 @@ export async function getThoughts(): Promise<{ thoughts: Thought[], error: strin
           return {
               id: doc.id,
               text: data.text,
+              clubId: data.clubId,
               timestamp: (data.timestamp as Timestamp).toDate(),
           };
       });
       return { thoughts, error: null };
   } catch (error: any) {
-      console.error("Error getting thoughts: ", error);
+      console.error(`Error getting thoughts for club ${clubId}: `, error);
       let errorMessage = "Could not fetch thoughts. This might be due to incorrect Firebase security rules or configuration.";
       if (error.code === 'permission-denied') {
           errorMessage = `Could not fetch thoughts. Your security rules are not configured to allow reads on the 'thoughts' collection. For development, go to your Firebase Console -> Firestore -> Rules and use:
