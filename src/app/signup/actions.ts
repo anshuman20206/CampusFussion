@@ -7,6 +7,12 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export async function signupAction(data: {email: string, password: string}) {
+  if (!process.env.FIREBASE_CLIENT_EMAIL || !process.env.FIREBASE_PRIVATE_KEY) {
+    return {
+      error: 'Firebase Admin credentials are not set in .env. Cannot create user. Please add FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY.',
+    };
+  }
+
   if (!auth || !db) {
     return {
       error: 'Firebase services not initialized correctly.',
