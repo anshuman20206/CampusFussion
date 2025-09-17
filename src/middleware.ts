@@ -1,6 +1,10 @@
+
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { auth } from '@/lib/firebase-admin';
+
+// Force the middleware to run on the Node.js runtime
+export const runtime = 'nodejs';
 
 const PROTECTED_ROUTES = ['/dashboard'];
 
@@ -11,6 +15,12 @@ export async function middleware(request: NextRequest) {
     if (PROTECTED_ROUTES.includes(request.nextUrl.pathname)) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
+    return NextResponse.next();
+  }
+
+  if (!auth) {
+    console.error('Firebase Admin SDK not initialized in middleware.');
+    // Potentially redirect to an error page or just allow but log the issue
     return NextResponse.next();
   }
 
