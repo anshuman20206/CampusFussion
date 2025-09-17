@@ -1,52 +1,24 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { auth } from '@/lib/firebase-admin';
-
-// Force the middleware to run on the Node.js runtime
-export const runtime = 'nodejs';
 
 const PROTECTED_ROUTES = ['/dashboard'];
 const PUBLIC_ROUTES = ['/login', '/signup'];
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const sessionCookie = request.cookies.get('session')?.value;
 
-  // If firebase-admin isn't configured, bypass middleware
-  if (!auth) {
-    console.warn("Firebase Admin SDK is not initialized. Skipping auth middleware.");
-    return NextResponse.next();
-  }
-
-  // Redirect to login if trying to access a protected route without a session
-  if (!sessionCookie && PROTECTED_ROUTES.includes(pathname)) {
+  // If trying to access a protected route without a session, redirect to login
+  if (!sessionCookie && PROTECTED_ROUTES.some(path => pathname.startsWith(path))) {
     const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('next', pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // If a session exists, verify it
-  if (sessionCookie) {
-    try {
-      await auth.verifySessionCookie(sessionCookie, true);
-      
-      // If the user is authenticated, redirect them from login/signup to the dashboard
-      if (PUBLIC_ROUTES.includes(pathname)) {
-        return NextResponse.redirect(new URL('/dashboard', request.url));
-      }
-    } catch (error) {
-      // Invalid session cookie. 
-      const loginUrl = new URL('/login', request.url);
-      let response = NextResponse.redirect(loginUrl);
-
-      // If not on a protected route, just clear the cookie and continue.
-      if (!PROTECTED_ROUTES.includes(pathname)) {
-        response = NextResponse.next();
-      }
-      
-      response.cookies.set('session', '', { expires: new Date(0), path: '/' });
-      return response;
-    }
+  // If the user is authenticated (has a session cookie) and tries to access a public route, redirect to dashboard
+  if (sessionCookie && PUBLIC_ROUTES.some(path => pathname.startsWith(path))) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   return NextResponse.next();

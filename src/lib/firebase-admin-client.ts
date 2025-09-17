@@ -1,3 +1,4 @@
+
 // This file is for CLIENT-SIDE usage of the admin SDK, which is generally not recommended.
 // It's used here for the real-time admin dashboard as a demonstration.
 // In a real production app, you would secure this differently, likely with a dedicated API endpoint.
@@ -16,6 +17,10 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+// This file is no longer used for the admin dashboard.
+// The admin dashboard now uses the primary 'db' export from 'src/lib/firebase.ts'
+// and relies on Firestore security rules for access control.
+// This file can be safely removed, but is kept to avoid breaking changes if it's referenced elsewhere.
 let adminApp;
 const appName = 'firebase-admin-client-app';
 if (getApps().some(app => app.name === appName)) {
@@ -25,6 +30,5 @@ if (getApps().some(app => app.name === appName)) {
         adminApp = initializeApp(firebaseConfig, appName);
     }
 }
-
 
 export const adminDb = adminApp ? getFirestore(adminApp) : null;

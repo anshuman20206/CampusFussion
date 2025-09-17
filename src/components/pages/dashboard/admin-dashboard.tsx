@@ -1,13 +1,16 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
-import { adminDb } from '@/lib/firebase-admin-client';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Shield, Users } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertCircle } from 'lucide-react';
 
 interface UserProfile {
   id: string;
@@ -20,17 +23,31 @@ interface UserProfile {
 export function AdminDashboard() {
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!adminDb) return;
-    const unsub = onSnapshot(collection(adminDb, "users"), (snapshot) => {
+    if (!db) {
+      setError("Firestore is not initialized.");
+      setLoading(false);
+      return;
+    }
+    
+    const usersQuery = query(collection(db, "users"));
+
+    const unsub = onSnapshot(usersQuery, (snapshot) => {
       const usersData: UserProfile[] = [];
       snapshot.forEach((doc) => {
         usersData.push({ id: doc.id, ...doc.data() } as UserProfile);
       });
       setUsers(usersData);
       setLoading(false);
+      setError(null);
+    }, (err) => {
+        console.error("Admin dashboard fetch error:", err);
+        setError("You don't have permission to view this data. Make sure you are an admin and your Firestore security rules are set up correctly.");
+        setLoading(false);
     });
+
     return () => unsub();
   }, []);
 
@@ -59,45 +76,55 @@ export function AdminDashboard() {
             </div>
         </div>
 
-        <ScrollArea className="mt-8 flex-1">
-            <div className="space-y-6 pr-4">
-                {users.map(user => (
-                    <Card key={user.id}>
-                        <CardHeader>
-                            <div className='flex justify-between items-start'>
-                                <div>
-                                    <CardTitle className="text-lg">{user.email}</CardTitle>
-                                    <CardDescription>User ID: {user.id}</CardDescription>
+        {error && (
+            <Alert variant="destructive" className="mt-8">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Access Denied</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+            </Alert>
+        )}
+
+        {!error && (
+            <ScrollArea className="mt-8 flex-1">
+                <div className="space-y-6 pr-4">
+                    {users.map(user => (
+                        <Card key={user.id}>
+                            <CardHeader>
+                                <div className='flex justify-between items-start'>
+                                    <div>
+                                        <CardTitle className="text-lg">{user.email}</CardTitle>
+                                        <CardDescription>User ID: {user.id}</CardDescription>
+                                    </div>
+                                    {user.role === 'admin' && <Badge>Admin</Badge>}
                                 </div>
-                                {user.role === 'admin' && <Badge>Admin</Badge>}
-                            </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div>
-                                <h4 className="font-semibold">Joined Events</h4>
-                                {user.joinedEvents.length > 0 ? (
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                        {user.joinedEvents.map((event, i) => <Badge key={i} variant="outline">{event}</Badge>)}
-                                    </div>
-                                ) : (
-                                    <p className="text-sm text-muted-foreground">No events joined.</p>
-                                )}
-                            </div>
-                             <div>
-                                <h4 className="font-semibold">Participated Hackathons</h4>
-                                {user.participatedHackathons.length > 0 ? (
-                                    <div className="flex flex-wrap gap-2 mt-2">
-                                        {user.participatedHackathons.map((h, i) => <Badge key={i} variant="outline">{h}</Badge>)}
-                                    </div>
-                                ) : (
-                                    <p className="text-sm text-muted-foreground">No hackathons participated in.</p>
-                                )}
-                            </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-        </ScrollArea>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                                <div>
+                                    <h4 className="font-semibold">Joined Events</h4>
+                                    {user.joinedEvents.length > 0 ? (
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            {user.joinedEvents.map((event, i) => <Badge key={i} variant="outline">{event}</Badge>)}
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-muted-foreground">No events joined.</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold">Participated Hackathons</h4>
+                                    {user.participatedHackathons.length > 0 ? (
+                                        <div className="flex flex-wrap gap-2 mt-2">
+                                            {user.participatedHackathons.map((h, i) => <Badge key={i} variant="outline">{h}</Badge>)}
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-muted-foreground">No hackathons participated in.</p>
+                                    )}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </ScrollArea>
+        )}
     </div>
   );
 }
