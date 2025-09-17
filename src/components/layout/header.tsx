@@ -2,12 +2,51 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut, LayoutDashboard, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
+import { useAuth } from '@/hooks/use-auth';
+import { logoutAction } from '@/app/login/actions';
+import { Skeleton } from '../ui/skeleton';
+
+function AuthButtons() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <Skeleton className="h-10 w-24" />;
+  }
+
+  if (user) {
+    return (
+      <div className="flex items-center gap-2">
+        <Button asChild>
+          <Link href="/dashboard">
+            <LayoutDashboard className="mr-2" />
+            Dashboard
+          </Link>
+        </Button>
+        <form action={logoutAction}>
+          <Button variant="outline" size="icon" type="submit">
+            <LogOut />
+          </Button>
+        </form>
+      </div>
+    );
+  }
+
+  return (
+    <Button asChild>
+      <Link href="/login">
+        <LogIn className="mr-2" />
+        Login
+      </Link>
+    </Button>
+  );
+}
+
 
 export function Header() {
   const pathname = usePathname();
@@ -30,7 +69,10 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-4">
+          <div className="hidden md:block">
+            <AuthButtons />
+          </div>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
@@ -53,6 +95,9 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
+              </div>
+              <div className="mt-8">
+                <AuthButtons />
               </div>
             </SheetContent>
           </Sheet>

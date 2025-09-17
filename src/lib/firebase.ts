@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, serverTimestamp, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -24,6 +25,8 @@ if (getApps().length === 0) {
 }
 
 const db = app ? getFirestore(app) : null;
+const auth = app ? getAuth(app) : null;
 const storage = app ? getStorage(app) : null;
 
-export { app, db, storage };
+
+export { app, db, auth, storage, serverTimestamp, arrayUnion };
