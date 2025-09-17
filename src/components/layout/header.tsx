@@ -53,9 +53,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="container mx-auto px-6 flex h-20 max-w-screen-2xl items-center">
+      <div className="container mx-auto flex h-20 max-w-screen-2xl items-center px-6">
         <Logo />
-        <nav className="ml-10 hidden items-center space-x-6 text-sm font-medium md:flex">
+        <nav className="ml-auto hidden items-center gap-x-6 text-sm font-medium md:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -69,13 +69,13 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="ml-auto flex items-center gap-4">
-          <div className="hidden md:block">
-            <AuthButtons />
-          </div>
+        <div className="ml-6 hidden items-center md:flex">
+          <AuthButtons />
+        </div>
+        <div className="ml-auto flex items-center md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
+              <Button variant="outline" size="icon">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Open menu</span>
               </Button>
