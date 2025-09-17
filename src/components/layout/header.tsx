@@ -95,8 +95,24 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
+                <div className="border-t border-primary/20 pt-4">
+                  <Link
+                    href="/gallery"
+                    className="text-lg text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    Gallery
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    href="/chatbot"
+                    className="text-lg text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    AI Assistant
+                  </Link>
+                </div>
               </div>
-              <div className="mt-8">
+              <div className="mt-8 border-t border-primary/20 pt-6">
                 <AuthButtons />
               </div>
             </SheetContent>
@@ -106,3 +122,5 @@ export function Header() {
     </header>
   );
 }
+
+    

@@ -3,20 +3,18 @@ import { Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Rocket, Brai
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/events", label: "Events" },
-  { href: "/gallery", label: "Gallery" },
   { href: "/announcements", label: "Announcements" },
   { href: "/community", label: "Community" },
   { href: "/blog", label: "Blog" },
-  { href: "/chatbot", label: "AI Assistant" },
 ];
 
 export const TEAM_MEMBERS = [
   {
-    name: "Anshuman Singh",
+    name: "Ankit Kumar",
     role: "GDG Lead & Organizer",
     image: "/anshuman.jpg",
     dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
+    linkedin: "https://www.linkedin.com/in/ankit-kumar-a20478230",
   },
   {
     name: "Aahana Soni",
@@ -26,11 +24,11 @@ export const TEAM_MEMBERS = [
     linkedin: "https://www.linkedin.com/in/aahana-soni-342865332",
   },
   {
-    name: "Ankit Kumar",
+    name: "Anshuman Singh",
     role: "Competitive Programming Lead",
     image: "/ankit.png",
     dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/ankit-kumar-a20478230",
+    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
   },
   {
     name: "Animesh Shrivastava",
@@ -278,3 +276,5 @@ export const ROADMAP_PHASES = [
     description: "Organizing large-scale hackathons and collaborative projects to apply skills and build innovative solutions.",
   },
 ];
+
+    
