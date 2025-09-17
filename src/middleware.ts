@@ -7,54 +7,61 @@ import { auth } from '@/lib/firebase-admin';
 export const runtime = 'nodejs';
 
 const PROTECTED_ROUTES = ['/dashboard'];
+const PUBLIC_ROUTES = ['/login', '/signup'];
 
 export async function middleware(request: NextRequest) {
-  const sessionCookie = request.cookies.get('session');
+  const { pathname } = request.nextUrl;
+  const sessionCookie = request.cookies.get('session')?.value;
 
-  if (!sessionCookie) {
-    if (PROTECTED_ROUTES.includes(request.nextUrl.pathname)) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-    return NextResponse.next();
-  }
-
+  // If firebase-admin isn't configured, bypass middleware
   if (!auth) {
-    console.error('Firebase Admin SDK not initialized in middleware.');
-    // Potentially redirect to an error page or just allow but log the issue
+    console.warn("Firebase Admin SDK is not initialized. Skipping auth middleware.");
     return NextResponse.next();
   }
 
-  try {
-    const decodedIdToken = await auth.verifySessionCookie(sessionCookie.value, true);
-    
-    // Set a header with the token to be used in API routes or server components
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set('X-User-ID', decodedIdToken.uid);
-
-    if (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup') {
-        return NextResponse.redirect(new URL('/dashboard', request.url));
-    }
-
-    return NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        }
-    });
-
-  } catch (error) {
-    console.log('Middleware error, invalid session cookie:', error);
-    // Clear invalid cookie
-    const response = NextResponse.next();
-    if (PROTECTED_ROUTES.includes(request.nextUrl.pathname)) {
-        const redirectUrl = new URL('/login', request.url);
-        response.cookies.delete('session');
-        return NextResponse.redirect(redirectUrl);
-    }
-    response.cookies.delete('session');
-    return response;
+  // Redirect to login if trying to access a protected route without a session
+  if (!sessionCookie && PROTECTED_ROUTES.includes(pathname)) {
+    const loginUrl = new URL('/login', request.url);
+    return NextResponse.redirect(loginUrl);
   }
+
+  // If a session exists, verify it
+  if (sessionCookie) {
+    try {
+      await auth.verifySessionCookie(sessionCookie, true);
+      
+      // If the user is authenticated, redirect them from login/signup to the dashboard
+      if (PUBLIC_ROUTES.includes(pathname)) {
+        return NextResponse.redirect(new URL('/dashboard', request.url));
+      }
+    } catch (error) {
+      // Invalid session cookie. 
+      const loginUrl = new URL('/login', request.url);
+      let response = NextResponse.redirect(loginUrl);
+
+      // If not on a protected route, just clear the cookie and continue.
+      if (!PROTECTED_ROUTES.includes(pathname)) {
+        response = NextResponse.next();
+      }
+      
+      response.cookies.set('session', '', { expires: new Date(0), path: '/' });
+      return response;
+    }
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$).*)'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - and paths with file extensions (e.g. .png, .jpg)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)',
+  ],
 };
