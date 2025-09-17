@@ -14,7 +14,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Anshuman Singh",
     role: "GDG Lead & Organizer",
-    image: "/ankit.png",
+    image: "/anshuman.jpg",
     dataAiHint: "man portrait",
     linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
   },
@@ -28,7 +28,7 @@ export const TEAM_MEMBERS = [
   {
     name: "Ankit Kumar",
     role: "Competitive Programming Lead",
-    image: "/anshuman.jpg",
+    image: "/ankit.png",
     dataAiHint: "man portrait",
     linkedin: "https://www.linkedin.com/in/ankit-kumar-a20478230",
   },
@@ -183,7 +183,7 @@ export const EVENTS = [
 export const ANNOUNCEMENTS = [
     {
       date: '2025-07-23',
-      title: 'India OnChain Builders\' Series',
+      title: 'Upcoming: India OnChain Builders\' Series',
       content: 'Just two days until the "India OnChain Builders\' Series"! Join us online on July 25, 2025, to hear from Lakhshay Gupta and kickstart your career in Web3 & AI.',
       pinned: true,
     },
