@@ -1,4 +1,7 @@
 import * as admin from 'firebase-admin';
+import { config } from 'dotenv';
+
+config();
 
 if (!admin.apps.length) {
   try {
@@ -10,6 +13,7 @@ if (!admin.apps.length) {
       credential: admin.credential.cert({
         projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        // Replace escaped newlines from the environment variable
         privateKey: privateKey.replace(/\\n/g, '\n'),
       }),
     });
