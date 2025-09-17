@@ -12,11 +12,11 @@ export const NAV_LINKS = [
 
 export const TEAM_MEMBERS = [
   {
-    name: "Ankit Kumar",
+    name: "Anshuman Singh",
     role: "GDG Lead & Organizer",
     image: "/ankit.png",
     dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/ankit-kumar-a20478230",
+    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
   },
   {
     name: "Aahana Soni",
@@ -26,11 +26,11 @@ export const TEAM_MEMBERS = [
     linkedin: "https://www.linkedin.com/in/aahana-soni-342865332",
   },
   {
-    name: "Anshuman Singh",
+    name: "Ankit Kumar",
     role: "Competitive Programming Lead",
     image: "/anshuman.jpg",
     dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
+    linkedin: "https://www.linkedin.com/in/ankit-kumar-a20478230",
   },
   {
     name: "Animesh Shrivastava",
@@ -183,7 +183,7 @@ export const EVENTS = [
 export const ANNOUNCEMENTS = [
     {
       date: '2025-07-23',
-      title: 'Upcoming Event: India OnChain Builders\' Series',
+      title: 'India OnChain Builders\' Series',
       content: 'Just two days until the "India OnChain Builders\' Series"! Join us online on July 25, 2025, to hear from Lakhshay Gupta and kickstart your career in Web3 & AI.',
       pinned: true,
     },
