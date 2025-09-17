@@ -1,5 +1,8 @@
 'use server';
 
+import { config } from 'dotenv';
+config();
+
 import { auth } from '@/lib/firebase-admin';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
