@@ -1,22 +1,13 @@
 'use server';
 
-import { config } from 'dotenv';
-config();
-
 import { auth } from '@/lib/firebase-admin';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export async function loginAction(data: {email: string, password: string}) {
-  if (!process.env.FIREBASE_CLIENT_EMAIL || !process.env.FIREBASE_PRIVATE_KEY) {
-    return {
-      error: 'Firebase Admin credentials are not set in .env. Cannot process login. Please add FIREBASE_CLIENT_EMAIL and FIREBASE_PRIVATE_KEY.',
-    };
-  }
-  
   if (!auth) {
     return {
-      error: 'Admin SDK not initialized. Please check your service account configuration.',
+      error: 'Admin SDK not initialized. Please check your service account configuration in .env and server logs for initialization errors.',
     };
   }
 
