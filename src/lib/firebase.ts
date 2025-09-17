@@ -1,4 +1,4 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
 import { getFirestore, serverTimestamp, arrayUnion } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
@@ -13,20 +13,22 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let app;
-if (getApps().length === 0) {
-  if (firebaseConfig.projectId) {
-    app = initializeApp(firebaseConfig);
-  } else {
+function getFirebaseApp(): FirebaseApp | null {
+  if (!firebaseConfig.projectId) {
     console.error("Firebase config not found. Please add it to your .env file.");
+    return null;
   }
-} else {
-  app = getApp();
+
+  if (getApps().length > 0) {
+    return getApp();
+  }
+
+  return initializeApp(firebaseConfig);
 }
 
+const app = getFirebaseApp();
 const db = app ? getFirestore(app) : null;
 const auth = app ? getAuth(app) : null;
 const storage = app ? getStorage(app) : null;
-
 
 export { app, db, auth, storage, serverTimestamp, arrayUnion };

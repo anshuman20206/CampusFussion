@@ -3,7 +3,7 @@
 import { config } from 'dotenv';
 config();
 
-import { auth } from '@/lib/firebase-admin';
+import { auth as adminAuth } from '@/lib/firebase-admin';
 import { db } from '@/lib/firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { cookies } from 'next/headers';
@@ -16,9 +16,13 @@ export async function signupAction(data: {email: string, password: string}) {
     };
   }
 
-  if (!auth || !db) {
+  if (!adminAuth || !db) {
+    // Construct a more informative error message
+    let errorDetail = [];
+    if (!adminAuth) errorDetail.push("Admin Auth is not initialized (server-side issue)");
+    if (!db) errorDetail.push("Firestore DB is not initialized (client-side config issue)");
     return {
-      error: 'Firebase services not initialized correctly.',
+      error: `Firebase services not initialized correctly: ${errorDetail.join(', ')}. Please check your .env configuration.`,
     };
   }
 
@@ -26,7 +30,7 @@ export async function signupAction(data: {email: string, password: string}) {
 
   try {
     // 1. Create user in Firebase Auth
-    const userRecord = await auth.createUser({
+    const userRecord = await adminAuth.createUser({
       email,
       password,
     });
@@ -43,7 +47,7 @@ export async function signupAction(data: {email: string, password: string}) {
     });
 
     // 3. Create session cookie
-    const customToken = await auth.createCustomToken(uid);
+    const customToken = await adminAuth.createCustomToken(uid);
     cookies().set('session', customToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
