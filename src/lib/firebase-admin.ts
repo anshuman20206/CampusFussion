@@ -1,32 +1,26 @@
-import * as admin from 'firebase-admin';
+'use server';
 
+import * as admin from 'firebase-admin';
+import { env } from '@/lib/env';
+
+// This is a singleton pattern to ensure we only initialize the app once.
 let app: admin.app.App;
 
-try {
-  app = admin.app();
-} catch (error) {
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY;
-  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-  const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-
-  if (!privateKey || !clientEmail || !projectId) {
-    console.error(
-      'Firebase Admin credentials are not fully set in .env.local. Required: FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, NEXT_PUBLIC_FIREBASE_PROJECT_ID'
-    );
-  } else {
-    try {
-      app = admin.initializeApp({
-        credential: admin.credential.cert({
-          projectId,
-          clientEmail,
-          privateKey: privateKey.replace(/\\n/g, '\n'),
-        }),
-      });
-    } catch (initError: any) {
-      console.error('Firebase admin initialization error:', initError.stack);
-    }
+if (!admin.apps.length) {
+  try {
+    app = admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        clientEmail: env.FIREBASE_CLIENT_EMAIL,
+        privateKey: env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      }),
+    });
+  } catch (initError: any) {
+    console.error('FIREBASE ADMIN INIT ERROR:', initError.message, initError.stack);
   }
+} else {
+  app = admin.app();
 }
 
-export const auth = app! ? app!.auth() : null;
-export const adminDb = app! ? app!.firestore() : null;
+export const auth = app! ? app.auth() : null;
+export const adminDb = app! ? app.firestore() : null;
