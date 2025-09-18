@@ -1,5 +1,4 @@
 'use server';
-import '@/lib/env';
 import { auth as adminAuth } from '@/lib/firebase-admin';
 import { db } from '@/lib/firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';

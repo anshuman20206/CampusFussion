@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin';
-import '@/lib/env';
 
 let app: admin.app.App;
 
@@ -12,7 +11,7 @@ try {
 
   if (!privateKey || !clientEmail || !projectId) {
     console.error(
-      'Firebase Admin credentials are not fully set in .env. Required: FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, NEXT_PUBLIC_FIREBASE_PROJECT_ID'
+      'Firebase Admin credentials are not fully set in .env.local. Required: FIREBASE_PRIVATE_KEY, FIREBASE_CLIENT_EMAIL, NEXT_PUBLIC_FIREBASE_PROJECT_ID'
     );
   } else {
     try {
