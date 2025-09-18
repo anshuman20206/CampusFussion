@@ -1,5 +1,3 @@
-import { experimental_taintObjectReference } from 'react';
-
 export const env = {
     NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
@@ -10,9 +8,3 @@ export const env = {
     FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL!,
     FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY!,
 };
-
-experimental_taintObjectReference(
-  'Do not pass the entire `env` object to the client. ' +
-    'Instead, destructure the variables you need.',
-  env
-);

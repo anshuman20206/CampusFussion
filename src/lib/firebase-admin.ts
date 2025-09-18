@@ -1,5 +1,3 @@
-'use server';
-
 import * as admin from 'firebase-admin';
 import { env } from '@/lib/env';
 
@@ -16,7 +14,7 @@ if (!admin.apps.length) {
       }),
     });
   } catch (initError: any) {
-    console.error('FIREBASE ADMIN INIT ERROR:', initError.message, initError.stack);
+    console.error('FIREBASE ADMIN INIT ERROR:', initError.message);
   }
 } else {
   app = admin.app();
