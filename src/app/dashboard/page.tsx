@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { db, auth } from '@/lib/firebase';
+import { getFirebaseServices } from '@/lib/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useAuth } from '@/hooks/use-auth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,6 +29,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (user?.uid) {
+      const { db } = getFirebaseServices();
       const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
         if (doc.exists()) {
           setProfile(doc.data() as UserProfile);

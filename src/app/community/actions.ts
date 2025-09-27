@@ -1,7 +1,7 @@
 
 "use server";
 
-import { db } from "@/lib/firebase";
+import { getFirebaseServices } from "@/lib/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 
@@ -17,6 +17,7 @@ export async function shareThoughtAction(formData: FormData) {
     return { success: false, error: 'Club ID is missing.' };
   }
 
+  const { db } = getFirebaseServices();
   if (!db) {
     return { success: false, error: "Firebase is not configured. Please add your Firebase project details to the .env file." };
   }

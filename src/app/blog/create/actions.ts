@@ -1,6 +1,6 @@
 'use server';
 
-import { db } from '@/lib/firebase';
+import { getFirebaseServices } from '@/lib/firebase';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -8,6 +8,7 @@ import { blogFormSchema } from './schema';
 import { moderateContent } from '@/ai/flows/moderate-content';
 
 export async function createBlogAction(formData: FormData) {
+  const { db } = getFirebaseServices();
   if (!db) {
     return {
       success: false,

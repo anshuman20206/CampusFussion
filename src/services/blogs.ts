@@ -1,6 +1,6 @@
 'use server';
 
-import { db } from '@/lib/firebase';
+import { getFirebaseServices } from '@/lib/firebase';
 import { collection, getDocs, query, where, Timestamp, limit } from 'firebase/firestore';
 
 export interface Blog {
@@ -17,6 +17,7 @@ export interface Blog {
 export type BlogPost = Blog;
 
 export async function getBlogs(): Promise<{ blogs: Blog[], error: string | null }> {
+  const { db } = getFirebaseServices();
   if (!db) {
     const errorMsg = "Firestore is not initialized. Skipping blog fetching. Make sure Firebase config is in .env";
     console.warn(errorMsg);
@@ -64,6 +65,7 @@ service cloud.firestore {
 }
 
 export async function getBlogBySlug(slug: string): Promise<{ blog: BlogPost | null, error: string | null }> {
+    const { db } = getFirebaseServices();
     if (!db) {
         const errorMsg = "Firestore is not initialized. Skipping blog fetching.";
         console.warn(errorMsg);

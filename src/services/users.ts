@@ -1,9 +1,10 @@
 'use server';
 
-import { db, arrayUnion } from '@/lib/firebase';
+import { getFirebaseServices, arrayUnion } from '@/lib/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
 export async function joinEvent(uid: string, eventName: string) {
+  const { db } = getFirebaseServices();
   if (!db || !uid) return { error: 'User not authenticated or DB not available.' };
 
   try {
@@ -19,6 +20,7 @@ export async function joinEvent(uid: string, eventName: string) {
 }
 
 export async function participateHackathon(uid: string, hackathonName: string) {
+  const { db } = getFirebaseServices();
   if (!db || !uid) return { error: 'User not authenticated or DB not available.' };
 
   try {

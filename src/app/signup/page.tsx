@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Github, UserPlus } from 'lucide-react';
-import { auth } from '@/lib/firebase';
+import { getFirebaseServices } from '@/lib/firebase';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { createUserInFirestore } from '@/app/auth/actions';
 import { useToast } from '@/hooks/use-toast';
@@ -17,12 +17,13 @@ export default function SignupPage() {
 
   const handleGitHubSignup = async () => {
     setIsLoading(true);
+    const { auth } = getFirebaseServices();
     const provider = new GithubAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Create a session cookie by calling a server action
+      // Create a session cookie by calling our API route
       const response = await fetch('/api/auth/session', {
         method: 'POST',
         headers: {
@@ -30,9 +31,10 @@ export default function SignupPage() {
         },
         body: JSON.stringify({ idToken: await user.getIdToken() }),
       });
-
+      
       if (!response.ok) {
-        throw new Error('Failed to create session.');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create session.');
       }
       
       // Ensure user record exists in Firestore.

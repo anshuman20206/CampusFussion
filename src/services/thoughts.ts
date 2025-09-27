@@ -1,6 +1,6 @@
 'use server';
 
-import { db } from '@/lib/firebase';
+import { getFirebaseServices } from '@/lib/firebase';
 import { collection, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
 
 export interface Thought {
@@ -11,6 +11,7 @@ export interface Thought {
 }
 
 export async function getThoughtsByClub(clubId: string): Promise<{ thoughts: Thought[], error: string | null }> {
+  const { db } = getFirebaseServices();
   if (!db) {
     const errorMsg = "Firestore is not initialized. Skipping thought fetching. Make sure Firebase config is in .env";
     console.warn(errorMsg);
