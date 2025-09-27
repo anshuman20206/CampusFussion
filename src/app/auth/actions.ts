@@ -1,7 +1,6 @@
 'use server';
 
-import { auth } from '@/lib/firebase-admin';
-import { db } from '@/lib/firebase';
+import { auth, adminDb } from '@/lib/firebase-admin';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 /**
@@ -9,15 +8,15 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
  * This is triggered from the client-side after Firebase authentication is complete.
  */
 export async function createUserInFirestore(uid: string, email: string | null, displayName: string | null, photoURL: string | null) {
-  if (!auth || !db) {
+  if (!auth || !adminDb) {
     return {
       error: 'Firebase Admin services not initialized correctly on the server.',
     };
   }
 
   try {
-    // 2. Create user document in Firestore, but don't overwrite existing data on login
-    await setDoc(doc(db, "users", uid), {
+    // Create user document in Firestore, but don't overwrite existing data on login
+    await setDoc(doc(adminDb, "users", uid), {
         email: email,
         displayName: displayName,
         photoURL: photoURL,
