@@ -13,22 +13,14 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-function getFirebaseApp(): FirebaseApp | null {
-  if (!firebaseConfig.projectId) {
-    console.error("Firebase config not found. Please add it to your .env file.");
-    return null;
-  }
+const app: FirebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-  if (getApps().length > 0) {
-    return getApp();
-  }
-
-  return initializeApp(firebaseConfig);
-}
-
-const app = getFirebaseApp();
 const db = app ? getFirestore(app) : null;
 const auth = app ? getAuth(app) : null;
 const storage = app ? getStorage(app) : null;
+
+if (!firebaseConfig.projectId) {
+    console.error("Firebase config not found. Please add it to your .env file.");
+}
 
 export { app, db, auth, storage, serverTimestamp, arrayUnion };
