@@ -4,12 +4,12 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  projectId: "campusconnect-1il6y",
+  appId: "1:454378528376:web:b324c8d8a3ace2078cd78d",
+  apiKey: "AIzaSyC4a4v80y0evAGtz_pCKGg-IV_e22JDo4U",
+  authDomain: "campusconnect-1il6y.firebaseapp.com",
+  storageBucket: "campusconnect-1il6y.appspot.com",
+  messagingSenderId: "454378528376",
 };
 
 // Initialize Firebase
