@@ -50,6 +50,8 @@ export default function LoginPage() {
             message = "An account already exists with the same email address but different sign-in credentials.";
         } else if (error.message) {
             message = error.message;
+        } else if (error.code === 'auth/unauthorized-domain') {
+            message = "This domain is not authorized for login. Please contact support.";
         }
         
         toast({
