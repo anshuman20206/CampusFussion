@@ -1,113 +1,94 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { useTransition, useRef } from 'react';
-import { UserPlus } from 'lucide-react';
-import { signupAction } from './actions';
-import Link from 'next/link';
-
-const signupSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters long.' }),
-});
-
-type SignupFormValues = z.infer<typeof signupSchema>;
+import { Github, UserPlus } from 'lucide-react';
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createUserInFirestore } from '../auth/actions';
 
 export default function SignupPage() {
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
   const { toast } = useToast();
-  const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
-  const form = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
+  const handleGitHubSignup = async () => {
+    setIsPending(true);
+    if (!auth) {
+        toast({
+            variant: 'destructive',
+            title: 'Signup Failed',
+            description: 'Firebase is not configured correctly.',
+        });
+        setIsPending(false);
+        return;
+    }
+    const provider = new GithubAuthProvider();
+    try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
 
-  async function onSubmit(data: SignupFormValues) {
-    startTransition(async () => {
-        const result = await signupAction(data);
-        if (result?.error) {
-            toast({
-                variant: 'destructive',
-                title: 'Signup Failed',
-                description: result.error,
-            });
+        // Create user record in Firestore.
+        // This action is idempotent; it won't overwrite existing user data on subsequent logins.
+        const firestoreResult = await createUserInFirestore(user.uid, user.email, user.displayName, user.photoURL);
+
+        if (firestoreResult.error) {
+           throw new Error(firestoreResult.error);
         }
-    });
-  }
+
+        toast({
+            title: 'Account Created!',
+            description: `Welcome, ${user.displayName || user.email}!`,
+        });
+        router.push('/dashboard');
+
+    } catch (error: any) {
+        let message = "An unexpected error occurred.";
+        if (error.code === 'auth/account-exists-with-different-credential') {
+            message = "An account already exists with the same email address. Please log in with that method.";
+        }
+        toast({
+            variant: 'destructive',
+            title: 'Signup Failed',
+            description: message,
+        });
+    } finally {
+        setIsPending(false);
+    }
+  };
 
   return (
     <div className="container mx-auto px-6 py-12 flex justify-center items-center">
       <Card className="max-w-md w-full">
-        <CardHeader>
-          <div className="flex items-center gap-4">
+        <CardHeader className="text-center">
+          <div className="flex flex-col items-center gap-4">
             <UserPlus className="h-8 w-8 text-primary" />
             <div>
                 <CardTitle>Create an Account</CardTitle>
-                <CardDescription>Join CampusConnect to access all features.</CardDescription>
+                <CardDescription>Join CampusConnect by signing up with your GitHub account.</CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <Form {...form}>
-            <form ref={formRef} onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input type="email" placeholder="you@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
+            <Button
+                type="button"
+                className="w-full"
+                onClick={handleGitHubSignup}
+                disabled={isPending}
+            >
+                {isPending ? 'Redirecting...' : (
+                    <>
+                        <Github className="mr-2" />
+                        Sign up with GitHub
+                    </>
                 )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="••••••••" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex flex-col gap-4">
-                <Button type="submit" disabled={isPending} className="w-full">
-                  {isPending ? 'Creating Account...' : 'Sign Up'}
-                </Button>
-                <p className="text-center text-sm text-muted-foreground">
-                    Already have an account?{' '}
-                    <Button variant="link" asChild className="p-0 h-auto">
-                        <Link href="/login">Log in</Link>
-                    </Button>
-                </p>
-              </div>
-            </form>
-          </Form>
+            </Button>
+            <p className="text-center text-xs text-muted-foreground mt-4">
+                By signing up, you agree to our Terms of Service.
+            </p>
         </CardContent>
       </Card>
     </div>

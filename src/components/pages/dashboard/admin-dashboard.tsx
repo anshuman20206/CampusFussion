@@ -11,10 +11,13 @@ import { Shield, Users } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface UserProfile {
   id: string;
   email: string;
+  displayName: string;
+  photoURL: string;
   joinedEvents: string[];
   participatedHackathons: string[];
   role: 'user' | 'admin';
@@ -91,9 +94,15 @@ export function AdminDashboard() {
                         <Card key={user.id}>
                             <CardHeader>
                                 <div className='flex justify-between items-start'>
-                                    <div>
-                                        <CardTitle className="text-lg">{user.email}</CardTitle>
-                                        <CardDescription>User ID: {user.id}</CardDescription>
+                                    <div className="flex items-center gap-4">
+                                      <Avatar>
+                                        <AvatarImage src={user.photoURL} alt={user.displayName} />
+                                        <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
+                                      </Avatar>
+                                      <div>
+                                        <CardTitle className="text-lg">{user.displayName}</CardTitle>
+                                        <CardDescription>{user.email}</CardDescription>
+                                      </div>
                                     </div>
                                     {user.role === 'admin' && <Badge>Admin</Badge>}
                                 </div>

@@ -9,9 +9,13 @@ import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 import { LayoutDashboard, Mail, Calendar, Trophy } from 'lucide-react';
 import { AdminDashboard } from '@/components/pages/dashboard/admin-dashboard';
+import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface UserProfile {
   email: string;
+  displayName: string;
+  photoURL: string;
   joinedEvents: string[];
   participatedHackathons: string[];
   role: 'user' | 'admin';
@@ -70,10 +74,13 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto px-6 py-12">
         <div className="flex items-center gap-4">
-            <LayoutDashboard className="h-8 w-8 text-primary" />
+            <Avatar className="h-16 w-16 border-2 border-primary">
+              <AvatarImage src={profile.photoURL} alt={profile.displayName} />
+              <AvatarFallback>{profile.displayName?.charAt(0)}</AvatarFallback>
+            </Avatar>
             <div>
                 <h1 className="text-3xl font-bold">Your Dashboard</h1>
-                <p className="text-muted-foreground">Welcome back, {profile.email}!</p>
+                <p className="text-muted-foreground">Welcome back, {profile.displayName || profile.email}!</p>
             </div>
         </div>
 
