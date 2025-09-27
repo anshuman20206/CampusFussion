@@ -9,7 +9,7 @@ import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
 import { useAuth } from '@/hooks/use-auth';
-import { logoutAction } from '@/app/login/actions';
+import { logoutAction } from '@/app/auth/actions';
 import { Skeleton } from '../ui/skeleton';
 
 function AuthButtons() {
@@ -122,5 +122,3 @@ export function Header() {
     </header>
   );
 }
-
-    

@@ -31,11 +31,10 @@ export default function SignupPage() {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
 
-        // Create user record in Firestore.
-        // This action is idempotent; it won't overwrite existing user data on subsequent logins.
+        // Create user record in Firestore by calling the server action directly
         const firestoreResult = await createUserInFirestore(user.uid, user.email, user.displayName, user.photoURL);
 
-        if (firestoreResult.error) {
+        if (firestoreResult?.error) {
            throw new Error(firestoreResult.error);
         }
 
@@ -49,7 +48,10 @@ export default function SignupPage() {
         let message = "An unexpected error occurred.";
         if (error.code === 'auth/account-exists-with-different-credential') {
             message = "An account already exists with the same email address. Please log in with that method.";
+        } else if (error.message) {
+            message = error.message;
         }
+        
         toast({
             variant: 'destructive',
             title: 'Signup Failed',

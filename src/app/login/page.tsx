@@ -31,10 +31,10 @@ export default function LoginPage() {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
 
-        // Create or update user in Firestore
+        // Create or update user in Firestore by calling the server action directly
         const firestoreResult = await createUserInFirestore(user.uid, user.email, user.displayName, user.photoURL);
 
-        if (firestoreResult.error) {
+        if (firestoreResult?.error) {
            throw new Error(firestoreResult.error);
         }
 
@@ -48,7 +48,10 @@ export default function LoginPage() {
         let message = "An unexpected error occurred.";
         if (error.code === 'auth/account-exists-with-different-credential') {
             message = "An account already exists with the same email address but different sign-in credentials.";
+        } else if (error.message) {
+            message = error.message;
         }
+        
         toast({
             variant: 'destructive',
             title: 'Login Failed',
