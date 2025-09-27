@@ -1,6 +1,7 @@
+
 'use server';
 
-import { getAdminAuth, getAdminDb } from '@/lib/firebase-admin';
+import { getAdminDb } from '@/lib/firebase-admin';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
