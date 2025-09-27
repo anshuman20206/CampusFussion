@@ -2,6 +2,7 @@
 import { getAdminAuth } from '@/lib/firebase-admin';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import * as admin from 'firebase-admin';
 
 function getCredentials() {
     const projectId = process.env.FIREBASE_PROJECT_ID;

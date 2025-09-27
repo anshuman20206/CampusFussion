@@ -1,13 +1,10 @@
-'use client';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Github, UserPlus } from 'lucide-react';
-import { useState } from 'react';
 import Link from 'next/link';
 
 export default function SignupPage() {
-  const [isPending, setIsPending] = useState(false);
 
   return (
     <div className="container mx-auto px-6 py-12 flex justify-center items-center">
@@ -25,16 +22,10 @@ export default function SignupPage() {
             <Button
                 asChild
                 className="w-full"
-                onClick={() => setIsPending(true)}
-                disabled={isPending}
             >
                  <Link href="/api/auth/github">
-                    {isPending ? 'Redirecting...' : (
-                        <>
-                            <Github className="mr-2" />
-                            Sign up with GitHub
-                        </>
-                    )}
+                    <Github className="mr-2" />
+                    Sign up with GitHub
                 </Link>
             </Button>
             <p className="text-center text-xs text-muted-foreground mt-4">
