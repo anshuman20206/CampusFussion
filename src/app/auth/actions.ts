@@ -7,12 +7,12 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 function getCredentials() {
-    const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+    const projectId = process.env.FIREBASE_PROJECT_ID;
     const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
     const privateKey = process.env.FIREBASE_PRIVATE_KEY;
 
     if (!projectId || !clientEmail || !privateKey) {
-        throw new Error('Missing Firebase Admin credentials. Make sure .env.local is configured correctly.');
+        throw new Error('Missing Firebase Admin credentials. Make sure .env.local has FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY.');
     }
 
     return { projectId, clientEmail, privateKey };
@@ -21,7 +21,7 @@ function getCredentials() {
 
 /**
  * Creates a user record in Firestore after a successful sign-in.
- * This is triggered from the client-side after Firebase authentication is complete.
+ * This is triggered from the server-side callback after Firebase authentication is complete.
  */
 export async function createUserInFirestore(uid: string, email: string | null, displayName: string | null, photoURL: string | null) {
   try {
@@ -45,10 +45,9 @@ export async function createUserInFirestore(uid: string, email: string | null, d
     }
   } catch (error: any) {
     console.error("Error creating user record:", error);
-    return { error: `An unexpected error occurred while setting up your account. Server error: ${error.message}` };
+    // We are not returning an error to the client here, just logging it.
+    // The redirect will happen regardless.
   }
-
-  return { success: true };
 }
 
 export async function logoutAction() {
