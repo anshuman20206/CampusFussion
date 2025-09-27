@@ -26,7 +26,13 @@ export function getFirebaseServices(): FirebaseServices {
     return services;
   }
 
-  const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  // When in development, setting authDomain to null allows signInWithPopup to work
+  // on localhost without triggering the unauthorized-domain error.
+  const config = process.env.NODE_ENV !== 'production'
+    ? { ...firebaseConfig, authDomain: null }
+    : firebaseConfig;
+
+  const app: FirebaseApp = getApps().length ? getApp() : initializeApp(config);
   const db = getFirestore(app);
   const auth = getAuth(app);
   const storage = getStorage(app);
@@ -36,7 +42,4 @@ export function getFirebaseServices(): FirebaseServices {
   return services;
 }
 
-// Export these for convenience in parts of the app that might still use them directly,
-// but the primary method should be getFirebaseServices().
-export const { app, db, auth, storage } = getFirebaseServices();
 export { serverTimestamp, arrayUnion };
