@@ -4,49 +4,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Github, UserPlus } from 'lucide-react';
 import { getFirebaseServices } from '@/lib/firebase';
-import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
-import { createUserInFirestore } from '@/app/auth/actions';
+import { GithubAuthProvider, signInWithRedirect } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleGitHubSignup = async () => {
     setIsLoading(true);
     const { auth } = getFirebaseServices();
     const provider = new GithubAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      // Create a session cookie by calling our API route
-      const response = await fetch('/api/auth/session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ idToken: await user.getIdToken() }),
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create session.');
-      }
-      
-      // Ensure user record exists in Firestore.
-      await createUserInFirestore(user.uid, user.email, user.displayName, user.photoURL);
-
-      toast({
-        title: 'Success!',
-        description: 'Your account has been created.',
-      });
-
-      router.push('/dashboard');
-
+      await signInWithRedirect(auth, provider);
     } catch (error: any) {
       console.error("Signup failed:", error);
       toast({
@@ -54,7 +25,6 @@ export default function SignupPage() {
         title: 'Authentication Failed',
         description: error.message || 'An unexpected error occurred. Please try again.',
       });
-    } finally {
       setIsLoading(false);
     }
   };
