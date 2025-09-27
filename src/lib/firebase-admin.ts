@@ -20,6 +20,9 @@ function getAdminApp(credentials: FirebaseAdminCredentials): admin.app.App {
   }
   
   try {
+    if (!credentials.privateKey || typeof credentials.privateKey !== 'string') {
+        throw new Error('Firebase private key is missing or not a string.');
+    }
     app = admin.initializeApp({
       credential: admin.credential.cert({
         projectId: credentials.projectId,
