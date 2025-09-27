@@ -12,31 +12,11 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Check for placeholder values
-if (firebaseConfig.apiKey === 'YOUR_API_KEY') {
-  throw new Error('Firebase API Key is still set to the placeholder value. Please update it in your .env.local file with the value from your Firebase project console.');
-}
-
-// Check for missing environment variables
-const missingVars = Object.entries(firebaseConfig)
-    .filter(([, value]) => !value)
-    .map(([key]) => `NEXT_PUBLIC_${key.replace(/([A-Z])/g, '_$1').toUpperCase()}`);
-
-if (missingVars.length > 0) {
-    throw new Error(`Firebase config is missing required environment variables: ${missingVars.join(', ')}. Please check your .env.local file.`);
-}
-
 // Initialize Firebase
-let app: FirebaseApp;
-if (getApps().length === 0) {
-  app = initializeApp(firebaseConfig);
-} else {
-  app = getApp();
-}
+const app: FirebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
-
 
 export { app, db, auth, storage, serverTimestamp, arrayUnion };
