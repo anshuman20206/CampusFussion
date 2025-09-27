@@ -12,15 +12,33 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app: FirebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+// Check for missing environment variables
+if (
+    !firebaseConfig.apiKey ||
+    !firebaseConfig.authDomain ||
+    !firebaseConfig.projectId ||
+    !firebaseConfig.storageBucket ||
+    !firebaseConfig.messagingSenderId ||
+    !firebaseConfig.appId
+) {
+    const missingVars = Object.entries(firebaseConfig)
+        .filter(([, value]) => !value)
+        .map(([key]) => `NEXT_PUBLIC_${key.replace(/([A-Z])/g, '_$1').toUpperCase()}`);
 
-const db = app ? getFirestore(app) : null;
-const auth = app ? getAuth(app) : null;
-const storage = app ? getStorage(app) : null;
-
-if (!firebaseConfig.projectId) {
-    console.error("Firebase config not found. Please add it to your .env file.");
+    throw new Error(`Firebase config is missing required environment variables: ${missingVars.join(', ')}. Please check your .env.local file.`);
 }
+
+// Initialize Firebase
+let app: FirebaseApp;
+if (getApps().length === 0) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApp();
+}
+
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
+
 
 export { app, db, auth, storage, serverTimestamp, arrayUnion };
