@@ -17,7 +17,7 @@ export async function shareThoughtAction(formData: FormData) {
     return { success: false, error: 'Club ID is missing.' };
   }
 
-  if (!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
+  if (!db) {
     return { success: false, error: "Firebase is not configured. Please add your Firebase project details to the .env file." };
   }
 

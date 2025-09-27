@@ -12,19 +12,17 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Check for missing environment variables
-if (
-    !firebaseConfig.apiKey ||
-    !firebaseConfig.authDomain ||
-    !firebaseConfig.projectId ||
-    !firebaseConfig.storageBucket ||
-    !firebaseConfig.messagingSenderId ||
-    !firebaseConfig.appId
-) {
-    const missingVars = Object.entries(firebaseConfig)
-        .filter(([, value]) => !value)
-        .map(([key]) => `NEXT_PUBLIC_${key.replace(/([A-Z])/g, '_$1').toUpperCase()}`);
+// Check for placeholder values
+if (firebaseConfig.apiKey === 'YOUR_API_KEY') {
+  throw new Error('Firebase API Key is still set to the placeholder value. Please update it in your .env.local file with the value from your Firebase project console.');
+}
 
+// Check for missing environment variables
+const missingVars = Object.entries(firebaseConfig)
+    .filter(([, value]) => !value)
+    .map(([key]) => `NEXT_PUBLIC_${key.replace(/([A-Z])/g, '_$1').toUpperCase()}`);
+
+if (missingVars.length > 0) {
     throw new Error(`Firebase config is missing required environment variables: ${missingVars.join(', ')}. Please check your .env.local file.`);
 }
 
