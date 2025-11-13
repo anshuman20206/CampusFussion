@@ -1,6 +1,6 @@
 "use server";
 
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 import { FirestorePermissionError } from "@/firebase/errors";
 import { getFirebaseServices } from "@/lib/firebase";
@@ -12,16 +12,11 @@ type ActionResponse = {
 
 export async function shareThoughtAction(formData: FormData): Promise<ActionResponse> {
   const text = formData.get('thought') as string;
-  const clubId = formData.get('clubId') as string;
 
   if (!text || !text.trim()) {
     return { success: false, error: 'Thought cannot be empty.' };
   }
   
-  if (!clubId) {
-    return { success: false, error: 'Club ID is missing.' };
-  }
-
   // NOTE: This is a client-side action despite the 'use server' directive.
   // We use getFirebaseServices() which relies on the client-side Firebase context.
   const { db, auth } = getFirebaseServices();
@@ -36,8 +31,8 @@ export async function shareThoughtAction(formData: FormData): Promise<ActionResp
 
   const newThought = {
     text,
-    clubId,
-    timestamp: new Date(),
+    clubId: 'general', // Centralized clubId
+    timestamp: serverTimestamp(),
     authorId: auth.currentUser.uid, // Track the author
   };
 
@@ -45,7 +40,7 @@ export async function shareThoughtAction(formData: FormData): Promise<ActionResp
     const thoughtsCollectionRef = collection(db, 'thoughts');
     await addDoc(thoughtsCollectionRef, newThought);
 
-    revalidatePath(`/community/${clubId}`);
+    revalidatePath(`/community`);
     return { success: true };
   } catch (error: any) {
     console.error("Error adding thought:", error);

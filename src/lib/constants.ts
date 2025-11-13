@@ -70,33 +70,6 @@ export const COMMUNITY_LINKS = [
     },
 ];
 
-export const COMMUNITY_CLUBS = [
-  {
-    id: 'gdg',
-    name: 'GDG Community',
-    description: 'Discussions about Google technologies, events, and general announcements.',
-    icon: Users,
-  },
-  {
-    id: 'tech',
-    name: 'Tech Club',
-    description: 'Dive deep into programming, web development, AI/ML, and all things technical.',
-    icon: Code,
-  },
-  {
-    id: 'design',
-    name: 'Design Hub',
-    description: 'Share your UI/UX designs, get feedback, and talk about creative tools.',
-    icon: Paintbrush,
-  },
-  {
-    id: 'writing',
-    name: 'Writers\' Corner',
-    description: 'For bloggers, technical writers, and storytellers to share their work and ideas.',
-    icon: BookOpen,
-  }
-];
-
 export const EVENTS = [
   {
     date: "2025-10-20",

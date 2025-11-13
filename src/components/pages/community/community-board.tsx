@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
 
 const timeAgo = (date: Date) => {
+    if(!date) return '';
     const seconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
     if (seconds < 0) return "just now";
     let interval = seconds / 31536000;
@@ -52,7 +53,7 @@ function ThoughtCard({ thought }: { thought: Thought }) {
     );
 }
 
-export function CommunityBoard({ initialThoughts, clubId }: { initialThoughts: Thought[], clubId: string }) {
+export function CommunityBoard({ initialThoughts }: { initialThoughts: Thought[] }) {
     const [visibleCount, setVisibleCount] = useState(5);
     const [isPending, startTransition] = useTransition();
     const formRef = useRef<HTMLFormElement>(null);
@@ -97,7 +98,7 @@ export function CommunityBoard({ initialThoughts, clubId }: { initialThoughts: T
                 </CardHeader>
                 <CardContent>
                     <form ref={formRef} action={handleSubmit} className="flex flex-col gap-4">
-                        <Input type="hidden" name="clubId" value={clubId} />
+                        <Input type="hidden" name="clubId" value="general" />
                         <Textarea
                             name="thought"
                             placeholder="e.g., 'What's the best way to manage state in large React apps?'"
