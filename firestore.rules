@@ -1,3 +1,4 @@
+
 /**
  * @file Firebase Security Rules for CampusFusion Firestore database.
  *
@@ -9,13 +10,12 @@
  * - /announcements/{announcementId}: Publicly readable collection for announcements.
  * - /users/{userId}: User-specific collection for profile information, accessible only by the authenticated user.
  * - /galleryItems/{galleryItemId}: Publicly readable collection for gallery images, no write access allowed.
- * - /blogs/{blogId}: Publicly readable collection for blog posts. Authenticated users can create posts.
  * - /thoughts/{thoughtId}: Publicly readable collection for community thoughts. Authenticated users can create thoughts.
  *
  * Key Security Decisions:
- * - Events, announcements, gallery items, blogs, and thoughts are publicly readable to facilitate discovery and engagement.
+ * - Events, announcements, gallery items, and thoughts are publicly readable to facilitate discovery and engagement.
  * - User profiles are strictly private, accessible only to the owning user.
- * - Only authenticated users can create content like blog posts and thoughts to prevent abuse.
+ * - Only authenticated users can create content like thoughts to prevent abuse.
  * - Listing of users is not allowed.
  */
 rules_version = '2';
@@ -55,16 +55,6 @@ service cloud.firestore {
     match /galleryItems/{galleryItemId} {
       allow read: if true;
       allow write: if false;
-    }
-
-    /**
-     * @description Allows anyone to read blogs. Authenticated users can create new blog posts. Updates and deletes are disallowed.
-     * @path /blogs/{blogId}
-     */
-    match /blogs/{blogId} {
-      allow read: if true;
-      allow create: if isSignedIn();
-      allow update, delete: if false;
     }
 
     /**
