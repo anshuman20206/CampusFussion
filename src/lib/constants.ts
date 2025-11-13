@@ -1,3 +1,4 @@
+
 import { Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Rocket, BrainCircuit, Lightbulb, PenTool, Rss, Code, Paintbrush, BookOpen } from "lucide-react";
 
 export const NAV_LINKS = [
@@ -278,6 +279,15 @@ export const GALLERY_IMAGES = [
     { src: "/IMG_20250926_162713.jpg", dataAiHint: "event audience", alt: "Students and attendees entering the session hall.", title: "Arrivals" },
     { src: "/IMG_20250926_162314.jpg", dataAiHint: "speaker presentation", alt: "Speaker presenting during the info session.", title: "Info Session" },
     { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusConnect's official logo featuring an abstract design.", title: "Official Logo" },
+    { src: "/1.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 1" },
+    { src: "/2.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 2" },
+    { src: "/3.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 3" },
+    { src: "/4.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 4" },
+    { src: "/5.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 5" },
+    { src: "/6.jpeg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 6" },
+    { src: "/7.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 7" },
+    { src: "/8.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 8" },
+    { src: "/9.png", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 9" },
 ];
 
 export const ROADMAP_PHASES = [
