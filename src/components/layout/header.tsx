@@ -2,51 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, LogOut, LayoutDashboard, LogIn } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
-import { useAuth } from '@/hooks/use-auth';
-import { logoutAction } from '@/app/auth/actions';
-import { Skeleton } from '../ui/skeleton';
-
-function AuthButtons() {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <Skeleton className="h-10 w-24" />;
-  }
-
-  if (user) {
-    return (
-      <div className="flex items-center gap-2">
-        <Button asChild>
-          <Link href="/dashboard">
-            <LayoutDashboard className="mr-2" />
-            Dashboard
-          </Link>
-        </Button>
-        <form action={logoutAction}>
-          <Button variant="outline" size="icon" type="submit">
-            <LogOut />
-          </Button>
-        </form>
-      </div>
-    );
-  }
-
-  return (
-    <Button asChild>
-      <Link href="/login">
-        <LogIn className="mr-2" />
-        Login
-      </Link>
-    </Button>
-  );
-}
-
 
 export function Header() {
   const pathname = usePathname();
@@ -68,10 +29,25 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+           <Link
+              href="/gallery"
+              className={cn(
+                'transition-colors hover:text-primary',
+                pathname === "/gallery" ? 'text-primary font-bold' : 'text-foreground/70'
+              )}
+            >
+              Gallery
+            </Link>
+            <Link
+              href="/chatbot"
+              className={cn(
+                'transition-colors hover:text-primary',
+                pathname === "/chatbot" ? 'text-primary font-bold' : 'text-foreground/70'
+              )}
+            >
+              AI Assistant
+            </Link>
         </nav>
-        <div className="ml-6 hidden items-center md:flex">
-          <AuthButtons />
-        </div>
         <div className="ml-auto flex items-center md:hidden">
           <Sheet>
             <SheetTrigger asChild>
@@ -98,7 +74,10 @@ export function Header() {
                 <div className="border-t border-primary/20 pt-4">
                   <Link
                     href="/gallery"
-                    className="text-lg text-muted-foreground transition-colors hover:text-primary"
+                    className={cn(
+                      'text-lg transition-colors hover:text-primary',
+                       pathname === '/gallery' ? 'text-primary font-semibold' : 'text-muted-foreground'
+                    )}
                   >
                     Gallery
                   </Link>
@@ -106,14 +85,14 @@ export function Header() {
                 <div>
                   <Link
                     href="/chatbot"
-                    className="text-lg text-muted-foreground transition-colors hover:text-primary"
+                    className={cn(
+                      'text-lg transition-colors hover:text-primary',
+                      pathname === '/chatbot' ? 'text-primary font-semibold' : 'text-muted-foreground'
+                    )}
                   >
                     AI Assistant
                   </Link>
                 </div>
-              </div>
-              <div className="mt-8 border-t border-primary/20 pt-6">
-                <AuthButtons />
               </div>
             </SheetContent>
           </Sheet>
