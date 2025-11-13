@@ -44,7 +44,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Allow read/write access to all collections for development
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if request.auth != null;
     }
   }
 }`;
