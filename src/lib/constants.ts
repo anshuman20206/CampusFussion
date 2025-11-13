@@ -31,11 +31,11 @@ export const TEAM_MEMBERS = [
     linkedin: "#",
   },
   {
-    name: "Animesh Shrivastava",
-    role: "GDG Co-Organiser",
+    name: "Suhani Goel",
+    role: "Campus Secretary",
     image: "/animesh.png",
-    dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/animeshkumar143",
+    dataAiHint: "woman portrait",
+    linkedin: "#",
   },
 ];
 
