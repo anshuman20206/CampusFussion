@@ -99,7 +99,7 @@ export const COMMUNITY_CLUBS = [
 
 export const EVENTS = [
   {
-    date: "2024-07-25",
+    date: "2025-07-25",
     name: "India OnChain Builders' Series",
     description: "Launch Your Career in Web3 & AI with speaker Lakhshay Gupta. Includes a live Q&A session.",
     location: "Online",
@@ -107,35 +107,35 @@ export const EVENTS = [
     link: "https://lu.ma/kdn7hlye",
   },
   {
-    date: "2024-05-02",
+    date: "2025-05-02",
     name: "Web3 Unchained: Web 3 se judo yatra",
     description: "Dive into the future of the internet with insights on Web3 & Blockchain technology! A collaboration with CrewSphere ICP INDIA.",
     location: "F Block Seminar Hall, IEC College of Engineering & Technology",
     icon: Lightbulb,
   },
   {
-    date: "2024-04-25",
+    date: "2025-04-25",
     name: "HACKEMON: The Ultimate 36-Hour Hackathon!",
     description: "A 36-hour hackathon with prize categories for AI/ML, Social Impact, Women-Led, and Beginner-Friendly hacks. Hosted by GDG IEC x SheBuilds.",
     location: "Hosted by GDG IEC x SheBuilds",
     icon: Rocket,
   },
   {
-    date: "2024-04-19",
+    date: "2025-04-19",
     name: "Vibe Coding Hackathon",
     description: "The new-aged coding with AI for all! No coding skills or laptop required—make anything you like with mobile tools and get featured on our social platforms.",
     location: "GDG-IEC",
     icon: Rocket,
   },
   {
-    date: "2024-04-12",
+    date: "2025-04-12",
     name: "GSoC Unlocked: Crack the Code!",
     description: "Get insider tips on succeeding in Google Summer of Code, from finding projects to crafting a winning proposal, with expert Ayush Srivastava.",
     location: "Online",
     icon: Users,
   },
   {
-    date: "2024-01-30",
+    date: "2025-01-30",
     name: "Web and Flutter Development Workshop",
     description: "An insightful workshop covering Next-Gen Web Innovation with Gemini, Dart, Flutter, CSS, and Interactive Web Design.",
     location: "Online",
@@ -170,7 +170,7 @@ export const EVENTS = [
     icon: Users,
   },
   {
-    date: "2025-10-04",
+    date: "2023-10-04",
     name: "Info Session x Gen AI Study Jam",
     description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
     location: "IEC Campus",
