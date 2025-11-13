@@ -88,7 +88,7 @@ export default {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
       },
-      typography: ({ theme }) => ({
+      typography: () => ({
         DEFAULT: {
           css: {
             '--tw-prose-body': "hsl(var(--muted-foreground))",
