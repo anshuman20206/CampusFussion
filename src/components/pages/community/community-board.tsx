@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition, useRef, useEffect } from 'react';
@@ -67,10 +68,21 @@ export function CommunityBoard({ initialThoughts, clubId }: { initialThoughts: T
                     description: "Your thought has been shared.",
                 });
             } else if (result?.error) {
+                let description = 'An unknown error occurred.';
+                if (typeof result.error === 'string') {
+                    description = result.error;
+                } else if (typeof result.error === 'object' && result.error.message) {
+                    // This handles the detailed FirestorePermissionError
+                    description = result.error.message;
+                }
+
                 toast({
                     variant: "destructive",
                     title: "Oops! Something went wrong.",
-                    description: result.error,
+                    description: <pre className="mt-2 w-full rounded-md bg-slate-950 p-4">
+                        <code className="text-white whitespace-pre-wrap">{description}</code>
+                    </pre>,
+                    duration: 20000,
                 });
             }
         });

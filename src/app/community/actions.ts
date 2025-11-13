@@ -2,10 +2,16 @@
 "use server";
 
 import { getFirebaseServices } from "@/lib/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection }from "firebase/firestore";
 import { revalidatePath } from "next/cache";
+import { FirestorePermissionError } from "@/firebase/errors";
 
-export async function shareThoughtAction(formData: FormData) {
+type ActionResponse = {
+  success: boolean;
+  error?: string | { name: string; message: string; request: any };
+};
+
+export async function shareThoughtAction(formData: FormData): Promise<ActionResponse> {
   const text = formData.get('thought') as string;
   const clubId = formData.get('clubId') as string;
 
@@ -22,31 +28,39 @@ export async function shareThoughtAction(formData: FormData) {
     return { success: false, error: "Firebase is not configured. Please add your Firebase project details to the .env file." };
   }
 
+  const newThought = {
+    text,
+    clubId,
+    timestamp: new Date(),
+  };
+
   try {
-    await addDoc(collection(db, 'thoughts'), {
-      text,
-      clubId,
-      timestamp: new Date(),
-    });
+    const thoughtsCollectionRef = collection(db, 'thoughts');
+    await addDoc(thoughtsCollectionRef, newThought);
 
     revalidatePath(`/community/${clubId}`);
     return { success: true };
   } catch (error: any) {
     console.error("Error adding thought:", error);
-    let errorMessage = 'Could not submit your thought. Please check your Firebase configuration and Firestore rules.';
+    
     if (error.code === 'permission-denied') {
-        errorMessage = `Could not submit thought. Your security rules are not configured to allow writes on the 'thoughts' collection. For development, go to your Firebase Console -> Firestore -> Rules and use:
+        const permissionError = new FirestorePermissionError({
+            path: `thoughts`,
+            operation: 'create',
+            requestResourceData: newThought
+        });
+        
+        // Return a serializable version of the error
+        return { 
+            success: false, 
+            error: {
+                name: permissionError.name,
+                message: permissionError.message,
+                request: permissionError.request,
+            }
+        };
+    }
 
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // Allow read/write access to all collections for development
-    match /{document=**} {
-      allow read, write: if true;
-    }
-  }
-}`;
-    }
-    return { success: false, error: errorMessage };
+    return { success: false, error: 'Could not submit your thought. Please check your Firebase configuration and Firestore rules.' };
   }
 }
