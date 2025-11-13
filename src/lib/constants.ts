@@ -5,6 +5,7 @@ export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/events", label: "Events" },
   { href: "/announcements", label: "Announcements" },
+  { href: "/community", label: "Community" },
 ];
 
 export const TEAM_MEMBERS = [
@@ -278,5 +279,7 @@ export const ROADMAP_PHASES = [
     description: "Organizing large-scale hackathons and collaborative projects to apply skills and build innovative solutions.",
   },
 ];
+
+    
 
     
