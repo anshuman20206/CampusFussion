@@ -72,9 +72,13 @@ service cloud.firestore {
      * @path /thoughts/{thoughtId}
      */
     match /thoughts/{thoughtId} {
-      allow read: if true;
       allow create: if isSignedIn();
       allow update, delete: if false;
+      allow read: if true;
+    }
+    
+    match /thoughts/{thoughtId} {
+      allow list: if true;
     }
 
     // --- Helper Functions ---
@@ -97,5 +101,3 @@ service cloud.firestore {
     }
   }
 }
-
-    
