@@ -1,0 +1,114 @@
+/**
+ * @file Firebase Security Rules for CampusConnect Firestore database.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a combination of public read access for general content (events, announcements) and strict user-ownership for personal data (user profiles). This is achieved through segregated collections and path-based authorization.
+ *
+ * Data Structure:
+ * - /events/{eventId}: Publicly readable collection for event details.
+ * - /announcements/{announcementId}: Publicly readable collection for announcements.
+ * - /users/{userId}: User-specific collection for profile information, accessible only by the authenticated user.
+ * - /galleryItems/{galleryItemId}: Publicly readable collection for gallery images, no write access allowed.
+ *
+ * Key Security Decisions:
+ * - Events and announcements are publicly readable to facilitate discovery and engagement.
+ * - User profiles are strictly private, accessible only to the owning user.
+ * - Listing of users is not allowed.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows anyone to read events, but no one to create, update, or delete them.
+     * @path /events/{eventId}
+     * @allow get, list: if true;
+     * @deny create: if false;
+     * @deny update: if false;
+     * @deny delete: if false;
+     * @principle Public read access for event information.
+     */
+    match /events/{eventId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows anyone to read announcements, but no one to create, update, or delete them.
+     * @path /announcements/{announcementId}
+     * @allow get, list: if true;
+     * @deny create: if false;
+     * @deny update: if false;
+     * @deny delete: if false;
+     * @principle Public read access for announcements.
+     */
+    match /announcements/{announcementId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Controls access to user profiles. Only the authenticated user can read, create, update, or delete their own profile.
+     * @path /users/{userId}
+     * @allow get, list: if isOwner(userId);
+     * @allow create: if isOwner(userId);
+     * @allow update: if isOwner(userId) && isExistingOwner(userId);
+     * @allow delete: if isOwner(userId) && isExistingOwner(userId);
+     * @principle Enforces strict user-ownership for profile data.
+     */
+    match /users/{userId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) && isExistingOwner(userId);
+      allow delete: if isOwner(userId) && isExistingOwner(userId);
+    }
+
+        /**
+     * @description Allows anyone to read Gallery Items, but no one to create, update, or delete them.
+     * @path /galleryItems/{galleryItemId}
+     * @allow get, list: if true;
+     * @deny create: if false;
+     * @deny update: if false;
+     * @deny delete: if false;
+     * @principle Public read access for gallery items.
+     */
+    match /galleryItems/{galleryItemId} {
+        allow get, list: if true;
+        allow create: if false;
+        allow update: if false;
+        allow delete: if false;
+    }
+
+    // --- Helper Functions ---
+
+    /**
+     * @description Checks if the user is signed in.
+     * @return {boolean} True if the user is signed in, false otherwise.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * @description Checks if the authenticated user is the owner of the resource.
+     * @param {string} userId The user ID to compare against the authenticated user's ID.
+     * @return {boolean} True if the user is the owner, false otherwise.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+     /**
+      * @description Checks if the authenticated user is the owner of the resource and the resource exists.
+      * @param {string} userId The user ID to compare against the authenticated user's ID.
+      * @return {boolean} True if the user is the owner and resource exists, false otherwise.
+      */
+    function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+    }
+  }
+}
