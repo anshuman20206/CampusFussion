@@ -8,9 +8,15 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/s
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
+import { useState } from 'react';
 
 export function Header() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -49,7 +55,7 @@ export function Header() {
             </Link>
         </nav>
         <div className="ml-auto flex items-center md:hidden">
-          <Sheet>
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
                 <Menu className="h-5 w-5" />
@@ -64,6 +70,7 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    onClick={handleLinkClick}
                     className={cn(
                       'text-lg transition-colors hover:text-primary',
                       pathname === link.href ? 'text-primary font-semibold' : 'text-muted-foreground'
@@ -75,6 +82,7 @@ export function Header() {
                 <div className="border-t border-primary/20 pt-4">
                   <Link
                     href="/gallery"
+                    onClick={handleLinkClick}
                     className={cn(
                       'text-lg transition-colors hover:text-primary',
                        pathname === '/gallery' ? 'text-primary font-semibold' : 'text-muted-foreground'
@@ -86,6 +94,7 @@ export function Header() {
                 <div>
                   <Link
                     href="/chatbot"
+                    onClick={handleLinkClick}
                     className={cn(
                       'text-lg transition-colors hover:text-primary',
                       pathname === '/chatbot' ? 'text-primary font-semibold' : 'text-muted-foreground'
