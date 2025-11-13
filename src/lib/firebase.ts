@@ -4,12 +4,12 @@ import { getAuth, Auth } from "firebase/auth";
 import { getStorage, FirebaseStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  projectId: "campusfusion-1il6y",
-  appId: "1:454378528376:web:b324c8d8a3ace2078cd78d",
   apiKey: "AIzaSyC4a4v80y0evAGtz_pCKGg-IV_e22JDo4U",
-  authDomain: "campusfusion-1il6y.firebaseapp.com",
-  storageBucket: "campusfusion-1il6y.appspot.com",
+  authDomain: "campusconnect-1il6y.firebaseapp.com",
+  projectId: "campusconnect-1il6y",
+  storageBucket: "campusconnect-1il6y.appspot.com",
   messagingSenderId: "454378528376",
+  appId: "1:454378528376:web:94c3841f5e4f745c8cd78d"
 };
 
 interface FirebaseServices {
