@@ -99,6 +99,13 @@ export const COMMUNITY_CLUBS = [
 
 export const EVENTS = [
   {
+    date: "2025-09-26",
+    name: "Offline Speaker Session",
+    description: "An insightful session with Anshuman Singh discussing the latest trends in technology.",
+    location: "IEC College of Engineering & Tech",
+    icon: Users,
+  },
+  {
     date: "2025-07-25",
     name: "India OnChain Builders' Series",
     description: "Launch Your Career in Web3 & AI with speaker Lakhshay Gupta. Includes a live Q&A session.",
@@ -140,6 +147,41 @@ export const EVENTS = [
     description: "An insightful workshop covering Next-Gen Web Innovation with Gemini, Dart, Flutter, CSS, and Interactive Web Design.",
     location: "Online",
     icon: PenTool,
+  },
+  {
+    date: "2024-12-28",
+    name: "Dev December: Flutter Your Way to Android",
+    description: "Dive into the world of Flutter and unlock its potential for Android development! Don't miss this opportunity to learn, grow, and connect with fellow tech enthusiasts.",
+    location: "Online",
+    icon: PenTool,
+  },
+  {
+    date: "2024-12-23",
+    name: "DevByte: A Web Development Odyssey",
+    description: "Dive deep into web development with sessions on essentials, frameworks, and tools. Showcase your own projects and connect with fellow enthusiasts.",
+    location: "Online",
+    icon: PenTool,
+  },
+  {
+    date: "2024-12-06",
+    name: "Tech Winter Break: Solution Challenge Q&A",
+    description: "Join the Q&A for the Tech Winter Break: Solution Challenge! This session will cover web development fundamentals and details about the global challenge.",
+    location: "Online",
+    icon: Lightbulb,
+  },
+  {
+    date: "2024-11-25",
+    name: "Full Stack Development Speaker Session",
+    description: "Join a speaker session with Dhruv Panjali to dive into Full Stack Development, from front-end to back-end technologies.",
+    location: "IEC College Of Engineering & Technology, Greater Noida",
+    icon: Users,
+  },
+  {
+    date: "2024-10-04",
+    name: "Info Session x Gen AI Study Jam",
+    description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
+    location: "IEC Campus",
+    icon: Lightbulb,
   },
   {
     date: "2023-12-28",
