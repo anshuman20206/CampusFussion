@@ -14,28 +14,28 @@ export const TEAM_MEMBERS = [
     role: "GDG Lead & Organizer",
     image: "/anshuman.jpg",
     dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
+    linkedin: "https://www.linkedin.com/in/anshumansinghsdd/",
   },
   {
     name: "Aahana Soni",
     role: "GDG Co-Organiser",
     image: "/aahana.jpg",
     dataAiHint: "woman portrait",
-    linkedin: "https://www.linkedin.com/in/aahana-soni-342865332",
+    linkedin: "https://www.linkedin.com/in/aahana-soni-342865332/",
   },
   {
     name: "Hifza Arif",
     role: "Campus Secretary",
     image: "/ankit.png",
     dataAiHint: "woman portrait",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
   },
   {
     name: "Suhani Goel",
     role: "Campus Secretary",
     image: "/animesh.png",
     dataAiHint: "woman portrait",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/suhani-goel-019b90253/",
   },
 ];
 
