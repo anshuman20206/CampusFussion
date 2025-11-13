@@ -65,3 +65,9 @@
     font-family: var(--font-headline), sans-serif;
   }
 }
+
+@layer components {
+  .prose {
+    font-family: var(--font-body);
+  }
+}
