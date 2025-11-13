@@ -1,10 +1,9 @@
-
 "use server";
 
-import { getFirebaseServices } from "@/lib/firebase";
-import { addDoc, collection }from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
 import { FirestorePermissionError } from "@/firebase/errors";
+import { getFirebaseServices } from "@/lib/firebase";
 
 type ActionResponse = {
   success: boolean;
@@ -23,15 +22,23 @@ export async function shareThoughtAction(formData: FormData): Promise<ActionResp
     return { success: false, error: 'Club ID is missing.' };
   }
 
-  const { db } = getFirebaseServices();
-  if (!db) {
-    return { success: false, error: "Firebase is not configured. Please add your Firebase project details to the .env file." };
+  // NOTE: This is a client-side action despite the 'use server' directive.
+  // We use getFirebaseServices() which relies on the client-side Firebase context.
+  const { db, auth } = getFirebaseServices();
+  if (!db || !auth) {
+    return { success: false, error: "Firebase is not configured on the client." };
+  }
+
+  // This action should only be callable by authenticated users.
+  if (!auth.currentUser) {
+      return { success: false, error: "You must be logged in to share a thought." };
   }
 
   const newThought = {
     text,
     clubId,
     timestamp: new Date(),
+    authorId: auth.currentUser.uid, // Track the author
   };
 
   try {
@@ -61,6 +68,6 @@ export async function shareThoughtAction(formData: FormData): Promise<ActionResp
         };
     }
 
-    return { success: false, error: 'Could not submit your thought. Please check your Firebase configuration and Firestore rules.' };
+    return { success: false, error: 'Could not submit your thought. Please check your Firestore rules.' };
   }
 }
