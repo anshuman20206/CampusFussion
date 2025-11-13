@@ -262,6 +262,7 @@ export const ANNOUNCEMENTS = [
 ];
 
 export const GALLERY_IMAGES = [
+    { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusConnect's official logo featuring an abstract design.", title: "Official Logo" },
     { src: "/IMG_20250926_162314.jpg", dataAiHint: "speaker presentation", alt: "Speaker presenting during the info session.", title: "Info Session" },
     { src: "/IMG_20250926_162713.jpg", dataAiHint: "event audience", alt: "Students and attendees entering the session hall.", title: "Arrivals" },
     { src: "/IMG_20250926_162728.jpg", dataAiHint: "audience listening", alt: "View of the audience from the front of the hall.", title: "Audience View" },
