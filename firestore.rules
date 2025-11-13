@@ -3,7 +3,7 @@
  * @file Firebase Security Rules for CampusFusion Firestore database.
  *
  * Core Philosophy:
- * This ruleset enforces a combination of public read access for general content (events, announcements, blogs, thoughts) and strict user-ownership for personal data (user profiles). Writes are restricted to authenticated users for content creation where applicable.
+ * This ruleset enforces a combination of public read access for general content (events, announcements, thoughts) and strict user-ownership for personal data (user profiles). Writes are restricted to authenticated users for content creation where applicable.
  *
  * Data Structure:
  * - /events/{eventId}: Publicly readable collection for event details.
@@ -13,7 +13,7 @@
  * - /thoughts/{thoughtId}: Publicly readable collection for community thoughts. Authenticated users can create thoughts.
  *
  * Key Security Decisions:
- * - Events, announcements, gallery items, and thoughts are publicly readable to facilitate discovery and engagement.
+ * - Events, announcements, and gallery items are publicly readable to facilitate discovery and engagement.
  * - User profiles are strictly private, accessible only to the owning user.
  * - Only authenticated users can create content like thoughts to prevent abuse.
  * - Listing of users is not allowed.
@@ -62,13 +62,10 @@ service cloud.firestore {
      * @path /thoughts/{thoughtId}
      */
     match /thoughts/{thoughtId} {
+      allow read: if true;
+      allow list: if true;
       allow create: if isSignedIn();
       allow update, delete: if false;
-      allow read: if true;
-    }
-    
-    match /thoughts/{thoughtId} {
-      allow list: if true;
     }
 
     // --- Helper Functions ---
