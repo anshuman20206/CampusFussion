@@ -5,7 +5,6 @@ export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/events", label: "Events" },
   { href: "/announcements", label: "Announcements" },
-  { href: "/community", label: "Community" },
 ];
 
 export const TEAM_MEMBERS = [

@@ -1,42 +1,23 @@
 
-import { getThoughts } from '@/services/thoughts';
-import { CommunityBoard } from '@/components/pages/community/community-board';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle } from 'lucide-react';
-import { Suspense } from 'react';
-
-export const dynamic = 'force-dynamic';
-
-async function ThoughtsFeed() {
-  const { thoughts, error } = await getThoughts();
-
-  if (error) {
-    return (
-      <Alert variant="destructive" className="mt-8 mx-auto max-w-3xl">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Firestore Connection Error</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  }
-  
-  return <CommunityBoard initialThoughts={thoughts} />;
-}
-
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { HardHat } from 'lucide-react';
 
 export default function CommunityPage() {
   return (
-    <div className="container mx-auto px-6 py-12">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Community Wall</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Join the conversation, share your ideas, questions, or random thoughts with the community.
-        </p>
-      </div>
-
-      <Suspense fallback={<p className="text-center mt-8">Loading thoughts...</p>}>
-        <ThoughtsFeed />
-      </Suspense>
+    <div className="container mx-auto px-6 py-12 flex flex-col items-center justify-center text-center">
+      <Card className="max-w-2xl w-full">
+        <CardHeader>
+          <div className="mx-auto bg-primary/10 p-3 rounded-lg">
+            <HardHat className="h-10 w-10 text-primary" />
+          </div>
+          <CardTitle className="mt-4">Under Development</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">
+            The Community Wall is currently being rebuilt. Please check back later for updates!
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

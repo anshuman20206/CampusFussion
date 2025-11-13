@@ -146,28 +146,6 @@
         "imageUrl",
         "description"
       ]
-    },
-    "Thought": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Thought",
-      "type": "object",
-      "description": "Represents a thought shared in a community club.",
-      "properties": {
-        "text": {
-          "type": "string",
-          "description": "The content of the thought."
-        },
-        "clubId": {
-          "type": "string",
-          "description": "The ID of the club the thought belongs to."
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time",
-          "description": "The time the thought was posted."
-        }
-      },
-      "required": ["text", "clubId", "timestamp"]
     }
   },
   "auth": {
@@ -241,24 +219,8 @@
             }
           ]
         }
-      },
-      {
-        "path": "/thoughts/{thoughtId}",
-        "definition": {
-          "entityName": "Thought",
-          "schema": {
-            "$ref": "#/backend/entities/Thought"
-          },
-          "description": "Stores thoughts shared in community clubs. Anyone can read, but only authenticated users can write.",
-          "params": [
-            {
-              "name": "thoughtId",
-              "description": "Unique identifier for the thought."
-            }
-          ]
-        }
       }
     ],
-    "reasoning": "The Firestore structure is designed to address the 'permission-denied' error by ensuring clear ownership and access control for each data entity, adhering to the principle of Authorization Independence. Each top-level collection represents a specific entity type, and user-specific data is nested under the `/users/{userId}` path, granting the user full control over their own data.\n\n- **Events:** Stored in a top-level `events` collection.  Any user can read events to support the QAP for displaying a list of events.\n- **Announcements:** Stored in a top-level `announcements` collection. Any user can read announcements to support the QAP for listing them.\n- **Users:** User profiles are stored in a `users` collection, with individual profiles accessible via `/users/{userId}`.  This path-based ownership ensures that only the authenticated user can modify their profile data.\n- **Gallery Items:** Gallery items are stored in a top-level `galleryItems` collection for simplified querying and management. The `eventID` field links each gallery item to a specific event.\n- **Blogs**: Stored in a top-level `blogs` collection. Publicly readable to allow anyone to view blog posts.\n- **Thoughts**: Stored in a top-level `thoughts` collection. Publicly readable, but only authenticated users can create new thoughts to prevent anonymous spam.\n\nThis structure avoids `get()` calls in security rules and enables atomic operations.  The segregation of concerns into distinct collections with well-defined access patterns simplifies security rule design and enhances debuggability.  The structure also supports QAPs (Rules are not Filters), ensuring that list operations are secure."
+    "reasoning": "The Firestore structure is designed to address the 'permission-denied' error by ensuring clear ownership and access control for each data entity, adhering to the principle of Authorization Independence. Each top-level collection represents a specific entity type, and user-specific data is nested under the `/users/{userId}` path, granting the user full control over their own data.\n\n- **Events:** Stored in a top-level `events` collection.  Any user can read events to support the QAP for displaying a list of events.\n- **Announcements:** Stored in a top-level `announcements` collection. Any user can read announcements to support the QAP for listing them.\n- **Users:** User profiles are stored in a `users` collection, with individual profiles accessible via `/users/{userId}`.  This path-based ownership ensures that only the authenticated user can modify their profile data.\n- **Gallery Items:** Gallery items are stored in a top-level `galleryItems` collection for simplified querying and management. The `eventID` field links each gallery item to a specific event.\n- **Blogs**: Stored in a top-level `blogs` collection. Publicly readable to allow anyone to view blog posts.\n\nThis structure avoids `get()` calls in security rules and enables atomic operations.  The segregation of concerns into distinct collections with well-defined access patterns simplifies security rule design and enhances debuggability.  The structure also supports QAPs (Rules are not Filters), ensuring that list operations are secure."
   }
 }

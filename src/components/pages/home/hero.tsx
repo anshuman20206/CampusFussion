@@ -16,7 +16,7 @@ export function Hero() {
               <Link href="/events">Explore Events</Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href="/community">Join Community</Link>
+              <Link href="/announcements">View Announcements</Link>
             </Button>
         </div>
       </div>
