@@ -10,25 +10,25 @@ export const NAV_LINKS = [
 
 export const TEAM_MEMBERS = [
   {
-    name: "Ankit Kumar",
+    name: "Anshuman Singh",
     role: "GDG Lead & Organizer",
     image: "/anshuman.jpg",
     dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/ankit-kumar-a20478230",
+    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
   },
   {
     name: "Aahana Soni",
-    role: "Campus Secretary",
+    role: "GDG Co-Organiser",
     image: "/aahana.jpg",
     dataAiHint: "woman portrait",
     linkedin: "https://www.linkedin.com/in/aahana-soni-342865332",
   },
   {
-    name: "Anshuman Singh",
-    role: "Competitive Programming Lead",
+    name: "Hifza Arif",
+    role: "Campus Secretary",
     image: "/ankit.png",
-    dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/anshuman-singh-388056206",
+    dataAiHint: "woman portrait",
+    linkedin: "#",
   },
   {
     name: "Animesh Shrivastava",
