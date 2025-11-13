@@ -70,4 +70,8 @@
   .prose {
     font-family: var(--font-body);
   }
+  .prose pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
 }
