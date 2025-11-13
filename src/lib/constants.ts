@@ -99,6 +99,13 @@ export const COMMUNITY_CLUBS = [
 
 export const EVENTS = [
   {
+    date: "2025-10-20",
+    name: "Google Cloud Study Jams",
+    description: "A month-long study jam from Oct 20 to Nov 19, covering various aspects of Google Cloud.",
+    location: "Online",
+    icon: BrainCircuit,
+  },
+  {
     date: "2025-09-26",
     name: "Info Session",
     description: "An insightful session with Anshuman Singh discussing the latest trends in technology.",
@@ -203,13 +210,6 @@ export const EVENTS = [
     description: "Join the Q&A for the Tech Winter Break: Solution Challenge! This session will cover web development fundamentals and details about the global challenge.",
     location: "Online",
     icon: Lightbulb,
-  },
-  {
-    date: "2023-11-25",
-    name: "Full Stack Development Speaker Session",
-    description: "Join a speaker session with Dhruv Panjali to dive into Full Stack Development, from front-end to back-end technologies.",
-    location: "IEC College Of Engineering & Technology, Greater Noida",
-    icon: Users,
   },
   {
     date: "2023-10-04",
