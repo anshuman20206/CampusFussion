@@ -176,6 +176,13 @@ export const EVENTS = [
     location: "IEC Campus",
     icon: Lightbulb,
   },
+  {
+    date: "2024-09-26",
+    name: "Offline Speaker Session",
+    description: "An insightful session with Anshuman Singh discussing the latest trends in technology.",
+    location: "IEC College of Engineering & Tech",
+    icon: Users,
+  },
 ];
 
 export const ANNOUNCEMENTS = [
