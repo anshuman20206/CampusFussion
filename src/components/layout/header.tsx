@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from '@/components/logo';
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
@@ -57,6 +57,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="bg-background">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <Logo />
               <div className="mt-8 flex flex-col space-y-4">
                 {NAV_LINKS.map((link) => (
