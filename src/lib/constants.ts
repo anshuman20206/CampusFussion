@@ -262,22 +262,22 @@ export const ANNOUNCEMENTS = [
 ];
 
 export const GALLERY_IMAGES = [
-    { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusConnect's official logo featuring an abstract design.", title: "Official Logo" },
-    { src: "/IMG_20250926_162314.jpg", dataAiHint: "speaker presentation", alt: "Speaker presenting during the info session.", title: "Info Session" },
-    { src: "/IMG_20250926_162713.jpg", dataAiHint: "event audience", alt: "Students and attendees entering the session hall.", title: "Arrivals" },
-    { src: "/IMG_20250926_162728.jpg", dataAiHint: "audience listening", alt: "View of the audience from the front of the hall.", title: "Audience View" },
-    { src: "/IMG_20250926_162822.jpg", dataAiHint: "students listening", alt: "Close-up of students listening attentively.", title: "Engaged Audience" },
-    { src: "/IMG_20250926_163250.jpg", dataAiHint: "event hall", alt: "Wide shot of the event hall with attendees seated.", title: "Session Hall" },
-    { src: "/IMG_20250926_163312.jpg", dataAiHint: "students interacting", alt: "Students interacting with each other during the session.", title: "Student Interaction" },
-    { src: "/Info Session 1.jpg", dataAiHint: "event audience", alt: "Students listening to the speaker during the info session.", title: "Info Session Moment" },
-    { src: "/Info Session 2.jpg", dataAiHint: "presentation stage", alt: "A speaker on stage during the presentation.", title: "On Stage" },
-    { src: "/Info Session 3.jpg", dataAiHint: "attendees seated", alt: "A section of the audience during the event.", title: "Audience Section" },
-    { src: "/Info Session 4.jpg", dataAiHint: "event crowd", alt: "Another view of the attendees in the hall.", title: "Crowd Shot" },
-    { src: "/Info Session 5.jpg", dataAiHint: "students networking", alt: "Students networking and talking before the session.", title: "Networking" },
-    { src: "/Info Session 6.jpg", dataAiHint: "full house", alt: "A wide angle view of the packed seminar hall.", title: "Full House" },
-    { src: "/Info Session 7.jpg", dataAiHint: "audience attention", alt: "Attendees focused on the presentation.", title: "Focused Attendees" },
-    { src: "/Info Session 8.jpg", dataAiHint: "team posing", alt: "The organizing team posing for a photo.", title: "Team Photo" },
     { src: "/Info Session Group.jpg", dataAiHint: "group photo", alt: "Group photo of the event organizers and volunteers.", title: "The Team" },
+    { src: "/Info Session 8.jpg", dataAiHint: "team posing", alt: "The organizing team posing for a photo.", title: "Team Photo" },
+    { src: "/Info Session 7.jpg", dataAiHint: "audience attention", alt: "Attendees focused on the presentation.", title: "Focused Attendees" },
+    { src: "/Info Session 6.jpg", dataAiHint: "full house", alt: "A wide angle view of the packed seminar hall.", title: "Full House" },
+    { src: "/Info Session 5.jpg", dataAiHint: "students networking", alt: "Students networking and talking before the session.", title: "Networking" },
+    { src: "/Info Session 4.jpg", dataAiHint: "event crowd", alt: "Another view of the attendees in the hall.", title: "Crowd Shot" },
+    { src: "/Info Session 3.jpg", dataAiHint: "attendees seated", alt: "A section of the audience during the event.", title: "Audience Section" },
+    { src: "/Info Session 2.jpg", dataAiHint: "presentation stage", alt: "A speaker on stage during the presentation.", title: "On Stage" },
+    { src: "/Info Session 1.jpg", dataAiHint: "event audience", alt: "Students listening to the speaker during the info session.", title: "Info Session Moment" },
+    { src: "/IMG_20250926_163312.jpg", dataAiHint: "students interacting", alt: "Students interacting with each other during the session.", title: "Student Interaction" },
+    { src: "/IMG_20250926_163250.jpg", dataAiHint: "event hall", alt: "Wide shot of the event hall with attendees seated.", title: "Session Hall" },
+    { src: "/IMG_20250926_162822.jpg", dataAiHint: "students listening", alt: "Close-up of students listening attentively.", title: "Engaged Audience" },
+    { src: "/IMG_20250926_162728.jpg", dataAiHint: "audience listening", alt: "View of the audience from the front of the hall.", title: "Audience View" },
+    { src: "/IMG_20250926_162713.jpg", dataAiHint: "event audience", alt: "Students and attendees entering the session hall.", title: "Arrivals" },
+    { src: "/IMG_20250926_162314.jpg", dataAiHint: "speaker presentation", alt: "Speaker presenting during the info session.", title: "Info Session" },
+    { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusConnect's official logo featuring an abstract design.", title: "Official Logo" },
 ];
 
 export const ROADMAP_PHASES = [
