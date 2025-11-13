@@ -26,14 +26,14 @@ export const TEAM_MEMBERS = [
   {
     name: "Hifza Arif",
     role: "Campus Secretary",
-    image: "/ankit.png",
+    image: "/hifza.jpg",
     dataAiHint: "woman portrait",
     linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
   },
   {
     name: "Suhani Goel",
     role: "Campus Secretary",
-    image: "/animesh.png",
+    image: "/suhani.jpg",
     dataAiHint: "woman portrait",
     linkedin: "https://www.linkedin.com/in/suhani-goel-019b90253/",
   },
