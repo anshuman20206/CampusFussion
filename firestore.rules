@@ -1,74 +1,14 @@
 
-/**
- * @file Firebase Security Rules for CampusFusion Firestore database.
- *
- * Core Philosophy:
- * This ruleset enforces a combination of public read access for general content (events, announcements, thoughts) and strict user-ownership for personal data (user profiles). Writes are restricted to authenticated users for content creation where applicable.
- *
- * Data Structure:
- * - /events/{eventId}: Publicly readable collection for event details.
- * - /announcements/{announcementId}: Publicly readable collection for announcements.
- * - /users/{userId}: User-specific collection for profile information, accessible only by the authenticated user.
- * - /galleryItems/{galleryItemId}: Publicly readable collection for gallery images, no write access allowed.
- * - /thoughts/{thoughtId}: Publicly readable collection for community thoughts. Authenticated users can create thoughts.
- *
- * Key Security Decisions:
- * - Events, announcements, and gallery items are publicly readable to facilitate discovery and engagement.
- * - User profiles are strictly private, accessible only to the owning user.
- * - Only authenticated users can create content like thoughts to prevent abuse.
- * - Listing of users is not allowed.
- */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    /**
-     * @description Allows anyone to read events, but no one to create, update, or delete them.
-     * @path /events/{eventId}
-     */
-    match /events/{eventId} {
-      allow read: if true;
-      allow write: if false;
+    
+    // WARNING: These rules are permissive and are not suitable for production.
+    // They allow any authenticated user to read and write to any collection.
+    // This is to unblock development and should be secured before launch.
+    match /{document=**} {
+      allow read, write: if request.auth != null;
     }
-
-    /**
-     * @description Allows anyone to read announcements, but no one to create, update, or delete them.
-     * @path /announcements/{announcementId}
-     */
-    match /announcements/{announcementId} {
-      allow read: if true;
-      allow write: if false;
-    }
-
-    /**
-     * @description Controls access to user profiles. Only the authenticated user can read, create, update, or delete their own profile.
-     * @path /users/{userId}
-     */
-    match /users/{userId} {
-      allow read, write: if isOwner(userId);
-    }
-
-    /**
-     * @description Allows anyone to read Gallery Items, but no one to create, update, or delete them.
-     * @path /galleryItems/{galleryItemId}
-     */
-    match /galleryItems/{galleryItemId} {
-      allow read: if true;
-      allow write: if false;
-    }
-
-    /**
-     * @description Allows anyone to read thoughts. Authenticated users can create new thoughts.
-     * @path /thoughts/{thoughtId}
-     */
-    match /thoughts/{thoughtId} {
-      allow read: if true;
-      allow list: if true;
-      allow create: if isSignedIn();
-      allow update, delete: if false;
-    }
-
-    // --- Helper Functions ---
 
     /**
      * @description Checks if the user is signed in.
