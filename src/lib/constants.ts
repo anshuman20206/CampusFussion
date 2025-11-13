@@ -100,7 +100,7 @@ export const COMMUNITY_CLUBS = [
 export const EVENTS = [
   {
     date: "2025-09-26",
-    name: "Offline Speaker Session",
+    name: "Info Session",
     description: "An insightful session with Anshuman Singh discussing the latest trends in technology.",
     location: "IEC College of Engineering & Tech",
     icon: Users,
@@ -217,13 +217,6 @@ export const EVENTS = [
     description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
     location: "IEC Campus",
     icon: Lightbulb,
-  },
-  {
-    date: "2023-09-26",
-    name: "Offline Speaker Session",
-    description: "An insightful session with Anshuman Singh discussing the latest trends in technology.",
-    location: "IEC College of Engineering & Tech",
-    icon: Users,
   },
 ];
 
