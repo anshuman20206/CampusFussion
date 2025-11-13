@@ -37,7 +37,7 @@ export async function getThoughtsByClub(clubId: string): Promise<{ thoughts: Tho
       console.error(`Error getting thoughts for club ${clubId}: `, error);
       
       let errorMessage = "An unexpected error occurred while fetching thoughts.";
-      if (error.code === 'permission-denied') {
+       if (error.code === 'permission-denied') {
         errorMessage = `Could not fetch thoughts. Your security rules are not configured to allow reads on the 'thoughts' collection. For development, go to your Firebase Console -> Firestore -> Rules and use:
 
 rules_version = '2';
@@ -49,9 +49,9 @@ service cloud.firestore {
     }
   }
 }`;
-      } else if (error.code === 'failed-precondition') {
+    } else if (error.code === 'failed-precondition') {
         errorMessage = `This query requires a Firestore index. Please create it in your Firebase console. The error message should contain a direct link to create it. Original error: ${error.message}`;
-      }
+    }
       
       return { thoughts: [], error: errorMessage };
   }
