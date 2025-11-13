@@ -9,7 +9,7 @@ export function Hero() {
           Empowering Innovators.
         </h1>
         <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          CampusConnect is your central hub for learning, collaborating, and building with the latest technologies. Join a vibrant community of student developers and turn your ideas into reality.
+          CampusFusion is your central hub for learning, collaborating, and building with the latest technologies. Join a vibrant community of student developers and turn your ideas into reality.
         </p>
         <div className="mt-8 flex justify-center gap-4">
             <Button size="lg" asChild>

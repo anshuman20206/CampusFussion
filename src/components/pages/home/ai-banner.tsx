@@ -18,7 +18,7 @@ export function AiBanner() {
           <div className="grid md:grid-cols-2">
             <div className="p-8 md:p-12">
               <h2 className="text-3xl font-bold tracking-tight">
-                Meet Your CampusConnect AI Assistant
+                Meet Your CampusFusion AI Assistant
               </h2>
               <p className="mt-4 text-foreground/80">
                 Stuck on a problem or need career advice? Our Gemini-powered AI is here to help you 24/7.

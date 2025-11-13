@@ -16,7 +16,7 @@ export default async function BlogPage() {
         <div className="text-center sm:text-left">
           <h1 className="text-4xl font-bold tracking-tight">Tech & Innovation Blog</h1>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-            Insights, tutorials, and stories from the CampusConnect community.
+            Insights, tutorials, and stories from the CampusFusion community.
           </p>
         </div>
         <Button asChild size="lg">

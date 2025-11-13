@@ -20,7 +20,7 @@ const headlineFont = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'CampusConnect',
+  title: 'CampusFusion',
   description: 'Empowering Developers. Building Tech Communities.',
 };
 

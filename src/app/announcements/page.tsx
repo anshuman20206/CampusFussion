@@ -15,7 +15,7 @@ export default function AnnouncementsPage() {
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight">Announcements</h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          Stay up-to-date with the latest news, updates, and opportunities from the CampusConnect community.
+          Stay up-to-date with the latest news, updates, and opportunities from the CampusFusion community.
         </p>
       </div>
 

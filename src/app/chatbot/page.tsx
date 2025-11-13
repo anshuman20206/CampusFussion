@@ -67,7 +67,7 @@ export default function ChatbotPage() {
                   <AvatarFallback><Bot size={18} /></AvatarFallback>
                 </Avatar>
                 <div className="rounded-lg bg-card p-4 text-sm max-w-[80%]">
-                  <p>Hello! I'm the CampusConnect AI assistant. How can I help you today? Feel free to ask me a programming question or for advice on your resume.</p>
+                  <p>Hello! I'm the CampusFusion AI assistant. How can I help you today? Feel free to ask me a programming question or for advice on your resume.</p>
                 </div>
               </div>
 

@@ -9,7 +9,7 @@ export function Footer() {
             <p className="text-sm">TRANSMITTING FROM GLOBAL NODE_ID: 793a_2f1b</p>
         </div>
         <p className="mt-4 text-xs text-muted-foreground/50">
-            {new Date().getFullYear()} © CampusConnect // Grid Initialized // Secure Connection Established
+            {new Date().getFullYear()} © CampusFusion // Grid Initialized // Secure Connection Established
         </p>
       </div>
     </footer>

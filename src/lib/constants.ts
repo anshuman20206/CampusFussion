@@ -263,6 +263,15 @@ export const ANNOUNCEMENTS = [
 ];
 
 export const GALLERY_IMAGES = [
+    { src: "/6.jpeg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 6" },
+    { src: "/7.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 7" },
+    { src: "/8.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 8" },
+    { src: "/9.png", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 9" },
+    { src: "/1.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 1" },
+    { src: "/2.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 2" },
+    { src: "/3.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 3" },
+    { src: "/4.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 4" },
+    { src: "/5.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 5" },
     { src: "/Info Session Group.jpg", dataAiHint: "group photo", alt: "Group photo of the event organizers and volunteers.", title: "The Team" },
     { src: "/Info Session 8.jpg", dataAiHint: "team posing", alt: "The organizing team posing for a photo.", title: "Team Photo" },
     { src: "/Info Session 7.jpg", dataAiHint: "audience attention", alt: "Attendees focused on the presentation.", title: "Focused Attendees" },
@@ -278,16 +287,7 @@ export const GALLERY_IMAGES = [
     { src: "/IMG_20250926_162728.jpg", dataAiHint: "audience listening", alt: "View of the audience from the front of the hall.", title: "Audience View" },
     { src: "/IMG_20250926_162713.jpg", dataAiHint: "event audience", alt: "Students and attendees entering the session hall.", title: "Arrivals" },
     { src: "/IMG_20250926_162314.jpg", dataAiHint: "speaker presentation", alt: "Speaker presenting during the info session.", title: "Info Session" },
-    { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusConnect's official logo featuring an abstract design.", title: "Official Logo" },
-    { src: "/1.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 1" },
-    { src: "/2.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 2" },
-    { src: "/3.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 3" },
-    { src: "/4.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 4" },
-    { src: "/5.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 5" },
-    { src: "/6.jpeg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 6" },
-    { src: "/7.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 7" },
-    { src: "/8.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 8" },
-    { src: "/9.png", dataAiHint: "event photography", alt: "A snapshot from a CampusConnect event.", title: "Event Moment 9" },
+    { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusFusion's official logo featuring an abstract design.", title: "Official Logo" },
 ];
 
 export const ROADMAP_PHASES = [

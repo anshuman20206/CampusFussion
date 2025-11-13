@@ -8,7 +8,7 @@ export function Logo({ className }: { className?: string }) {
       <div className="rounded-lg bg-primary/10 p-2 text-primary">
         <Orbit className="h-6 w-6" />
       </div>
-      <span className="font-sans font-bold">CampusConnect</span>
+      <span className="font-sans font-bold">CampusFusion</span>
     </Link>
   );
 }
