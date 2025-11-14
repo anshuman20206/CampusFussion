@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 19 36% 13%; /* #2E1E17 */
+    --foreground: 27 100% 95%; /* #FFF1E6 */
+    --card: 19 56% 17%; /* #452312 */
+    --card-foreground: 27 100% 95%;
+    --popover: 19 36% 13%;
+    --popover-foreground: 27 100% 95%;
+    --primary: 6 100% 68%; /* #FF6B5C */
+    --primary-foreground: 27 100% 95%;
+    --secondary: 32 100% 67%; /* #FFB55E */
+    --secondary-foreground: 19 36% 13%;
+    --muted: 14 55% 14%;
+    --muted-foreground: 27 25% 85%; /* #e2dcd7 */
+    --accent: 11 67% 50%; /* #D4472B */
+    --accent-foreground: 27 100% 95%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 6 100% 68%; /* Primary with alpha for borders */
+    --input: 6 100% 68%;
+    --ring: 6 100% 68%;
+    --radius: 0.875rem;
+    --code: 180 50% 75%; /* A light cyan for code */
+  }
+
+  .dark {
+    --background: 19 36% 13%; /* #2E1E17 */
+    --foreground: 27 100% 95%; /* #FFF1E6 */
+    --card: 19 56% 17%; /* #452312 */
+    --card-foreground: 27 100% 95%;
+    --popover: 19 36% 13%;
+    --popover-foreground: 27 100% 95%;
+    --primary: 6 100% 68%; /* #FF6B5C */
+    --primary-foreground: 27 100% 95%;
+    --secondary: 32 100% 67%; /* #FFB55E */
+    --secondary-foreground: 19 36% 13%;
+    --muted: 14 55% 14%;
+    --muted-foreground: 27 25% 85%; /* #e2dcd7 */
+    --accent: 11 67% 50%; /* #D4472B */
+    --accent-foreground: 27 100% 95%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 6 100% 68%; /* Primary with alpha for borders */
+    --input: 6 100% 68%;
+    --ring: 6 100% 68%;
+    --code: 180 50% 75%; /* A light cyan for code */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border/20;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: linear-gradient(135deg, #452312, #3A100C, #2E1E17);
+    font-family: var(--font-body), sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline;
+    font-family: var(--font-headline), sans-serif;
+  }
+}
+
+@layer components {
+  .prose {
+    font-family: var(--font-body);
+  }
+  .prose pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+}

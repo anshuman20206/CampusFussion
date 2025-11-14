@@ -1,0 +1,226 @@
+
+{
+  "entities": {
+    "Event": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Event",
+      "type": "object",
+      "description": "Represents an event, such as a workshop, speaker session, or hackathon.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the event."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the event."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date and time of the event.",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the event."
+        },
+        "location": {
+          "type": "string",
+          "description": "The location where the event will be held."
+        },
+        "registrationLink": {
+          "type": "string",
+          "description": "A link to register for the event.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "date",
+        "description",
+        "location",
+        "registrationLink"
+      ]
+    },
+    "Announcement": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Announcement",
+      "type": "object",
+      "description": "Represents an announcement posted by an administrator.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the announcement."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the announcement."
+        },
+        "content": {
+          "type": "string",
+          "description": "The main content of the announcement."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date when the announcement was posted.",
+          "format": "date-time"
+        },
+        "isPinned": {
+          "type": "boolean",
+          "description": "Indicates whether the announcement is pinned or not."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "date",
+        "isPinned"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the CampusFusion platform.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "name": {
+          "type": "string",
+          "description": "The user's full name."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        },
+        "profilePicture": {
+          "type": "string",
+          "description": "URL of the user's profile picture.",
+          "format": "uri"
+        },
+        "registeredEvents": {
+          "type": "array",
+          "description": "References to Events the user is registered for. (Relationship: User 1:N Event)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email"
+      ]
+    },
+    "GalleryItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GalleryItem",
+      "type": "object",
+      "description": "Represents an item in the photo gallery.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the gallery item."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image.",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the image."
+        },
+        "eventID": {
+          "type": "string",
+          "description": "Reference to Event. (Relationship: Event 1:N GalleryItem)"
+        }
+      },
+      "required": [
+        "id",
+        "imageUrl",
+        "description"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/events/{eventId}",
+        "definition": {
+          "entityName": "Event",
+          "schema": {
+            "$ref": "#/backend/entities/Event"
+          },
+          "description": "Stores event details. Anyone can read any event.",
+          "params": [
+            {
+              "name": "eventId",
+              "description": "Unique identifier for the event."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/announcements/{announcementId}",
+        "definition": {
+          "entityName": "Announcement",
+          "schema": {
+            "$ref": "#/backend/entities/Announcement"
+          },
+          "description": "Stores announcements posted by admins. Anyone can read any announcement.",
+          "params": [
+            {
+              "name": "announcementId",
+              "description": "Unique identifier for the announcement."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information. Only the authenticated user can read/write their own profile.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "Unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/galleryItems/{galleryItemId}",
+        "definition": {
+          "entityName": "GalleryItem",
+          "schema": {
+            "$ref": "#/backend/entities/GalleryItem"
+          },
+          "description": "Stores gallery items (images).  The eventID links the gallery item to a specific event.",
+          "params": [
+            {
+              "name": "galleryItemId",
+              "description": "Unique identifier for the gallery item."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to address the 'permission-denied' error by ensuring clear ownership and access control for each data entity, adhering to the principle of Authorization Independence. Each top-level collection represents a specific entity type, and user-specific data is nested under the `/users/{userId}` path, granting the user full control over their own data.\n\n- **Events:** Stored in a top-level `events` collection.  Any user can read events to support the QAP for displaying a list of events.\n- **Announcements:** Stored in a top-level `announcements` collection. Any user can read announcements to support the QAP for listing them.\n- **Users:** User profiles are stored in a `users` collection, with individual profiles accessible via `/users/{userId}`.  This path-based ownership ensures that only the authenticated user can modify their profile data.\n- **Gallery Items:** Gallery items are stored in a top-level `galleryItems` collection for simplified querying and management. The `eventID` field links each gallery item to a specific event.\n- **Blogs**: Stored in a top-level `blogs` collection. Publicly readable to allow anyone to view blog posts.\n\nThis structure avoids `get()` calls in security rules and enables atomic operations.  The segregation of concerns into distinct collections with well-defined access patterns simplifies security rule design and enhances debuggability.  The structure also supports QAPs (Rules are not Filters), ensuring that list operations are secure."
+  }
+}
