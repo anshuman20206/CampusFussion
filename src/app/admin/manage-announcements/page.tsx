@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -11,7 +10,7 @@ import { Trash2, Edit, Loader2, Pin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ManageAnnouncementsPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const { toast } = useToast();
   
   const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'announcements'), orderBy('createdAt', 'desc')) : null, [firestore]);

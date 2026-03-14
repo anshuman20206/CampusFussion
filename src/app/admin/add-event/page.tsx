@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -13,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, CalendarPlus } from 'lucide-react';
 
 export default function AddEventPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -25,13 +24,15 @@ export default function AddEventPage() {
     const formData = new FormData(e.currentTarget);
 
     try {
+      const bannerUrl = (formData.get('bannerUrl') as string) || `https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/1200/600`;
+      
       await addDoc(collection(firestore, 'events'), {
         name: formData.get('name'),
         organizer: formData.get('organizer'),
         date: formData.get('date'),
         location: formData.get('location'),
         description: formData.get('description'),
-        bannerUrl: formData.get('bannerUrl') || `https://picsum.photos/seed/${Math.random()}/1200/600`,
+        bannerUrl: bannerUrl,
         createdAt: serverTimestamp(),
       });
 

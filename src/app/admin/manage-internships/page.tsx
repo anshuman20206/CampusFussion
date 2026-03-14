@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -11,7 +10,7 @@ import { Trash2, Edit, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ManageInternshipsPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const { toast } = useToast();
   
   const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships'), orderBy('createdAt', 'desc')) : null, [firestore]);

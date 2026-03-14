@@ -1,7 +1,5 @@
-
 'use client';
 
-import { useState } from 'react';
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -11,7 +9,7 @@ import { Trash2, Edit, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function ManageEventsPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const { toast } = useToast();
   
   const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'events'), orderBy('date', 'desc')) : null, [firestore]);

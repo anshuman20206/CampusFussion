@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -13,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 
 export default function EventsPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const eventsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'events'), orderBy('date', 'asc'));
@@ -56,7 +55,7 @@ function EventCard({ event }: { event: any }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

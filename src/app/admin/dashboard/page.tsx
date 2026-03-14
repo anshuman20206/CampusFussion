@@ -1,13 +1,12 @@
-
 'use client';
 
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, query } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, Calendar, FileText, Users, TrendingUp, Bell } from 'lucide-react';
+import { Briefcase, Calendar, FileText, TrendingUp, Bell } from 'lucide-react';
 
 export default function AdminDashboardPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
 
   const internshipsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships')) : null, [firestore]);
   const applicationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internshipApplications')) : null, [firestore]);

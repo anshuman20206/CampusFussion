@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -6,10 +5,10 @@ import { collection, query, orderBy } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ExternalLink, Download, Loader2 } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 
 export default function ViewApplicationsPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   
   const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'internshipApplications'), orderBy('appliedAt', 'desc')) : null, [firestore]);
   const { data: apps, isLoading } = useCollection(q);
@@ -48,7 +47,7 @@ export default function ViewApplicationsPage() {
                     <div>{app.college}</div>
                     <div className="text-xs text-muted-foreground">{app.year} - {app.branch}</div>
                   </TableCell>
-                  <TableCell>{new Date(app.appliedAt?.toDate()).toLocaleDateString()}</TableCell>
+                  <TableCell>{app.appliedAt?.toDate() ? new Date(app.appliedAt.toDate()).toLocaleDateString() : 'Just now'}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="outline" size="sm" asChild>
                       <a href={app.resumeUrl} target="_blank" rel="noopener noreferrer">

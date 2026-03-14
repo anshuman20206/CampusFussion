@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -8,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Pin, Loader2, MessageCircle } from "lucide-react";
 
 export default function AnnouncementsPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const announcementsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return query(collection(firestore, 'announcements'), orderBy('createdAt', 'desc'));

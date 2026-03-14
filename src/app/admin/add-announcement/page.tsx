@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -14,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, BellPlus } from 'lucide-react';
 
 export default function AddAnnouncementPage() {
-  const { firestore } = useFirestore();
+  const firestore = useFirestore();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
