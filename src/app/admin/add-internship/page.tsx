@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -16,6 +17,8 @@ export default function AddInternshipPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [domain, setDomain] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,7 +45,10 @@ export default function AddInternshipPage() {
 
       toast({ title: "Success", description: "Internship posted successfully." });
       form.reset();
+      setDomain('');
+      setLocation('');
     } catch (error: any) {
+      console.error("Admin: Error posting internship:", error);
       toast({ variant: "destructive", title: "Error", description: error.message });
     } finally {
       setIsSubmitting(false);
@@ -72,7 +78,7 @@ export default function AddInternshipPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="domain">Domain</Label>
-                <Select name="domain" required>
+                <Select onValueChange={setDomain} value={domain} required>
                   <SelectTrigger><SelectValue placeholder="Select Domain" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Web Dev">Web Dev</SelectItem>
@@ -82,10 +88,11 @@ export default function AddInternshipPage() {
                     <SelectItem value="Design">Design</SelectItem>
                   </SelectContent>
                 </Select>
+                <input type="hidden" name="domain" value={domain} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
-                <Select name="location" required>
+                <Select onValueChange={setLocation} value={location} required>
                   <SelectTrigger><SelectValue placeholder="Select Type" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Remote">Remote</SelectItem>
@@ -93,6 +100,7 @@ export default function AddInternshipPage() {
                     <SelectItem value="Onsite">Onsite</SelectItem>
                   </SelectContent>
                 </Select>
+                <input type="hidden" name="location" value={location} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="duration">Duration</Label>

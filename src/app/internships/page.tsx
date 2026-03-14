@@ -110,6 +110,7 @@ export default function InternshipsPage() {
 function InternshipCard({ internship }: { internship: any }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [yearValue, setYearValue] = useState('');
   const { toast } = useToast();
   const { firestore, firebaseApp } = useFirebase();
 
@@ -128,12 +129,15 @@ function InternshipCard({ internship }: { internship: any }) {
       }
 
       // 1. Upload Resume to Storage
+      console.log("Starting resume upload...");
       const storage = getStorage(firebaseApp);
       const storageRef = ref(storage, `resumes/${Date.now()}-${resumeFile.name}`);
       const uploadResult = await uploadBytes(storageRef, resumeFile);
       const resumeUrl = await getDownloadURL(uploadResult.ref);
+      console.log("Resume uploaded successfully:", resumeUrl);
 
       // 2. Save Application to Firestore
+      console.log("Saving application to Firestore...");
       await addDoc(collection(firestore, 'internshipApplications'), {
         internshipId: internship.id,
         internshipTitle: internship.title,
@@ -144,20 +148,22 @@ function InternshipCard({ internship }: { internship: any }) {
         branch: formData.get('branch'),
         year: formData.get('year'),
         phone: formData.get('phone'),
-        portfolioUrl: formData.get('portfolioUrl'),
+        portfolioUrl: formData.get('portfolioUrl') || "",
         statement: formData.get('statement'),
         resumeUrl,
         appliedAt: serverTimestamp(),
       });
 
+      console.log("Application saved successfully.");
       toast({
         title: "Success!",
         description: "Your application has been submitted successfully.",
       });
       form.reset();
+      setYearValue('');
       setIsModalOpen(false);
     } catch (error: any) {
-      console.error("Application error:", error);
+      console.error("Application submission error:", error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -226,7 +232,7 @@ function InternshipCard({ internship }: { internship: any }) {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="year">Year</Label>
-                  <Select name="year" required>
+                  <Select onValueChange={setYearValue} value={yearValue} required>
                     <SelectTrigger><SelectValue placeholder="Select year" /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="1st Year">1st Year</SelectItem>
@@ -235,6 +241,7 @@ function InternshipCard({ internship }: { internship: any }) {
                       <SelectItem value="4th Year">4th Year</SelectItem>
                     </SelectContent>
                   </Select>
+                  <input type="hidden" name="year" value={yearValue} required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
