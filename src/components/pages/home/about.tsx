@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 
 export function About() {
@@ -17,7 +18,7 @@ export function About() {
         </div>
         <div className="order-1 md:order-2 flex justify-center">
           <Image
-            src="/gdgiec.png"
+            src="/images/gdgiec.png"
             alt="GDG Chapter Event Logo"
             width={500}
             height={500}

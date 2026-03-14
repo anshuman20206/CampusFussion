@@ -87,11 +87,11 @@ export const TEAM_MEMBERS = [
     linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
   },
   {
-    name: "Suhani Goel",
-    role: "Campus Secretary",
-    image: "/images/suhani.jpg",
-    dataAiHint: "woman portrait",
-    linkedin: "https://www.linkedin.com/in/suhani-goel-019b90253/",
+    name: "Ankit",
+    role: "Core Team Member",
+    image: "/images/ankit.png",
+    dataAiHint: "man portrait",
+    linkedin: "#",
   },
 ];
 
