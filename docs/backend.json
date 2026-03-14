@@ -1,3 +1,4 @@
+
 {
   "entities": {
     "Internship": {
@@ -20,16 +21,18 @@
     "Application": {
       "title": "Application",
       "type": "object",
-      "description": "Represents a student application.",
+      "description": "Represents a student application with social profiles.",
       "properties": {
         "studentName": { "type": "string" },
         "email": { "type": "string", "format": "email" },
         "phone": { "type": "string" },
-        "resumeURL": { "type": "string", "format": "uri" },
+        "linkedinURL": { "type": "string", "format": "uri" },
+        "githubURL": { "type": "string", "format": "uri" },
+        "leetcodeURL": { "type": "string", "format": "uri" },
         "internshipId": { "type": "string" },
         "appliedAt": { "type": "string", "format": "date-time" }
       },
-      "required": ["studentName", "email", "resumeURL", "internshipId"]
+      "required": ["studentName", "email", "internshipId", "linkedinURL"]
     },
     "Event": {
       "title": "Event",
