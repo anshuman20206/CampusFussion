@@ -11,7 +11,7 @@
         "description": { "type": "string" },
         "location": { "type": "string", "enum": ["Remote", "Onsite", "Hybrid"] },
         "domain": { "type": "string", "enum": ["Web Dev", "AI", "Data Science", "Marketing", "Design", "Other"] },
-        "duration": "Duration of internship",
+        "duration": { "type": "string" },
         "stipend": { "type": "string" },
         "skillsRequired": { "type": "array", "items": { "type": "string" } },
         "deadline": { "type": "string", "format": "date" },
@@ -67,6 +67,18 @@
         "registeredAt": { "type": "string", "format": "date-time" }
       },
       "required": ["name", "email", "eventId"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "type": "object",
+      "description": "Represents a community announcement.",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "pinned": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "content"]
     }
   },
   "auth": {
@@ -76,6 +88,7 @@
     "/internships/{id}": { "schema": "Internship", "description": "Internship opportunities." },
     "/internshipApplications/{id}": { "schema": "InternshipApplication", "description": "Submitted applications." },
     "/events/{id}": { "schema": "Event", "description": "Campus events." },
-    "/eventRegistrations/{id}": { "schema": "EventRegistration", "description": "Event attendee list." }
+    "/eventRegistrations/{id}": { "schema": "EventRegistration", "description": "Event attendee list." },
+    "/announcements/{id}": { "schema": "Announcement", "description": "Community news and updates." }
   }
 }

@@ -4,7 +4,7 @@
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { collection, query } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, Calendar, FileText, Users, TrendingUp } from 'lucide-react';
+import { Briefcase, Calendar, FileText, Users, TrendingUp, Bell } from 'lucide-react';
 
 export default function AdminDashboardPage() {
   const { firestore } = useFirestore();
@@ -13,17 +13,19 @@ export default function AdminDashboardPage() {
   const applicationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internshipApplications')) : null, [firestore]);
   const eventsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'events')) : null, [firestore]);
   const registrationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'eventRegistrations')) : null, [firestore]);
+  const announcementsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'announcements')) : null, [firestore]);
 
   const { data: internships } = useCollection(internshipsQuery);
   const { data: applications } = useCollection(applicationsQuery);
   const { data: events } = useCollection(eventsQuery);
   const { data: registrations } = useCollection(registrationsQuery);
+  const { data: announcements } = useCollection(announcementsQuery);
 
   const stats = [
-    { title: "Total Internships", value: internships?.length || 0, icon: Briefcase, color: "text-blue-600" },
-    { title: "Internship Apps", value: applications?.length || 0, icon: FileText, color: "text-green-600" },
-    { title: "Total Events", value: events?.length || 0, icon: Calendar, color: "text-purple-600" },
-    { title: "Event Signups", value: registrations?.length || 0, icon: Users, color: "text-orange-600" },
+    { title: "Internships", value: internships?.length || 0, icon: Briefcase, color: "text-blue-600" },
+    { title: "Total Apps", value: applications?.length || 0, icon: FileText, color: "text-green-600" },
+    { title: "Active Events", value: events?.length || 0, icon: Calendar, color: "text-purple-600" },
+    { title: "News Items", value: announcements?.length || 0, icon: Bell, color: "text-orange-600" },
   ];
 
   return (
@@ -64,7 +66,7 @@ export default function AdminDashboardPage() {
                     <div className="font-medium">{app.fullName}</div>
                     <div className="text-xs text-muted-foreground">{app.internshipTitle}</div>
                   </div>
-                  <div className="text-xs font-mono">{new Date(app.appliedAt?.toDate()).toLocaleDateString()}</div>
+                  <div className="text-xs font-mono">{app.appliedAt?.toDate() ? new Date(app.appliedAt.toDate()).toLocaleDateString() : 'Just now'}</div>
                 </div>
               ))}
               {(!applications || applications.length === 0) && <p className="text-sm text-muted-foreground italic">No applications yet.</p>}
@@ -74,7 +76,7 @@ export default function AdminDashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent Signups</CardTitle>
+            <CardTitle>Recent Event Signups</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -84,7 +86,7 @@ export default function AdminDashboardPage() {
                     <div className="font-medium">{reg.name}</div>
                     <div className="text-xs text-muted-foreground">{reg.eventName}</div>
                   </div>
-                  <div className="text-xs font-mono">{new Date(reg.registeredAt?.toDate()).toLocaleDateString()}</div>
+                  <div className="text-xs font-mono">{reg.registeredAt?.toDate() ? new Date(reg.registeredAt.toDate()).toLocaleDateString() : 'Recently'}</div>
                 </div>
               ))}
               {(!registrations || registrations.length === 0) && <p className="text-sm text-muted-foreground italic">No registrations yet.</p>}

@@ -1,3 +1,4 @@
+
 import { 
   Users, 
   Calendar, 
@@ -13,7 +14,8 @@ import {
   PlusCircle,
   FileText,
   Zap,
-  Globe
+  Globe,
+  Bell
 } from "lucide-react";
 import images from "@/app/lib/placeholder-images.json";
 
@@ -30,6 +32,8 @@ export const ADMIN_NAV_LINKS = [
   { href: "/admin/manage-internships", label: "Manage Internships", icon: Briefcase },
   { href: "/admin/add-event", label: "Add Event", icon: PlusCircle },
   { href: "/admin/manage-events", label: "Manage Events", icon: Calendar },
+  { href: "/admin/add-announcement", label: "Add News", icon: Bell },
+  { href: "/admin/manage-announcements", label: "Manage News", icon: MessageCircle },
   { href: "/admin/view-applications", label: "Applications", icon: FileText },
 ];
 
