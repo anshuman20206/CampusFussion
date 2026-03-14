@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Briefcase, MapPin, Clock, DollarSign, Search, Filter, Loader2 } from 'lucide-react';
+import { Briefcase, MapPin, Clock, DollarSign, Search, Filter, Loader2, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function InternshipsPage() {
@@ -117,7 +117,10 @@ function InternshipCard({ internship }: { internship: any }) {
   const handleApply = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    if (!firestore || !firebaseApp) return;
+    if (!firestore || !firebaseApp) {
+      toast({ variant: "destructive", title: "System Error", description: "Firebase is not initialized." });
+      return;
+    }
 
     setIsSubmitting(true);
     const formData = new FormData(form);
@@ -129,15 +132,24 @@ function InternshipCard({ internship }: { internship: any }) {
       }
 
       // 1. Upload Resume to Storage
-      console.log("Starting resume upload...");
+      console.log("DEBUG: Starting resume upload to storage...");
       const storage = getStorage(firebaseApp);
       const storageRef = ref(storage, `resumes/${Date.now()}-${resumeFile.name}`);
-      const uploadResult = await uploadBytes(storageRef, resumeFile);
-      const resumeUrl = await getDownloadURL(uploadResult.ref);
-      console.log("Resume uploaded successfully:", resumeUrl);
+      
+      // Attempt upload
+      const uploadResult = await uploadBytes(storageRef, resumeFile).catch(err => {
+        console.error("STORAGE ERROR:", err);
+        if (err.code === 'storage/unauthorized' || err.code === 'storage/unknown') {
+          throw new Error("Storage not enabled. Please go to Firebase Console > Storage and click 'Get Started'.");
+        }
+        throw err;
+      });
 
+      console.log("DEBUG: Getting download URL...");
+      const resumeUrl = await getDownloadURL(uploadResult.ref);
+      
       // 2. Save Application to Firestore
-      console.log("Saving application to Firestore...");
+      console.log("DEBUG: Saving data to Firestore...");
       await addDoc(collection(firestore, 'internshipApplications'), {
         internshipId: internship.id,
         internshipTitle: internship.title,
@@ -154,7 +166,6 @@ function InternshipCard({ internship }: { internship: any }) {
         appliedAt: serverTimestamp(),
       });
 
-      console.log("Application saved successfully.");
       toast({
         title: "Success!",
         description: "Your application has been submitted successfully.",
@@ -163,11 +174,11 @@ function InternshipCard({ internship }: { internship: any }) {
       setYearValue('');
       setIsModalOpen(false);
     } catch (error: any) {
-      console.error("Application submission error:", error);
+      console.error("SUBMISSION ERROR:", error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error.message || "Failed to submit application. Please check your internet and try again.",
+        title: "Submission Failed",
+        description: error.message || "An unexpected error occurred.",
       });
     } finally {
       setIsSubmitting(false);

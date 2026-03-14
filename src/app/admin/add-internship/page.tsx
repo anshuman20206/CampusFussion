@@ -27,7 +27,9 @@ export default function AddInternshipPage() {
     const form = e.currentTarget;
     setIsSubmitting(true);
     const formData = new FormData(form);
-    const skills = (formData.get('skillsRequired') as string).split(',').map(s => s.trim());
+    
+    const skillsString = formData.get('skillsRequired') as string;
+    const skills = skillsString ? skillsString.split(',').map(s => s.trim()).filter(s => s !== '') : [];
 
     try {
       await addDoc(collection(firestore, 'internships'), {
@@ -48,8 +50,8 @@ export default function AddInternshipPage() {
       setDomain('');
       setLocation('');
     } catch (error: any) {
-      console.error("Admin: Error posting internship:", error);
-      toast({ variant: "destructive", title: "Error", description: error.message });
+      console.error("ADMIN ERROR:", error);
+      toast({ variant: "destructive", title: "Post Failed", description: error.message });
     } finally {
       setIsSubmitting(false);
     }
