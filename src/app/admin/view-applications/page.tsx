@@ -10,13 +10,13 @@ import { Download, Loader2 } from 'lucide-react';
 export default function ViewApplicationsPage() {
   const firestore = useFirestore();
   
-  const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'internshipApplications'), orderBy('appliedAt', 'desc')) : null, [firestore]);
+  const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'applications'), orderBy('appliedAt', 'desc')) : null, [firestore]);
   const { data: apps, isLoading } = useCollection(q);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Internship Applications</CardTitle>
+        <CardTitle>Student Applications</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
@@ -26,8 +26,7 @@ export default function ViewApplicationsPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Student</TableHead>
-                <TableHead>Internship</TableHead>
-                <TableHead>College/Year</TableHead>
+                <TableHead>Phone</TableHead>
                 <TableHead>Applied Date</TableHead>
                 <TableHead className="text-right">Resume</TableHead>
               </TableRow>
@@ -36,21 +35,14 @@ export default function ViewApplicationsPage() {
               {apps?.map((app) => (
                 <TableRow key={app.id}>
                   <TableCell>
-                    <div className="font-medium">{app.fullName}</div>
+                    <div className="font-medium">{app.studentName}</div>
                     <div className="text-xs text-muted-foreground">{app.email}</div>
                   </TableCell>
-                  <TableCell>
-                    <div className="font-medium">{app.internshipTitle}</div>
-                    <div className="text-xs text-muted-foreground">{app.companyName}</div>
-                  </TableCell>
-                  <TableCell>
-                    <div>{app.college}</div>
-                    <div className="text-xs text-muted-foreground">{app.year} - {app.branch}</div>
-                  </TableCell>
+                  <TableCell>{app.phone}</TableCell>
                   <TableCell>{app.appliedAt?.toDate() ? new Date(app.appliedAt.toDate()).toLocaleDateString() : 'Just now'}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="outline" size="sm" asChild>
-                      <a href={app.resumeUrl} target="_blank" rel="noopener noreferrer">
+                      <a href={app.resumeURL} target="_blank" rel="noopener noreferrer">
                         <Download className="h-4 w-4 mr-2" />
                         PDF
                       </a>
@@ -59,7 +51,7 @@ export default function ViewApplicationsPage() {
                 </TableRow>
               ))}
               {apps?.length === 0 && (
-                <TableRow><TableCell colSpan={5} className="text-center py-8 text-muted-foreground">No applications yet.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={4} className="text-center py-8 text-muted-foreground">No applications yet.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>

@@ -25,16 +25,14 @@ export default function AddEventPage() {
     const formData = new FormData(form);
 
     try {
-      const bannerUrl = (formData.get('bannerUrl') as string) || `https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/1200/600`;
-      
       await addDoc(collection(firestore, 'events'), {
-        name: formData.get('name'),
-        organizer: formData.get('organizer'),
+        title: formData.get('title'),
+        description: formData.get('description'),
         date: formData.get('date'),
         location: formData.get('location'),
-        description: formData.get('description'),
-        bannerUrl: bannerUrl,
+        registrationLink: formData.get('registrationLink') || "",
         createdAt: serverTimestamp(),
+        bannerUrl: `https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/1200/600`,
       });
 
       toast({ title: "Success", description: "Event published successfully." });
@@ -54,18 +52,14 @@ export default function AddEventPage() {
             <CalendarPlus className="h-6 w-6 text-primary" />
             <CardTitle>Add New Event</CardTitle>
           </div>
-          <CardDescription>Create a campus event for students to register.</CardDescription>
+          <CardDescription>Create a campus event for students.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Event Name</Label>
-                <Input id="name" name="name" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="organizer">Organizer</Label>
-                <Input id="organizer" name="organizer" placeholder="e.g. GDG IEC" required />
+                <Label htmlFor="title">Event Title</Label>
+                <Input id="title" name="title" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="date">Event Date & Time</Label>
@@ -73,11 +67,11 @@ export default function AddEventPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
-                <Input id="location" name="location" placeholder="e.g. Seminar Hall" required />
+                <Input id="location" name="location" required />
               </div>
-              <div className="space-y-2 col-span-full">
-                <Label htmlFor="bannerUrl">Banner Image URL (Optional)</Label>
-                <Input id="bannerUrl" name="bannerUrl" placeholder="https://..." />
+              <div className="space-y-2">
+                <Label htmlFor="registrationLink">Registration Link (Optional)</Label>
+                <Input id="registrationLink" name="registrationLink" placeholder="https://..." />
               </div>
             </div>
             <div className="space-y-2">

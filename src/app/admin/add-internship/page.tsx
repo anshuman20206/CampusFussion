@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -18,7 +17,6 @@ export default function AddInternshipPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [domain, setDomain] = useState('');
-  const [location, setLocation] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,30 +25,24 @@ export default function AddInternshipPage() {
     const form = e.currentTarget;
     setIsSubmitting(true);
     const formData = new FormData(form);
-    
-    const skillsString = formData.get('skillsRequired') as string;
-    const skills = skillsString ? skillsString.split(',').map(s => s.trim()).filter(s => s !== '') : [];
 
     try {
       await addDoc(collection(firestore, 'internships'), {
-        companyName: formData.get('companyName'),
         title: formData.get('title'),
-        description: formData.get('description'),
+        company: formData.get('company'),
         location: formData.get('location'),
-        domain: formData.get('domain'),
-        duration: formData.get('duration'),
         stipend: formData.get('stipend'),
-        skillsRequired: skills,
+        description: formData.get('description'),
+        applyLink: formData.get('applyLink') || "",
         deadline: formData.get('deadline'),
-        createdAt: serverTimestamp(),
+        domain: domain,
+        postedAt: serverTimestamp(),
       });
 
       toast({ title: "Success", description: "Internship posted successfully." });
       form.reset();
       setDomain('');
-      setLocation('');
     } catch (error: any) {
-      console.error("ADMIN ERROR:", error);
       toast({ variant: "destructive", title: "Post Failed", description: error.message });
     } finally {
       setIsSubmitting(false);
@@ -71,8 +63,8 @@ export default function AddInternshipPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="companyName">Company Name</Label>
-                <Input id="companyName" name="companyName" required />
+                <Label htmlFor="company">Company Name</Label>
+                <Input id="company" name="company" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="title">Internship Title</Label>
@@ -90,23 +82,10 @@ export default function AddInternshipPage() {
                     <SelectItem value="Design">Design</SelectItem>
                   </SelectContent>
                 </Select>
-                <input type="hidden" name="domain" value={domain} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="location">Location</Label>
-                <Select onValueChange={setLocation} value={location} required>
-                  <SelectTrigger><SelectValue placeholder="Select Type" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Remote">Remote</SelectItem>
-                    <SelectItem value="Hybrid">Hybrid</SelectItem>
-                    <SelectItem value="Onsite">Onsite</SelectItem>
-                  </SelectContent>
-                </Select>
-                <input type="hidden" name="location" value={location} required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="duration">Duration</Label>
-                <Input id="duration" name="duration" placeholder="e.g. 3 Months" required />
+                <Input id="location" name="location" placeholder="e.g. Remote, Delhi" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="stipend">Stipend</Label>
@@ -116,9 +95,9 @@ export default function AddInternshipPage() {
                 <Label htmlFor="deadline">Deadline</Label>
                 <Input id="deadline" name="deadline" type="date" required />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="skillsRequired">Skills (comma separated)</Label>
-                <Input id="skillsRequired" name="skillsRequired" placeholder="React, Node, etc." required />
+              <div className="space-y-2 col-span-full">
+                <Label htmlFor="applyLink">Apply Link (Optional)</Label>
+                <Input id="applyLink" name="applyLink" placeholder="https://..." />
               </div>
             </div>
             <div className="space-y-2">
