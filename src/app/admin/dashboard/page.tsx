@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -8,16 +9,15 @@ import { Briefcase, Calendar, FileText, TrendingUp, Bell, Loader2 } from 'lucide
 export default function AdminDashboardPage() {
   const firestore = useFirestore();
 
+  // Unified queries using correct collection names
   const internshipsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships')) : null, [firestore]);
-  const applicationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internshipApplications'), orderBy('appliedAt', 'desc'), limit(5)) : null, [firestore]);
+  const applicationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'applications'), orderBy('appliedAt', 'desc'), limit(10)) : null, [firestore]);
   const eventsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'events')) : null, [firestore]);
-  const registrationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'eventRegistrations'), orderBy('registeredAt', 'desc'), limit(5)) : null, [firestore]);
   const announcementsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'announcements')) : null, [firestore]);
 
   const { data: internships } = useCollection(internshipsQuery);
   const { data: applications, isLoading: loadingApps } = useCollection(applicationsQuery);
   const { data: events } = useCollection(eventsQuery);
-  const { data: registrations, isLoading: loadingRegs } = useCollection(registrationsQuery);
   const { data: announcements } = useCollection(announcementsQuery);
 
   const stats = [
@@ -30,8 +30,8 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
-        <p className="text-muted-foreground">Monitor platform activity and growth.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Dashboard Overview</h1>
+        <p className="text-muted-foreground">Monitor CampusFussion activity and growth.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -52,7 +52,7 @@ export default function AdminDashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
         <Card>
           <CardHeader>
             <CardTitle>Recent Applications</CardTitle>
@@ -60,13 +60,15 @@ export default function AdminDashboardPage() {
           <CardContent>
             <div className="space-y-4">
               {loadingApps ? (
-                <Loader2 className="animate-spin mx-auto h-6 w-6 text-muted-foreground" />
+                <div className="flex justify-center p-4">
+                  <Loader2 className="animate-spin h-6 w-6 text-muted-foreground" />
+                </div>
               ) : applications && applications.length > 0 ? (
                 applications.map((app) => (
                   <div key={app.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                     <div>
-                      <div className="font-medium">{app.fullName}</div>
-                      <div className="text-xs text-muted-foreground">{app.internshipTitle}</div>
+                      <div className="font-medium">{app.studentName}</div>
+                      <div className="text-xs text-muted-foreground">{app.email}</div>
                     </div>
                     <div className="text-xs font-mono text-muted-foreground">
                       {app.appliedAt?.toDate ? new Date(app.appliedAt.toDate()).toLocaleDateString() : 'Just now'}
@@ -74,34 +76,7 @@ export default function AdminDashboardPage() {
                   </div>
                 ))
               ) : (
-                <p className="text-sm text-muted-foreground italic text-center py-4">No applications yet.</p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Event Signups</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {loadingRegs ? (
-                <Loader2 className="animate-spin mx-auto h-6 w-6 text-muted-foreground" />
-              ) : registrations && registrations.length > 0 ? (
-                registrations.map((reg) => (
-                  <div key={reg.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <div>
-                      <div className="font-medium">{reg.name}</div>
-                      <div className="text-xs text-muted-foreground">{reg.eventName}</div>
-                    </div>
-                    <div className="text-xs font-mono text-muted-foreground">
-                      {reg.registeredAt?.toDate ? new Date(reg.registeredAt.toDate()).toLocaleDateString() : 'Recently'}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-sm text-muted-foreground italic text-center py-4">No registrations yet.</p>
+                <p className="text-sm text-muted-foreground italic text-center py-4">No applications received yet.</p>
               )}
             </div>
           </CardContent>
