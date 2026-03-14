@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/firebase';
-import { signInAnonymously } from 'firebase/auth';
+import { signInAnonymously, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { Lock } from 'lucide-react';
 
@@ -24,17 +24,20 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Hardcoded credentials check as requested
+    // Hardcoded credentials check
     if (username === 'XE6' && password === 'Sachin9555') {
       try {
-        // Sign in anonymously to bypass security rules for "isAdmin" check
-        // In a real app, we would use proper Firebase Auth credentials
+        if (!auth) throw new Error("Auth not initialized");
+        
+        // Ensure the session persists even if the tab is closed
+        await setPersistence(auth, browserLocalPersistence);
         await signInAnonymously(auth);
         
         toast({ title: "Welcome back!", description: "Successfully logged in to Admin Dashboard." });
         router.push('/admin/dashboard');
-      } catch (error) {
-        toast({ variant: "destructive", title: "Login Failed", description: "Firebase auth failed." });
+      } catch (error: any) {
+        console.error("Auth Error:", error);
+        toast({ variant: "destructive", title: "Login Failed", description: error.message || "Firebase auth failed." });
       }
     } else {
       toast({ variant: "destructive", title: "Invalid Credentials", description: "Please check your username and password." });
@@ -61,6 +64,7 @@ export default function AdminLoginPage() {
                 value={username} 
                 onChange={(e) => setUsername(e.target.value)} 
                 required 
+                autoComplete="username"
               />
             </div>
             <div className="space-y-2">
@@ -71,6 +75,7 @@ export default function AdminLoginPage() {
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
                 required 
+                autoComplete="current-password"
               />
             </div>
             <Button type="submit" className="w-full h-11" disabled={isLoading}>
