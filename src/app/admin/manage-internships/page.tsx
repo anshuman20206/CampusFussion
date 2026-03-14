@@ -13,7 +13,7 @@ export default function ManageInternshipsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
   
-  const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships'), orderBy('createdAt', 'desc')) : null, [firestore]);
+  const q = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships'), orderBy('postedAt', 'desc')) : null, [firestore]);
   const { data: internships, isLoading } = useCollection(q);
 
   const handleDelete = async (id: string) => {
@@ -49,7 +49,7 @@ export default function ManageInternshipsPage() {
               {internships?.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell className="font-medium">{item.title}</TableCell>
-                  <TableCell>{item.companyName}</TableCell>
+                  <TableCell>{item.company}</TableCell>
                   <TableCell><Badge variant="outline">{item.domain}</Badge></TableCell>
                   <TableCell>{item.deadline}</TableCell>
                   <TableCell className="text-right space-x-2">

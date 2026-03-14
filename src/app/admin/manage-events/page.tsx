@@ -38,19 +38,17 @@ export default function ManageEventsPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Event Name</TableHead>
-                <TableHead>Organizer</TableHead>
-                <TableHead>Date</TableHead>
                 <TableHead>Location</TableHead>
+                <TableHead>Date</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {events?.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell className="font-medium">{item.name}</TableCell>
-                  <TableCell>{item.organizer}</TableCell>
-                  <TableCell>{new Date(item.date).toLocaleDateString()}</TableCell>
+                  <TableCell className="font-medium">{item.title}</TableCell>
                   <TableCell>{item.location}</TableCell>
+                  <TableCell>{new Date(item.date).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right space-x-2">
                     <Button variant="ghost" size="icon"><Edit className="h-4 w-4" /></Button>
                     <Button variant="ghost" size="icon" className="text-destructive" onClick={() => handleDelete(item.id)}><Trash2 className="h-4 w-4" /></Button>
@@ -58,7 +56,7 @@ export default function ManageEventsPage() {
                 </TableRow>
               ))}
               {events?.length === 0 && (
-                <TableRow><TableCell colSpan={5} className="text-center py-8 text-muted-foreground">No events found.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={4} className="text-center py-8 text-muted-foreground">No events found.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>
