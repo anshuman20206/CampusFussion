@@ -1,5 +1,5 @@
-
 import Image from 'next/image';
+import images from '@/app/lib/placeholder-images.json';
 
 export function About() {
   return (
@@ -18,7 +18,8 @@ export function About() {
         </div>
         <div className="order-1 md:order-2 flex justify-center">
           <Image
-            src="/images/gdgiec.png"
+            src={images.about.logo.src}
+            data-ai-hint={images.about.logo.dataAiHint}
             alt="GDG Chapter Event Logo"
             width={500}
             height={500}

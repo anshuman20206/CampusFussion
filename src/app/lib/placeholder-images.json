@@ -1,0 +1,26 @@
+{
+  "team": {
+    "anshuman": {
+      "src": "/images/anshuman.jpg",
+      "dataAiHint": "man portrait"
+    },
+    "aahana": {
+      "src": "/images/aahana.jpg",
+      "dataAiHint": "woman portrait"
+    },
+    "hifza": {
+      "src": "/images/hifza.jpg",
+      "dataAiHint": "woman portrait"
+    },
+    "ankit": {
+      "src": "/images/ankit.png",
+      "dataAiHint": "man portrait"
+    }
+  },
+  "about": {
+    "logo": {
+      "src": "/images/gdgiec.png",
+      "dataAiHint": "community logo"
+    }
+  }
+}

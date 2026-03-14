@@ -1,4 +1,3 @@
-
 import { 
   Users, 
   Calendar, 
@@ -16,6 +15,7 @@ import {
   Zap,
   Globe
 } from "lucide-react";
+import images from "@/app/lib/placeholder-images.json";
 
 export const NAV_LINKS = [
   { href: "/", label: "Home", icon: Rocket },
@@ -68,29 +68,29 @@ export const TEAM_MEMBERS = [
   {
     name: "Anshuman Singh",
     role: "GDG Lead & Organizer",
-    image: "/images/anshuman.jpg",
-    dataAiHint: "man portrait",
+    image: images.team.anshuman.src,
+    dataAiHint: images.team.anshuman.dataAiHint,
     linkedin: "https://www.linkedin.com/in/anshumansinghsdd/",
   },
   {
     name: "Aahana Soni",
     role: "GDG Co-Organiser",
-    image: "/images/aahana.jpg",
-    dataAiHint: "woman portrait",
+    image: images.team.aahana.src,
+    dataAiHint: images.team.aahana.dataAiHint,
     linkedin: "https://www.linkedin.com/in/aahana-soni-342865332/",
   },
   {
     name: "Hifza Arif",
     role: "Campus Secretary",
-    image: "/images/hifza.jpg",
-    dataAiHint: "woman portrait",
+    image: images.team.hifza.src,
+    dataAiHint: images.team.hifza.dataAiHint,
     linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
   },
   {
     name: "Ankit",
     role: "Core Team Member",
-    image: "/images/ankit.png",
-    dataAiHint: "man portrait",
+    image: images.team.ankit.src,
+    dataAiHint: images.team.ankit.dataAiHint,
     linkedin: "#",
   },
 ];
