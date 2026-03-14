@@ -22,8 +22,9 @@ export default function AddAnnouncementPage() {
     e.preventDefault();
     if (!firestore) return;
 
+    const form = e.currentTarget;
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
 
     try {
       await addDoc(collection(firestore, 'announcements'), {
@@ -34,7 +35,7 @@ export default function AddAnnouncementPage() {
       });
 
       toast({ title: "Success", description: "Announcement published successfully." });
-      e.currentTarget.reset();
+      form.reset();
       setIsPinned(false);
     } catch (error: any) {
       toast({ variant: "destructive", title: "Error", description: error.message });

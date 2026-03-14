@@ -21,8 +21,9 @@ export default function AddInternshipPage() {
     e.preventDefault();
     if (!firestore) return;
 
+    const form = e.currentTarget;
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const skills = (formData.get('skillsRequired') as string).split(',').map(s => s.trim());
 
     try {
@@ -40,7 +41,7 @@ export default function AddInternshipPage() {
       });
 
       toast({ title: "Success", description: "Internship posted successfully." });
-      e.currentTarget.reset();
+      form.reset();
     } catch (error: any) {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } finally {

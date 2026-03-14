@@ -20,8 +20,9 @@ export default function AddEventPage() {
     e.preventDefault();
     if (!firestore) return;
 
+    const form = e.currentTarget;
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
 
     try {
       const bannerUrl = (formData.get('bannerUrl') as string) || `https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/1200/600`;
@@ -37,7 +38,7 @@ export default function AddEventPage() {
       });
 
       toast({ title: "Success", description: "Event published successfully." });
-      e.currentTarget.reset();
+      form.reset();
     } catch (error: any) {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } finally {
