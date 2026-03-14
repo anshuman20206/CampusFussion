@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -114,13 +115,18 @@ function InternshipCard({ internship }: { internship: any }) {
 
   const handleApply = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     if (!firestore || !firebaseApp) return;
 
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     const resumeFile = formData.get('resume') as File;
 
     try {
+      if (!resumeFile || resumeFile.size === 0) {
+        throw new Error("Please select a valid PDF resume.");
+      }
+
       // 1. Upload Resume to Storage
       const storage = getStorage(firebaseApp);
       const storageRef = ref(storage, `resumes/${Date.now()}-${resumeFile.name}`);
@@ -148,12 +154,14 @@ function InternshipCard({ internship }: { internship: any }) {
         title: "Success!",
         description: "Your application has been submitted successfully.",
       });
+      form.reset();
       setIsModalOpen(false);
     } catch (error: any) {
+      console.error("Application error:", error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message || "Failed to submit application.",
+        description: error.message || "Failed to submit application. Please check your internet and try again.",
       });
     } finally {
       setIsSubmitting(false);

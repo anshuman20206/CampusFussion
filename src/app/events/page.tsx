@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -59,10 +60,11 @@ function EventCard({ event }: { event: any }) {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     if (!firestore) return;
 
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
 
     try {
       await addDoc(collection(firestore, 'eventRegistrations'), {
@@ -79,8 +81,10 @@ function EventCard({ event }: { event: any }) {
         title: "Registered!",
         description: "You have successfully registered for the event.",
       });
+      form.reset();
       setIsModalOpen(false);
     } catch (error: any) {
+      console.error("Registration error:", error);
       toast({
         variant: "destructive",
         title: "Error",
