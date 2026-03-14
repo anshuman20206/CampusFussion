@@ -1,42 +1,36 @@
 
-import { Users, Calendar, MessageCircle, Twitter, Linkedin, Github, Rocket, BrainCircuit, Lightbulb, PenTool, Rss, Code, Paintbrush, BookOpen } from "lucide-react";
+import { 
+  Users, 
+  Calendar, 
+  MessageCircle, 
+  Twitter, 
+  Linkedin, 
+  Github, 
+  Rocket, 
+  BrainCircuit, 
+  Lightbulb, 
+  Briefcase,
+  LayoutDashboard,
+  PlusCircle,
+  FileText,
+  Zap,
+  Globe
+} from "lucide-react";
 
 export const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/events", label: "Events" },
-  { href: "/announcements", label: "Announcements" },
-  { href: "/community", label: "Community" },
+  { href: "/", label: "Home", icon: Rocket },
+  { href: "/internships", label: "Internships", icon: Briefcase },
+  { href: "/events", label: "Events", icon: Calendar },
+  { href: "/announcements", label: "News", icon: MessageCircle },
 ];
 
-export const TEAM_MEMBERS = [
-  {
-    name: "Anshuman Singh",
-    role: "GDG Lead & Organizer",
-    image: "/anshuman.jpg",
-    dataAiHint: "man portrait",
-    linkedin: "https://www.linkedin.com/in/anshumansinghsdd/",
-  },
-  {
-    name: "Aahana Soni",
-    role: "GDG Co-Organiser",
-    image: "/aahana.jpg",
-    dataAiHint: "woman portrait",
-    linkedin: "https://www.linkedin.com/in/aahana-soni-342865332/",
-  },
-  {
-    name: "Hifza Arif",
-    role: "Campus Secretary",
-    image: "/hifza.jpg",
-    dataAiHint: "woman portrait",
-    linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
-  },
-  {
-    name: "Suhani Goel",
-    role: "Campus Secretary",
-    image: "/suhani.jpg",
-    dataAiHint: "woman portrait",
-    linkedin: "https://www.linkedin.com/in/suhani-goel-019b90253/",
-  },
+export const ADMIN_NAV_LINKS = [
+  { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/admin/add-internship", label: "Add Internship", icon: PlusCircle },
+  { href: "/admin/manage-internships", label: "Manage Internships", icon: Briefcase },
+  { href: "/admin/add-event", label: "Add Event", icon: PlusCircle },
+  { href: "/admin/manage-events", label: "Manage Events", icon: Calendar },
+  { href: "/admin/view-applications", label: "Applications", icon: FileText },
 ];
 
 export const COMMUNITY_LINKS = [
@@ -70,216 +64,116 @@ export const COMMUNITY_LINKS = [
     },
 ];
 
-export const EVENTS = [
+export const TEAM_MEMBERS = [
   {
-    date: "2025-10-20",
-    name: "Google Cloud Study Jams",
-    description: "A month-long study jam from Oct 20 to Nov 19, covering various aspects of Google Cloud.",
-    location: "Online",
-    icon: BrainCircuit,
+    name: "Anshuman Singh",
+    role: "GDG Lead & Organizer",
+    image: "https://picsum.photos/seed/anshuman/200",
+    dataAiHint: "man portrait",
+    linkedin: "https://www.linkedin.com/in/anshumansinghsdd/",
   },
   {
-    date: "2025-09-26",
-    name: "Info Session",
-    description: "An insightful session with Anshuman Singh discussing the latest trends in technology.",
-    location: "IEC College of Engineering & Tech",
-    icon: Users,
+    name: "Aahana Soni",
+    role: "GDG Co-Organiser",
+    image: "https://picsum.photos/seed/aahana/200",
+    dataAiHint: "woman portrait",
+    linkedin: "https://www.linkedin.com/in/aahana-soni-342865332/",
   },
   {
-    date: "2025-07-25",
-    name: "India OnChain Builders' Series",
-    description: "Launch Your Career in Web3 & AI with speaker Lakhshay Gupta. Includes a live Q&A session.",
-    location: "Online",
-    icon: Users,
-    link: "https://lu.ma/kdn7hlye",
+    name: "Hifza Arif",
+    role: "Campus Secretary",
+    image: "https://picsum.photos/seed/hifza/200",
+    dataAiHint: "woman portrait",
+    linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
   },
   {
-    date: "2025-05-02",
-    name: "Web3 Unchained: Web 3 se judo yatra",
-    description: "Dive into the future of the internet with insights on Web3 & Blockchain technology! A collaboration with CrewSphere ICP INDIA.",
-    location: "F Block Seminar Hall, IEC College of Engineering & Technology",
-    icon: Lightbulb,
+    name: "Suhani Goel",
+    role: "Campus Secretary",
+    image: "https://picsum.photos/seed/suhani/200",
+    dataAiHint: "woman portrait",
+    linkedin: "https://www.linkedin.com/in/suhani-goel-019b90253/",
   },
-  {
-    date: "2025-04-25",
-    name: "HACKEMON: The Ultimate 36-Hour Hackathon!",
-    description: "A 36-hour hackathon with prize categories for AI/ML, Social Impact, Women-Led, and Beginner-Friendly hacks. Hosted by GDG IEC x SheBuilds.",
-    location: "Hosted by GDG IEC x SheBuilds",
-    icon: Rocket,
-  },
-  {
-    date: "2025-04-19",
-    name: "Vibe Coding Hackathon",
-    description: "The new-aged coding with AI for all! No coding skills or laptop required—make anything you like with mobile tools and get featured on our social platforms.",
-    location: "GDG-IEC",
-    icon: Rocket,
-  },
-  {
-    date: "2025-04-12",
-    name: "GSoC Unlocked: Crack the Code!",
-    description: "Get insider tips on succeeding in Google Summer of Code, from finding projects to crafting a winning proposal, with expert Ayush Srivastava.",
-    location: "Online",
-    icon: Users,
-  },
-  {
-    date: "2025-01-30",
-    name: "Web and Flutter Development Workshop",
-    description: "An insightful workshop covering Next-Gen Web Innovation with Gemini, Dart, Flutter, CSS, and Interactive Web Design.",
-    location: "Online",
-    icon: PenTool,
-  },
-  {
-    date: "2024-12-28",
-    name: "Dev December: Flutter Your Way to Android",
-    description: "Dive into the world of Flutter and unlock its potential for Android development! Don't miss this opportunity to learn, grow, and connect with fellow tech enthusiasts.",
-    location: "Online",
-    icon: PenTool,
-  },
-  {
-    date: "2024-12-23",
-    name: "DevByte: A Web Development Odyssey",
-    description: "Dive deep into web development with sessions on essentials, frameworks, and tools. Showcase your own projects and connect with fellow enthusiasts.",
-    location: "Online",
-    icon: PenTool,
-  },
-  {
-    date: "2024-12-06",
-    name: "Tech Winter Break: Solution Challenge Q&A",
-    description: "Join the Q&A for the Tech Winter Break: Solution Challenge! This session will cover web development fundamentals and details about the global challenge.",
-    location: "Online",
-    icon: Lightbulb,
-  },
-  {
-    date: "2024-11-25",
-    name: "Full Stack Development Speaker Session",
-    description: "Join a speaker session with Dhruv Panjali to dive into Full Stack Development, from front-end to back-end technologies.",
-    location: "IEC College Of Engineering & Technology, Greater Noida",
-    icon: Users,
-  },
-  {
-    date: "2024-10-04",
-    name: "Info Session x Gen AI Study Jam",
-    description: "GDG IEC's first-ever event was a grand success thanks to the relentless efforts of our amazing core team.",
-    location: "IEC Campus",
-    icon: Lightbulb,
-  },
-];
-
-export const ANNOUNCEMENTS = [
-    {
-      date: '2025-07-23',
-      title: 'Upcoming: India OnChain Builders\' Series',
-      content: 'Just two days until the "India OnChain Builders\' Series"! Join us online on July 25, 2025, to hear from Lakhshay Gupta and kickstart your career in Web3 & AI.',
-      pinned: true,
-    },
-    {
-      date: '2025-04-30',
-      title: 'Web3 Unchained: Web 3 se judo yatra',
-      content: 'Get ready for "Web3 Unchained"! Join us at the F Block Seminar Hall on May 2, 2025, to dive into the future of the internet with Web3 and Blockchain.',
-      pinned: false,
-    },
-    {
-      date: '2025-04-23',
-      title: 'Get Ready for HACKEMON!',
-      content: 'The ultimate 36-hour hackathon, HACKEMON, is just two days away! Join us on April 25, 2025. Hosted by GDG IEC x SheBuilds.',
-      pinned: false,
-    },
-    {
-      date: '2025-04-17',
-      title: 'Vibe Coding Hackathon is Coming!',
-      content: 'The Vibe Coding Hackathon is just around the corner on April 19, 2025! No coding skills or laptop required. Get ready to create!',
-      pinned: false,
-    },
-    {
-      date: '2025-04-10',
-      title: 'GSoC Unlocked: Crack the Code!',
-      content: 'Don\'t miss "GSoC Unlocked" on April 12, 2025. Get insider tips on succeeding in Google Summer of Code with expert Ayush Srivastava.',
-      pinned: false,
-    },
-    {
-      date: '2025-01-28',
-      title: 'Web and Flutter Development Workshop',
-      content: 'Our Web and Flutter Development Workshop is happening in two days on January 30, 2025. Join us online to learn about Next-Gen Web Innovation.',
-      pinned: false,
-    },
-    {
-      date: '2024-12-26',
-      title: 'Dev December: Flutter Your Way to Android',
-      content: 'Get ready to dive into Flutter for Android development! Our Dev December session is happening on December 28, 2024.',
-      pinned: false,
-    },
-    {
-      date: '2024-12-21',
-      title: 'DevByte: A Web Development Odyssey',
-      content: 'Join our Web Development Odyssey with DevByte on December 23, 2024. A deep dive into web essentials, frameworks, and tools awaits!',
-      pinned: false,
-    },
-    {
-      date: '2024-12-04',
-      title: 'Solution Challenge Q&A Session',
-      content: 'Have questions about the Tech Winter Break: Solution Challenge? Join our Q&A session on December 6, 2024, to get all the details.',
-      pinned: false,
-    },
-    {
-      date: '2024-11-23',
-      title: 'Full Stack Development Speaker Session',
-      content: 'Join us on November 25, 2024, for an insightful session on Full Stack Development with speaker Dhruv Panjali.',
-      pinned: false,
-    },
-    {
-      date: '2024-10-02',
-      title: 'Info Session x Gen AI Study Jam Reminder',
-      content: 'Our first-ever event, the Info Session x Gen AI Study Jam, is happening in two days on October 4, 2024, at the IEC Campus. See you there!',
-      pinned: false,
-    },
-];
-
-export const GALLERY_IMAGES = [
-    { src: "/6.jpeg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 6" },
-    { src: "/7.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 7" },
-    { src: "/8.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 8" },
-    { src: "/9.png", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 9" },
-    { src: "/1.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 1" },
-    { src: "/2.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 2" },
-    { src: "/3.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 3" },
-    { src: "/4.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 4" },
-    { src: "/5.jpg", dataAiHint: "event photography", alt: "A snapshot from a CampusFusion event.", title: "Event Moment 5" },
-    { src: "/Info Session Group.jpg", dataAiHint: "group photo", alt: "Group photo of the event organizers and volunteers.", title: "The Team" },
-    { src: "/Info Session 8.jpg", dataAiHint: "team posing", alt: "The organizing team posing for a photo.", title: "Team Photo" },
-    { src: "/Info Session 7.jpg", dataAiHint: "audience attention", alt: "Attendees focused on the presentation.", title: "Focused Attendees" },
-    { src: "/Info Session 6.jpg", dataAiHint: "full house", alt: "A wide angle view of the packed seminar hall.", title: "Full House" },
-    { src: "/Info Session 5.jpg", dataAiHint: "students networking", alt: "Students networking and talking before the session.", title: "Networking" },
-    { src: "/Info Session 4.jpg", dataAiHint: "event crowd", alt: "Another view of the attendees in the hall.", title: "Crowd Shot" },
-    { src: "/Info Session 3.jpg", dataAiHint: "attendees seated", alt: "A section of the audience during the event.", title: "Audience Section" },
-    { src: "/Info Session 2.jpg", dataAiHint: "presentation stage", alt: "A speaker on stage during the presentation.", title: "On Stage" },
-    { src: "/Info Session 1.jpg", dataAiHint: "event audience", alt: "Students listening to the speaker during the info session.", title: "Info Session Moment" },
-    { src: "/IMG_20250926_163312.jpg", dataAiHint: "students interacting", alt: "Students interacting with each other during the session.", title: "Student Interaction" },
-    { src: "/IMG_20250926_163250.jpg", dataAiHint: "event hall", alt: "Wide shot of the event hall with attendees seated.", title: "Session Hall" },
-    { src: "/IMG_20250926_162822.jpg", dataAiHint: "students listening", alt: "Close-up of students listening attentively.", title: "Engaged Audience" },
-    { src: "/IMG_20250926_162728.jpg", dataAiHint: "audience listening", alt: "View of the audience from the front of the hall.", title: "Audience View" },
-    { src: "/IMG_20250926_162713.jpg", dataAiHint: "event audience", alt: "Students and attendees entering the session hall.", title: "Arrivals" },
-    { src: "/IMG_20250926_162314.jpg", dataAiHint: "speaker presentation", alt: "Speaker presenting during the info session.", title: "Info Session" },
-    { src: "/gdgiec.png", dataAiHint: "logo abstract", alt: "CampusFusion's official logo featuring an abstract design.", title: "Official Logo" },
 ];
 
 export const ROADMAP_PHASES = [
   {
-    icon: Users,
-    title: "Phase 1: Community Formation",
-    description: "Establishing the core community, setting up social channels, and onboarding initial members.",
-  },
-  {
-    icon: Calendar,
-    title: "Phase 2: Events & Engagement",
-    description: "Launching our first series of workshops, speaker sessions, and regular meetups to foster learning and collaboration.",
-  },
-  {
+    title: "Phase 1: Foundation",
+    description: "Establishing the core community hub, member registration, and event management systems.",
     icon: Rocket,
-    title: "Phase 3: Hackathons & Projects",
-    description: "Organizing large-scale hackathons and collaborative projects to apply skills and build innovative solutions.",
+  },
+  {
+    title: "Phase 2: Innovation",
+    description: "Launching student projects, hackathons, and integrating AI-powered learning assistants.",
+    icon: BrainCircuit,
+  },
+  {
+    title: "Phase 3: Career Growth",
+    description: "Expanding the internship portal, connecting with industry partners, and hosting job fairs.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Phase 4: Scaling",
+    description: "Expanding to neighboring campuses and creating a cross-college collaborative network.",
+    icon: Globe,
   },
 ];
 
-    
+export const ANNOUNCEMENTS = [
+  {
+    title: "Welcome to CampusFusion",
+    content: "We are excited to launch the new version of our student community platform. Explore internships and upcoming events now!",
+    date: "2024-05-20",
+    pinned: true,
+  },
+  {
+    title: "Internship Season is Live",
+    content: "Several new internships have been posted in the Web Dev and AI domains. Make sure your profile is ready and start applying today!",
+    date: "2024-05-18",
+    pinned: false,
+  },
+  {
+    title: "Upcoming Hackathon: FusionHack 2024",
+    content: "Get ready for the biggest campus hackathon of the year. Registration starts next week. Form your teams now!",
+    date: "2024-05-15",
+    pinned: false,
+  },
+];
 
-    
+export const GALLERY_IMAGES = [
+  {
+    src: "https://picsum.photos/seed/event1/800/600",
+    title: "Last Workshop",
+    alt: "Students working together during a Flutter workshop",
+    dataAiHint: "students workshop",
+  },
+  {
+    src: "https://picsum.photos/seed/event2/800/600",
+    title: "GDG Cloud Session",
+    alt: "Speaker presenting about Google Cloud Platform",
+    dataAiHint: "tech seminar",
+  },
+  {
+    src: "https://picsum.photos/seed/event3/800/600",
+    title: "Hackathon Team",
+    alt: "Winning team of the last 24-hour hackathon",
+    dataAiHint: "team celebration",
+  },
+  {
+    src: "https://picsum.photos/seed/event4/800/600",
+    title: "Networking Tea",
+    alt: "Students and industry experts talking during a break",
+    dataAiHint: "business networking",
+  },
+  {
+    src: "https://picsum.photos/seed/event5/800/600",
+    title: "AI Demo Day",
+    alt: "Student showcasing their LLM-based project",
+    dataAiHint: "project showcase",
+  },
+  {
+    src: "https://picsum.photos/seed/event6/800/600",
+    title: "Annual Meetup",
+    alt: "Group photo of all community members",
+    dataAiHint: "large group",
+  },
+];

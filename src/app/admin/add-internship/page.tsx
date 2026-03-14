@@ -1,0 +1,126 @@
+
+'use client';
+
+import { useState } from 'react';
+import { useFirestore } from '@/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2, PlusCircle } from 'lucide-react';
+
+export default function AddInternshipPage() {
+  const { firestore } = useFirestore();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!firestore) return;
+
+    setIsSubmitting(true);
+    const formData = new FormData(e.currentTarget);
+    const skills = (formData.get('skillsRequired') as string).split(',').map(s => s.trim());
+
+    try {
+      await addDoc(collection(firestore, 'internships'), {
+        companyName: formData.get('companyName'),
+        title: formData.get('title'),
+        description: formData.get('description'),
+        location: formData.get('location'),
+        domain: formData.get('domain'),
+        duration: formData.get('duration'),
+        stipend: formData.get('stipend'),
+        skillsRequired: skills,
+        deadline: formData.get('deadline'),
+        createdAt: serverTimestamp(),
+      });
+
+      toast({ title: "Success", description: "Internship posted successfully." });
+      e.currentTarget.reset();
+    } catch (error: any) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto space-y-6">
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <PlusCircle className="h-6 w-6 text-primary" />
+            <CardTitle>Add New Internship</CardTitle>
+          </div>
+          <CardDescription>Fill out the details to post a new opportunity.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="companyName">Company Name</Label>
+                <Input id="companyName" name="companyName" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="title">Internship Title</Label>
+                <Input id="title" name="title" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="domain">Domain</Label>
+                <Select name="domain" required>
+                  <SelectTrigger><SelectValue placeholder="Select Domain" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Web Dev">Web Dev</SelectItem>
+                    <SelectItem value="AI">AI/ML</SelectItem>
+                    <SelectItem value="Data Science">Data Science</SelectItem>
+                    <SelectItem value="Marketing">Marketing</SelectItem>
+                    <SelectItem value="Design">Design</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="location">Location</Label>
+                <Select name="location" required>
+                  <SelectTrigger><SelectValue placeholder="Select Type" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Remote">Remote</SelectItem>
+                    <SelectItem value="Hybrid">Hybrid</SelectItem>
+                    <SelectItem value="Onsite">Onsite</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="duration">Duration</Label>
+                <Input id="duration" name="duration" placeholder="e.g. 3 Months" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="stipend">Stipend</Label>
+                <Input id="stipend" name="stipend" placeholder="e.g. 10k/month" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="deadline">Deadline</Label>
+                <Input id="deadline" name="deadline" type="date" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="skillsRequired">Skills (comma separated)</Label>
+                <Input id="skillsRequired" name="skillsRequired" placeholder="React, Node, etc." required />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Job Description</Label>
+              <Textarea id="description" name="description" className="min-h-[150px]" required />
+            </div>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Publish Internship"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
