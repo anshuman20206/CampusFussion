@@ -10,7 +10,6 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { getFirebaseServices } from '@/lib/firebase';
 import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 // Tool: Fetch live internships
 const getLatestInternships = ai.defineTool(
@@ -108,7 +107,7 @@ const campusAssistantFlow = ai.defineFlow(
     },
     async (input) => {
         const response = await ai.generate({
-            model: gemini15Flash,
+            model: 'googleai/gemini-1.5-flash',
             system: `You are the CampusFusion AI Assistant. 
             CampusFusion is a student community platform for GDG (Google Developer Groups).
             Your goal is to help students with:
