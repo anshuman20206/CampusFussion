@@ -1,25 +1,26 @@
+
 {
   "team": {
     "anshuman": {
-      "src": "/images/anshuman.jpg",
+      "src": "/anshuman.jpg",
       "dataAiHint": "man portrait"
     },
     "aahana": {
-      "src": "/images/aahana.jpg",
+      "src": "/aahana.jpg",
       "dataAiHint": "woman portrait"
     },
     "hifza": {
-      "src": "/images/hifza.jpg",
+      "src": "/hifza.jpg",
       "dataAiHint": "woman portrait"
     },
     "ankit": {
-      "src": "/images/ankit.png",
+      "src": "/ankit.png",
       "dataAiHint": "man portrait"
     }
   },
   "about": {
     "logo": {
-      "src": "/images/gdgiec.png",
+      "src": "/gdgiec.png",
       "dataAiHint": "community logo"
     }
   }
