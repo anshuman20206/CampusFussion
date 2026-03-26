@@ -44,15 +44,6 @@ export function Header() {
             >
               Gallery
             </Link>
-            <Link
-              href="/chatbot"
-              className={cn(
-                'transition-colors hover:text-primary',
-                pathname === "/chatbot" ? 'text-primary font-bold' : 'text-foreground/70'
-              )}
-            >
-              AI Assistant
-            </Link>
         </nav>
         <div className="ml-auto flex items-center md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -89,18 +80,6 @@ export function Header() {
                     )}
                   >
                     Gallery
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    href="/chatbot"
-                    onClick={handleLinkClick}
-                    className={cn(
-                      'text-lg transition-colors hover:text-primary',
-                      pathname === '/chatbot' ? 'text-primary font-semibold' : 'text-muted-foreground'
-                    )}
-                  >
-                    AI Assistant
                   </Link>
                 </div>
               </div>
