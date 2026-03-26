@@ -109,7 +109,7 @@ const campusAssistantFlow = ai.defineFlow(
         const response = await ai.generate({
             model: 'googleai/gemini-1.5-flash',
             system: `You are the CampusFusion AI Assistant. 
-            CampusFusion is a student community platform for GDG (Google Developer Groups).
+            CampusFusion is a student community platform.
             Your goal is to help students with:
             1. Finding internships (use getLatestInternships tool).
             2. Finding upcoming events (use getUpcomingEvents tool).
