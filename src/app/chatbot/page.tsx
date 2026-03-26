@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
@@ -5,9 +6,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, User, Send, Loader2, Sparkles } from 'lucide-react';
+import { Bot, Send, Loader2, Sparkles, User } from 'lucide-react';
 import { getAiResponse } from './actions';
-import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
 
@@ -58,31 +58,36 @@ export default function ChatbotPage() {
   };
 
   return (
-    <div className="fixed inset-0 top-20 z-40 bg-background flex flex-col">
-      <div className="flex-1 overflow-hidden relative flex flex-col">
-        {/* Header Overlay */}
-        <div className="absolute top-0 left-0 right-0 h-16 bg-background/80 backdrop-blur-md border-b z-20 flex items-center justify-between px-6">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <Sparkles className="h-5 w-5 text-primary" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold tracking-tight">CampusFusion Assistant</h1>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Real-time Data Sync Active</p>
-            </div>
+    <div className="fixed inset-0 z-50 bg-background flex flex-col pt-20">
+      {/* Dynamic Header */}
+      <div className="h-16 border-b bg-card/30 backdrop-blur-xl flex items-center justify-between px-6 shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-primary/10 rounded-lg">
+            <Sparkles className="h-5 w-5 text-primary" />
           </div>
-          <div className="hidden md:flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs text-muted-foreground font-mono">Gemini 1.5 Flash Online</span>
+          <div>
+            <h1 className="text-sm font-bold tracking-tight">CampusFusion Intelligence</h1>
+            <div className="flex items-center gap-1.5">
+              <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Live Sync Active</p>
+            </div>
           </div>
         </div>
+        <div className="hidden md:flex items-center gap-4">
+          <div className="text-right">
+            <p className="text-[10px] text-muted-foreground font-mono leading-none">SYSTEM STATUS</p>
+            <p className="text-[10px] font-bold font-mono text-primary">GEMINI_1.5_FLASH_OK</p>
+          </div>
+        </div>
+      </div>
 
+      <div className="flex-1 flex flex-col min-h-0 relative">
         <ScrollArea className="flex-1" ref={scrollAreaRef}>
-          <div className="pt-24 pb-32 px-6 max-w-4xl mx-auto space-y-8">
-            {/* Greeting */}
+          <div className="max-w-4xl mx-auto px-6 py-10 space-y-8">
+            {/* Initial Greeting */}
             <div className="flex items-start gap-4">
               <Avatar className="h-10 w-10 border-2 border-primary/20 shadow-sm">
-                <AvatarFallback className="bg-primary/10 text-primary"><Bot size={22} /></AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary font-bold"><Bot size={20} /></AvatarFallback>
               </Avatar>
               <div className="rounded-2xl rounded-tl-none bg-muted/30 p-5 text-sm shadow-sm border border-border/50 max-w-[85%]">
                 <p className="leading-relaxed">Greetings! I am the **CampusFusion Hub Intelligence**. I have live access to our **internships**, **GDG events**, and **announcements**. How can I assist your career or coding journey today?</p>
@@ -94,14 +99,19 @@ export default function ChatbotPage() {
                 key={index}
                 className={cn(
                   'flex items-start gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300',
-                  message.role === 'user' ? 'justify-end' : ''
+                  message.role === 'user' ? 'flex-row-reverse' : ''
                 )}
               >
-                {message.role === 'model' && (
-                  <Avatar className="h-10 w-10 border-2 border-primary/20 shrink-0">
-                    <AvatarFallback className="bg-primary/10 text-primary"><Bot size={22} /></AvatarFallback>
-                  </Avatar>
-                )}
+                <Avatar className={cn(
+                  "h-10 w-10 border-2 shrink-0",
+                  message.role === 'user' ? "border-secondary" : "border-primary/20"
+                )}>
+                  <AvatarFallback className={cn(
+                    message.role === 'user' ? "bg-secondary text-secondary-foreground" : "bg-primary/10 text-primary"
+                  )}>
+                    {message.role === 'user' ? <User size={20} /> : <Bot size={20} />}
+                  </AvatarFallback>
+                </Avatar>
                 <div
                   className={cn(
                     'rounded-2xl p-5 text-sm shadow-sm max-w-[85%] border',
@@ -110,48 +120,43 @@ export default function ChatbotPage() {
                       : 'bg-muted/50 rounded-tl-none border-border/50'
                   )}
                 >
-                  <ReactMarkdown className="prose dark:prose-invert prose-sm max-w-none break-words leading-relaxed">
+                  <ReactMarkdown className="prose dark:prose-invert prose-sm max-w-none break-words leading-relaxed prose-p:leading-relaxed prose-pre:bg-black/50 prose-code:text-primary">
                     {message.content}
                   </ReactMarkdown>
                 </div>
-                {message.role === 'user' && (
-                  <Avatar className="h-10 w-10 border-2 border-secondary shrink-0">
-                    <AvatarFallback className="bg-secondary text-secondary-foreground font-bold text-xs">YOU</AvatarFallback>
-                  </Avatar>
-                )}
               </div>
             ))}
             
             {isLoading && (
                <div className="flex items-start gap-4 animate-pulse">
                   <Avatar className="h-10 w-10 border-2 border-primary/20 shrink-0">
-                    <AvatarFallback className="bg-primary/10 text-primary"><Bot size={22} /></AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary"><Bot size={20} /></AvatarFallback>
                   </Avatar>
                   <div className="rounded-2xl rounded-tl-none bg-muted/50 p-5 text-sm flex items-center gap-3 border border-border/50">
                       <Loader2 className="h-4 w-4 animate-spin text-primary"/>
-                      <span className="font-mono text-xs uppercase tracking-tighter">Analyzing Request...</span>
+                      <span className="font-mono text-xs uppercase tracking-tighter">Processing Neural Request...</span>
                   </div>
                </div>
             )}
           </div>
         </ScrollArea>
         
-        {/* Input Area */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/95 to-transparent z-20">
-          <form onSubmit={handleSubmit} className="flex items-center gap-3 max-w-4xl mx-auto relative group">
-            <div className="relative flex-1">
+        {/* Full Width Floating Input */}
+        <div className="p-6 bg-gradient-to-t from-background via-background/95 to-transparent border-t backdrop-blur-sm">
+          <form onSubmit={handleSubmit} className="max-w-4xl mx-auto relative">
+            <div className="relative group">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about internships, events, or code doubts..."
-                className="w-full py-8 px-6 rounded-2xl bg-muted/50 border-2 border-primary/10 focus-visible:border-primary/50 focus-visible:ring-0 transition-all text-base shadow-lg pr-16"
+                placeholder="Ask about internships, code doubts, or events..."
+                className="w-full py-7 px-6 rounded-2xl bg-muted/50 border-2 border-primary/10 focus-visible:border-primary/50 focus-visible:ring-0 transition-all text-base shadow-xl pr-16"
                 disabled={isLoading}
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2">
+              <div className="absolute right-2 top-1/2 -translate-y-1/2">
                 <Button 
                   type="submit" 
                   size="icon" 
-                  className="h-12 w-12 rounded-xl shadow-md hover:scale-105 transition-transform" 
+                  className="h-12 w-12 rounded-xl shadow-lg hover:scale-105 transition-transform" 
                   disabled={isLoading || !input.trim()}
                 >
                   <Send className="h-5 w-5" />
@@ -159,10 +164,15 @@ export default function ChatbotPage() {
                 </Button>
               </div>
             </div>
+            <div className="flex justify-center gap-6 mt-3">
+               <p className="text-[10px] text-muted-foreground/40 font-mono uppercase tracking-[0.2em]">
+                 Encryption Protocol: AES-256
+               </p>
+               <p className="text-[10px] text-muted-foreground/40 font-mono uppercase tracking-[0.2em]">
+                 Node: CF_ALPHA_1
+               </p>
+            </div>
           </form>
-          <p className="text-[10px] text-center mt-3 text-muted-foreground/40 font-mono uppercase tracking-widest">
-            Gemini 1.5 Flash // Powered by CampusFusion AI Service
-          </p>
         </div>
       </div>
     </div>
