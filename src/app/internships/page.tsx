@@ -10,12 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Search, Loader2, Clock, DollarSign, MapPin, Linkedin, Github, Code2 } from 'lucide-react';
+import { Loader2, Clock, DollarSign, MapPin, Linkedin, Github, Code2, Briefcase } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function InternshipsPage() {
   const firestore = useFirestore();
-  const [searchTerm, setSearchTerm] = useState('');
   
   const internshipsQuery = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -24,38 +23,24 @@ export default function InternshipsPage() {
 
   const { data: internships, isLoading } = useCollection(internshipsQuery);
 
-  const filteredInternships = internships?.filter(item => 
-    item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    item.company.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <div className="container mx-auto px-6 py-12">
-      <div className="mb-12">
+      <div className="mb-12 text-center md:text-left">
         <h1 className="text-4xl font-bold tracking-tight text-primary">Discover Internships</h1>
-        <p className="mt-2 text-muted-foreground">Find your next career opportunity with top companies.</p>
-      </div>
-
-      <div className="relative mb-8">
-        <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-        <input 
-          placeholder="Search by title or company..." 
-          className="flex h-10 w-full rounded-md border border-input bg-background/50 px-3 py-2 pl-9 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:text-sm"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <p className="mt-2 text-muted-foreground">The latest career opportunities for our community, sorted by most recent.</p>
       </div>
 
       {isLoading ? (
         <div className="flex justify-center items-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredInternships?.map((internship) => (
+          {internships?.map((internship) => (
             <InternshipCard key={internship.id} internship={internship} />
           ))}
-          {filteredInternships?.length === 0 && (
+          {internships?.length === 0 && (
             <div className="col-span-full text-center py-20 bg-muted/20 rounded-xl border border-dashed">
-              <p className="text-muted-foreground">No internships found matching your search.</p>
+              <Briefcase className="mx-auto h-12 w-12 text-muted-foreground opacity-20 mb-4" />
+              <p className="text-muted-foreground">No internships have been posted yet. Check back soon!</p>
             </div>
           )}
         </div>
@@ -104,7 +89,7 @@ function InternshipCard({ internship }: { internship: any }) {
   };
 
   return (
-    <Card className="flex flex-col h-full border-primary/10 hover:border-primary/30 transition-colors">
+    <Card className="flex flex-col h-full border-primary/10 hover:border-primary/30 transition-all hover:shadow-md">
       <CardHeader>
         <Badge className="w-fit mb-2">{internship.domain || 'Internship'}</Badge>
         <CardTitle className="text-xl line-clamp-1">{internship.title}</CardTitle>
@@ -125,7 +110,7 @@ function InternshipCard({ internship }: { internship: any }) {
             <form onSubmit={handleApply} className="space-y-4">
               <DialogHeader>
                 <DialogTitle>Application for {internship.title}</DialogTitle>
-                <DialogDescription>Apply to join {internship.company}. No resume required, just your profiles!</DialogDescription>
+                <DialogDescription>Apply to join {internship.company}. No resume required, just your professional links!</DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-2">
                 <div className="grid grid-cols-2 gap-4">
@@ -144,7 +129,7 @@ function InternshipCard({ internship }: { internship: any }) {
                 </div>
                 
                 <div className="space-y-3 pt-2">
-                  <Label className="text-xs font-bold uppercase tracking-wider text-primary">Professional Links</Label>
+                  <Label className="text-xs font-bold uppercase tracking-wider text-primary">Professional Profiles</Label>
                   <div className="relative">
                     <Linkedin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input name="linkedinURL" placeholder="LinkedIn Profile URL" className="pl-9" required />
