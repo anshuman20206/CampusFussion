@@ -142,7 +142,7 @@ export default function ChatbotPage() {
               </Button>
             </form>
             <p className="text-[10px] text-center mt-3 text-muted-foreground/60 font-mono uppercase tracking-widest">
-              Gemini 2.0 Flash // Secure Channel Encrypted
+              Gemini 1.5 Flash // Secure Channel Encrypted
             </p>
           </div>
         </CardContent>
