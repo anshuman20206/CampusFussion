@@ -1,28 +1,27 @@
+
 "use server";
 
-import { programmingDoubtSolver, ProgrammingDoubtSolverOutput } from "@/ai/flows/programming-doubt-solver";
-import { getResumeTips, GetResumeTipsOutput } from "@/ai/flows/get-resume-tips";
+import { campusAssistant } from "@/ai/flows/campus-assistant";
 
-type ChatResponse = 
-    | { type: 'programming', data: ProgrammingDoubtSolverOutput }
-    | { type: 'resume', data: GetResumeTipsOutput }
-    | { type: 'error', message: string };
+interface Message {
+    role: 'user' | 'model' | 'system';
+    content: string;
+}
 
-export async function getAiResponse(userInput: string): Promise<ChatResponse> {
+export async function getAiResponse(history: Message[]) {
   try {
-    const lowercasedInput = userInput.toLowerCase();
-    
-    // Simple routing logic
-    if (lowercasedInput.includes('resume') || lowercasedInput.includes('cv') || lowercasedInput.includes('interview')) {
-        const response = await getResumeTips({ query: userInput });
-        return { type: 'resume', data: response };
-    } else {
-        // Default to programming solver
-        const response = await programmingDoubtSolver({ programmingQuestion: userInput });
-        return { type: 'programming', data: response };
-    }
-  } catch (error) {
-    console.error("Error getting AI response:", error);
-    return { type: 'error', message: "Sorry, I couldn't process your request right now. Please try again later." };
+    const response = await campusAssistant({ messages: history });
+    return { type: 'success', content: response };
+  } catch (error: any) {
+    console.error("Genkit Assistant Error:", error);
+    // Provide a more helpful error message to the user
+    const message = error.message?.includes('API_KEY') 
+      ? "API key is missing or invalid. Please check your GOOGLE_GENAI_API_KEY environment variable."
+      : error.message || "I'm having trouble connecting to my brain. Please try again in a few moments.";
+      
+    return { 
+        type: 'error', 
+        message: message
+    };
   }
 }
