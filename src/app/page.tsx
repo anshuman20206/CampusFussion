@@ -1,7 +1,7 @@
 'use client';
 
 import { Hero } from '@/components/pages/home/hero';
-import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useFirestore, useCollection, useMemoFirebase, useUser } from '@/firebase';
 import { collection, query, limit } from 'firebase/firestore';
 import { 
   Users, 
@@ -20,11 +20,14 @@ import Link from 'next/link';
 
 export default function Home() {
   const firestore = useFirestore();
+  const { user } = useUser();
 
   const internshipsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships'), limit(5)) : null, [firestore]);
   const eventsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'events'), limit(3)) : null, [firestore]);
   const announcementsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'announcements'), limit(3)) : null, [firestore]);
-  const applicationsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'applications')) : null, [firestore]);
+  
+  // Only query applications if a user is logged in, as it requires admin permissions
+  const applicationsQuery = useMemoFirebase(() => (firestore && user) ? query(collection(firestore, 'applications')) : null, [firestore, user]);
 
   const { data: internships, isLoading: loadingInterns } = useCollection(internshipsQuery);
   const { data: events, isLoading: loadingEvents } = useCollection(eventsQuery);
@@ -35,7 +38,7 @@ export default function Home() {
     { label: "Total Students", value: "2.4k+", icon: Users, color: "text-blue-500", bg: "bg-blue-50" },
     { label: "Upcoming Events", value: events?.length || "8", icon: Calendar, color: "text-purple-500", bg: "bg-purple-50" },
     { label: "Active Internships", value: internships?.length || "12", icon: Briefcase, color: "text-indigo-500", bg: "bg-indigo-50" },
-    { label: "Applications", value: apps?.length || "45", icon: FileText, color: "text-pink-500", bg: "bg-pink-50" },
+    { label: "Applications", value: apps ? apps.length : (user ? "0" : "45"), icon: FileText, color: "text-pink-500", bg: "bg-pink-50" },
   ];
 
   return (
