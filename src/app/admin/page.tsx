@@ -26,12 +26,11 @@ export default function AdminLoginPage() {
     setIsLoading(true);
     setAuthError(null);
 
-    // Hardcoded credentials check
+    // Hardcoded credentials check as requested: Username XE6, Password Sachin9555
     if (username === 'XE6' && password === 'Sachin9555') {
       try {
         if (!auth) throw new Error("Auth not initialized");
         
-        // Ensure the session persists even if the tab is closed
         await setPersistence(auth, browserLocalPersistence);
         await signInAnonymously(auth);
         
@@ -39,14 +38,10 @@ export default function AdminLoginPage() {
         router.push('/admin/dashboard');
       } catch (error: any) {
         console.error("Auth Error:", error);
-        if (error.code === 'auth/configuration-not-found') {
-          setAuthError("Anonymous Authentication is not enabled in your Firebase Console. Please enable it under Authentication > Sign-in method.");
-        } else {
-          toast({ variant: "destructive", title: "Login Failed", description: error.message || "Firebase auth failed." });
-        }
+        toast({ variant: "destructive", title: "Login Failed", description: error.message || "Firebase auth failed." });
       }
     } else {
-      toast({ variant: "destructive", title: "Invalid Credentials", description: "Please check your username and password." });
+      toast({ variant: "destructive", title: "Invalid Credentials", description: "Incorrect username or password." });
     }
     setIsLoading(false);
   };
@@ -67,7 +62,7 @@ export default function AdminLoginPage() {
               <Lock className="text-primary h-8 w-8" />
             </div>
             <CardTitle className="text-2xl">Admin Login</CardTitle>
-            <CardDescription>Secure access to the management portal</CardDescription>
+            <CardDescription>Enter credentials to access management</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
@@ -79,6 +74,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setUsername(e.target.value)} 
                   required 
                   autoComplete="username"
+                  placeholder="Admin Username"
                 />
               </div>
               <div className="space-y-2">
@@ -90,6 +86,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setPassword(e.target.value)} 
                   required 
                   autoComplete="current-password"
+                  placeholder="••••••••"
                 />
               </div>
               <Button type="submit" className="w-full h-11" disabled={isLoading}>

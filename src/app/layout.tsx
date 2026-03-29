@@ -1,4 +1,3 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { Inter } from 'next/font/google';
@@ -26,14 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(
-        'min-h-screen font-sans antialiased bg-background', 
+        'min-h-screen font-sans antialiased bg-background overflow-x-hidden', 
         font.variable
       )}>
         <FirebaseClientProvider>
           <div className="flex">
             <SidebarNav />
-            <main className="flex-1 min-h-screen transition-all duration-300 md:ml-64">
-              {children}
+            <main className="flex-1 min-h-screen transition-all duration-300 w-full md:pl-64 lg:pl-64">
+              <div className="max-w-[1600px] mx-auto">
+                {children}
+              </div>
             </main>
           </div>
           <Toaster />
