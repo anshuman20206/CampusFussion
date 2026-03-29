@@ -14,12 +14,13 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   const isAdmin = pathname.startsWith('/admin');
   const isDashboard = pathname === '/dashboard';
 
-  // We show the sidebar persistent only on Dashboard and Admin routes
-  const showSidebarPersistent = isAdmin || isDashboard;
+  // We show the global sidebar ONLY on the user-facing Dashboard.
+  // We hide it on Admin routes because AdminLayout has its own specialized sidebar.
+  const showSidebarPersistent = isDashboard;
 
   return (
     <div className="flex">
-      <SidebarNav />
+      {!isAdmin && <SidebarNav />}
       <main className={cn(
         "flex-1 min-h-[calc(100vh-80px)] transition-all duration-300 w-full",
         showSidebarPersistent && "md:pl-64 lg:pl-64"
