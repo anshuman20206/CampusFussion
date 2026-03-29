@@ -32,7 +32,9 @@ export default function RootLayout({
         <FirebaseClientProvider>
           <Header />
           <LayoutShell>
-            {children}
+            <div className="pt-24">
+              {children}
+            </div>
           </LayoutShell>
           <Toaster />
         </FirebaseClientProvider>

@@ -8,60 +8,91 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Menu, Lock } from 'lucide-react';
 import { useUser } from '@/firebase';
+import { useState, useEffect } from 'react';
 
 export function Header() {
   const pathname = usePathname();
   const { user } = useUser();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background/60 backdrop-blur-xl transition-all duration-300">
-      <div className="container mx-auto flex h-20 items-center justify-between px-6">
-        <Logo />
+    <div className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:px-8">
+      <header
+        className={cn(
+          "mx-auto w-full max-w-7xl transition-all duration-500 ease-in-out border border-white/10 overflow-hidden",
+          isScrolled 
+            ? "h-16 rounded-2xl bg-background/80 backdrop-blur-2xl shadow-xl shadow-primary/5 py-0" 
+            : "h-20 rounded-3xl bg-background/40 backdrop-blur-md py-2 shadow-sm"
+        )}
+      >
+        <div className="container mx-auto flex h-full items-center justify-between px-6">
+          <Logo className={cn("transition-transform duration-500", isScrolled ? "scale-90" : "scale-100")} />
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "text-sm font-bold transition-all duration-300 relative group",
+                  pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                {link.label}
+                <span className={cn(
+                  "absolute -bottom-1 left-0 w-full h-0.5 bg-primary transition-transform duration-300 origin-left",
+                  pathname === link.href ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                )} />
+              </Link>
+            ))}
+            {user && (
+              <Link
+                href="/dashboard"
+                className={cn(
+                  "text-sm font-bold transition-all duration-300 relative group",
+                  pathname === "/dashboard" ? "text-primary" : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                Dashboard
+                <span className={cn(
+                  "absolute -bottom-1 left-0 w-full h-0.5 bg-primary transition-transform duration-300 origin-left",
+                  pathname === "/dashboard" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                )} />
+              </Link>
+            )}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="icon" asChild className="md:hidden rounded-xl">
+              <Link href="/admin">
+                <Lock className="h-4 w-4" />
+              </Link>
+            </Button>
+            
+            <Button 
+              variant={isScrolled ? "default" : "outline"} 
+              asChild 
               className={cn(
-                "text-sm font-bold transition-colors hover:text-primary",
-                pathname === link.href ? "text-primary" : "text-muted-foreground"
+                "hidden md:flex rounded-xl transition-all duration-500",
+                !isScrolled && "border-primary/20 bg-background/50 hover:bg-primary/5"
               )}
             >
-              {link.label}
-            </Link>
-          ))}
-          {user && (
-            <Link
-              href="/dashboard"
-              className={cn(
-                "text-sm font-bold transition-colors hover:text-primary",
-                pathname === "/dashboard" ? "text-primary" : "text-muted-foreground"
-              )}
-            >
-              Dashboard
-            </Link>
-          )}
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" asChild className="md:hidden">
-            <Link href="/admin">
-              <Lock className="h-4 w-4" />
-            </Link>
-          </Button>
-          
-          <Button variant="outline" asChild className="hidden md:flex rounded-xl border-primary/20 hover:bg-primary/5">
-            <Link href="/admin">
-              {user ? "Admin Panel" : "Admin Login"}
-            </Link>
-          </Button>
-
-          {/* This button is handled by SidebarNav internally, but we can trigger it here if we want to synchronize */}
-          {/* For now, we rely on the SidebarNav's internal toggle button which appears on mobile/homepage */}
+              <Link href="/admin">
+                {user ? "Admin Panel" : "Admin Login"}
+              </Link>
+            </Button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }
