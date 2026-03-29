@@ -13,9 +13,8 @@ import {
   LayoutDashboard,
   PlusCircle,
   FileText,
-  Zap,
-  Globe,
-  Bell
+  Bell,
+  Globe
 } from "lucide-react";
 import images from "@/app/lib/placeholder-images.json";
 
@@ -122,62 +121,9 @@ export const ROADMAP_PHASES = [
   },
 ];
 
-export const ANNOUNCEMENTS = [
-  {
-    title: "Welcome to CampusFusion",
-    content: "We are excited to launch the new version of our student community platform. Explore internships and upcoming events now!",
-    date: "2024-05-20",
-    pinned: true,
-  },
-  {
-    title: "Internship Season is Live",
-    content: "Several new internships have been posted in the Web Dev and AI domains. Make sure your profile is ready and start applying today!",
-    date: "2024-05-18",
-    pinned: false,
-  },
-  {
-    title: "Upcoming Hackathon: FusionHack 2024",
-    content: "Get ready for the biggest campus hackathon of the year. Registration starts next week. Form your teams now!",
-    date: "2024-05-15",
-    pinned: false,
-  },
-];
-
-export const GALLERY_IMAGES = [
-  {
-    src: "https://picsum.photos/seed/event1/800/600",
-    title: "Last Workshop",
-    alt: "Students working together during a Flutter workshop",
-    dataAiHint: "students workshop",
-  },
-  {
-    src: "https://picsum.photos/seed/event2/800/600",
-    title: "GDG Cloud Session",
-    alt: "Speaker presenting about Google Cloud Platform",
-    dataAiHint: "tech seminar",
-  },
-  {
-    src: "https://picsum.photos/seed/event3/800/600",
-    title: "Hackathon Team",
-    alt: "Winning team of the last 24-hour hackathon",
-    dataAiHint: "team celebration",
-  },
-  {
-    src: "https://picsum.photos/seed/event4/800/600",
-    title: "Networking Tea",
-    alt: "Students and industry experts talking during a break",
-    dataAiHint: "business networking",
-  },
-  {
-    src: "https://picsum.photos/seed/event5/800/600",
-    title: "AI Demo Day",
-    alt: "Student showcasing their LLM-based project",
-    dataAiHint: "project showcase",
-  },
-  {
-    src: "https://picsum.photos/seed/event6/800/600",
-    title: "Annual Meetup",
-    alt: "Group photo of all community members",
-    dataAiHint: "large group",
-  },
-];
+export const GALLERY_IMAGES = images.gallery.map(img => ({
+  src: img.src,
+  title: img.title,
+  alt: img.title,
+  dataAiHint: img.hint
+}));

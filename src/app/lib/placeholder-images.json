@@ -23,5 +23,23 @@
       "src": "/gdgiec.png",
       "dataAiHint": "community logo"
     }
-  }
+  },
+  "gallery": [
+    { "src": "/1.jpg", "title": "Community Kickoff", "hint": "campus event" },
+    { "src": "/2.jpg", "title": "Tech Talk Session", "hint": "tech seminar" },
+    { "src": "/3.jpg", "title": "Collaboration Hub", "hint": "students working" },
+    { "src": "/4.jpg", "title": "Workshop Highlights", "hint": "learning session" },
+    { "src": "/5.jpg", "title": "Group Discussion", "hint": "peer learning" },
+    { "src": "/6.jpeg", "title": "Project Showcase", "hint": "demo day" },
+    { "src": "/7.jpg", "title": "Evening Meetup", "hint": "networking" },
+    { "src": "/8.jpg", "title": "Interactive Q&A", "hint": "audience engagement" },
+    { "src": "/9.png", "title": "Hackathon Vibes", "hint": "coding event" },
+    { "src": "/IMG_20250926_162314.jpg", "title": "Event Snapshot 1", "hint": "candid moment" },
+    { "src": "/IMG_20250926_162713.jpg", "title": "Event Snapshot 2", "hint": "candid moment" },
+    { "src": "/IMG_20250926_162728.jpg", "title": "Event Snapshot 3", "hint": "candid moment" },
+    { "src": "/IMG_20250926_162822.jpg", "title": "Event Snapshot 4", "hint": "candid moment" },
+    { "src": "/IMG_20250926_163250.jpg", "title": "Event Snapshot 5", "hint": "candid moment" },
+    { "src": "/IMG_20250926_163312.jpg", "title": "Event Snapshot 6", "hint": "candid moment" },
+    { "src": "/Info Session 1.jpg", "title": "Information Session", "hint": "presentation" }
+  ]
 }
