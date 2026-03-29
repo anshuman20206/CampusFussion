@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -9,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { LogOut, ShieldCheck, Loader2 } from 'lucide-react';
 import { signOut } from 'firebase/auth';
+import { useEffect } from 'react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -17,6 +17,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
 
   const isLoginPage = pathname === '/admin';
+
+  useEffect(() => {
+    if (!isUserLoading && !user && !isLoginPage) {
+      router.push('/admin');
+    }
+  }, [user, isUserLoading, isLoginPage, router]);
 
   if (isLoginPage) return <>{children}</>;
 
@@ -29,7 +35,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   if (!user) {
-    router.push('/admin');
     return null;
   }
 
