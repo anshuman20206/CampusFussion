@@ -24,10 +24,16 @@ export function SidebarNav() {
   const { user } = useUser();
   const auth = useAuth();
 
-  const isHome = pathname === '/';
   const isAdmin = pathname.startsWith('/admin');
   const isDashboard = pathname === '/dashboard';
   const showSidebarPersistent = isAdmin || isDashboard;
+
+  // Listen for custom toggle events from the Header
+  useEffect(() => {
+    const handleToggle = () => setIsOpen(prev => !prev);
+    window.addEventListener('toggle-sidebar', handleToggle);
+    return () => window.removeEventListener('toggle-sidebar', handleToggle);
+  }, []);
 
   // Close sidebar on route change
   useEffect(() => {
@@ -40,30 +46,16 @@ export function SidebarNav() {
 
   return (
     <>
-      {/* Mobile Toggle Button (Visible only when sidebar is not persistent) */}
-      {!showSidebarPersistent && (
-        <div className="fixed top-5 left-6 z-[60] md:hidden">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={() => setIsOpen(!isOpen)}
-            className="bg-background/80 backdrop-blur-md shadow-lg rounded-xl border-primary/20 h-10 w-10"
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
-      )}
-
       {/* Sidebar Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-all duration-300"
+          className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-all duration-500 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       <aside className={cn(
-        "fixed left-0 top-0 z-50 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-2xl",
+        "fixed left-0 top-0 z-[70] h-screen border-r bg-card transition-all duration-500 ease-in-out shadow-2xl",
         isCollapsed ? "w-20" : "w-64",
         // Logic for translation:
         // 1. If isOpen (mobile/homepage toggle): show
@@ -91,7 +83,7 @@ export function SidebarNav() {
               variant="ghost" 
               size="icon" 
               onClick={() => setIsOpen(false)}
-              className="md:hidden ml-auto rounded-full"
+              className="md:hidden ml-auto rounded-full hover:bg-muted"
             >
               <X className="h-5 w-5" />
             </Button>
@@ -159,7 +151,7 @@ export function SidebarNav() {
             )}
             {!isCollapsed && !user && (
               <div className="rounded-2xl bg-muted/50 p-4">
-                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest text-center">
+                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest text-center leading-relaxed">
                   Campus Fusion Community
                 </p>
               </div>
