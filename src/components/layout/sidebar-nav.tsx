@@ -18,40 +18,50 @@ import { useUser } from '@/firebase';
 export function SidebarNav() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isOpenMobile, setIsOpenMobile] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
 
-  // Close mobile sidebar on route change
+  const isHome = pathname === '/';
+
+  // Close sidebar on route change
   useEffect(() => {
-    setIsOpenMobile(false);
+    setIsOpen(false);
   }, [pathname]);
 
   return (
     <>
-      {/* Mobile Toggle Button */}
-      <div className="fixed top-4 left-4 z-50 md:hidden">
+      {/* Universal Toggle Button */}
+      <div className={cn(
+        "fixed top-4 left-4 z-50 transition-all duration-300",
+        // Only hide on desktop if NOT the homepage (where it's fixed persistent)
+        !isHome && "md:hidden"
+      )}>
         <Button 
           variant="outline" 
           size="icon" 
-          onClick={() => setIsOpenMobile(!isOpenMobile)}
-          className="bg-background/80 backdrop-blur-sm shadow-md rounded-xl"
+          onClick={() => setIsOpen(!isOpen)}
+          className="bg-background/80 backdrop-blur-sm shadow-md rounded-xl border-primary/20 hover:bg-primary/10"
         >
-          {isOpenMobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
       </div>
 
-      {/* Overlay for mobile - Clicking anywhere else closes it */}
-      {isOpenMobile && (
+      {/* Backdrop Overlay - Closes sidebar on click */}
+      {(isOpen || (isHome && isOpen)) && (
         <div 
-          className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm md:hidden transition-all duration-300"
-          onClick={() => setIsOpenMobile(false)}
+          className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm transition-all duration-300"
+          onClick={() => setIsOpen(false)}
         />
       )}
 
       <aside className={cn(
-        "fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-2xl md:shadow-none",
+        "fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-2xl",
         isCollapsed ? "w-20" : "w-64",
-        isOpenMobile ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        // If Home: Always translate off-screen unless isOpen
+        // If NOT Home: Persistent on desktop, drawer on mobile
+        (isOpen || (!isHome && !isOpen)) ? "translate-x-0" : "-translate-x-full",
+        !isHome && "md:translate-x-0",
+        isHome && !isOpen && "-translate-x-full"
       )}>
         <div className="flex h-full flex-col">
           <div className="flex h-20 items-center justify-between px-6">
@@ -62,7 +72,10 @@ export function SidebarNav() {
               variant="ghost" 
               size="icon" 
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden md:flex ml-auto rounded-full hover:bg-muted"
+              className={cn(
+                "hidden md:flex ml-auto rounded-full hover:bg-muted",
+                isHome && "hidden" // No need for collapse on a floating drawer
+              )}
             >
               {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
             </Button>
@@ -76,7 +89,6 @@ export function SidebarNav() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setIsOpenMobile(false)}
                   className={cn(
                     "group flex items-center rounded-xl px-3 py-3 text-sm font-bold transition-all duration-200",
                     isActive 
@@ -101,7 +113,6 @@ export function SidebarNav() {
             {user && (
               <Link
                 href="/dashboard"
-                onClick={() => setIsOpenMobile(false)}
                 className={cn(
                   "group flex items-center rounded-xl px-3 py-3 text-sm font-bold transition-all duration-200 mt-4",
                   pathname === "/dashboard"
