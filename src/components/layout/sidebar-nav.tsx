@@ -4,19 +4,22 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { 
-  ChevronLeft,
-  ChevronRight,
-  Menu,
-  X
+  ChevronLeft, 
+  ChevronRight, 
+  Menu, 
+  X,
+  LayoutDashboard
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { NAV_LINKS } from '@/lib/constants';
+import { useUser } from '@/firebase';
 
 export function SidebarNav() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isOpenMobile, setIsOpenMobile] = useState(false);
+  const { user } = useUser();
 
   // Close mobile sidebar on route change
   useEffect(() => {
@@ -37,7 +40,7 @@ export function SidebarNav() {
         </Button>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Overlay for mobile - Clicking anywhere else closes it */}
       {isOpenMobile && (
         <div 
           className="fixed inset-0 z-[35] bg-black/40 backdrop-blur-sm md:hidden transition-all duration-300"
@@ -65,7 +68,7 @@ export function SidebarNav() {
             </Button>
           </div>
 
-          <nav className="flex-1 space-y-1 px-3 py-4">
+          <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
             {NAV_LINKS.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -93,6 +96,27 @@ export function SidebarNav() {
                 </Link>
               );
             })}
+
+            {/* Dashboard Link - Only for Admins */}
+            {user && (
+              <Link
+                href="/dashboard"
+                onClick={() => setIsOpenMobile(false)}
+                className={cn(
+                  "group flex items-center rounded-xl px-3 py-3 text-sm font-bold transition-all duration-200 mt-4",
+                  pathname === "/dashboard"
+                    ? "bg-primary/10 text-primary shadow-sm" 
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                <LayoutDashboard className={cn(
+                  "h-5 w-5 shrink-0",
+                  pathname === "/dashboard" ? "text-primary" : "text-muted-foreground group-hover:text-foreground",
+                  !isCollapsed && "mr-3"
+                )} />
+                {!isCollapsed && <span>Admin Dashboard</span>}
+              </Link>
+            )}
           </nav>
 
           <div className="p-4 border-t">
@@ -100,9 +124,11 @@ export function SidebarNav() {
               <div className="rounded-2xl bg-muted/50 p-4">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Status</p>
                 <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                  <div className="h-full w-[85%] bg-primary" />
+                  <div className="h-full w-[100%] bg-primary" />
                 </div>
-                <p className="mt-2 text-[10px] text-muted-foreground font-bold">Community Sync: Active</p>
+                <p className="mt-2 text-[10px] text-muted-foreground font-bold uppercase">
+                  {user ? "Admin Mode Active" : "Public Mode Active"}
+                </p>
               </div>
             )}
           </div>

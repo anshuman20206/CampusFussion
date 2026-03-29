@@ -15,11 +15,11 @@ export function CTASection() {
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight">Ready to join Campus Fusion?</h2>
           <p className="text-xl text-indigo-100 font-medium">
-            Take the first step towards a more connected and opportunity-rich campus life. Sign up today and unlock your future.
+            Take the first step towards a more connected and opportunity-rich campus life. Explore our active internships and events today.
           </p>
           <div className="pt-4">
             <Button size="lg" variant="secondary" asChild className="rounded-2xl h-14 px-12 font-bold shadow-2xl hover:scale-105 transition-all">
-              <Link href="/dashboard">Get Started Now</Link>
+              <Link href="/internships">View Opportunities</Link>
             </Button>
           </div>
         </div>

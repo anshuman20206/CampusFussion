@@ -11,16 +11,26 @@ import {
   TrendingUp,
   Clock,
   Pin,
-  Loader2
+  Loader2,
+  Lock
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function DashboardPage() {
   const firestore = useFirestore();
-  const { user } = useUser();
+  const { user, isUserLoading } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/admin');
+    }
+  }, [user, isUserLoading, router]);
 
   const internshipsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'internships'), limit(5)) : null, [firestore]);
   const eventsQuery = useMemoFirebase(() => firestore ? query(collection(firestore, 'events'), limit(3)) : null, [firestore]);
@@ -32,18 +42,34 @@ export default function DashboardPage() {
   const { data: announcements, isLoading: loadingNews } = useCollection(announcementsQuery);
   const { data: apps } = useCollection(applicationsQuery);
 
+  if (isUserLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
+
   const stats = [
     { label: "Total Students", value: "2.4k+", icon: Users, color: "text-blue-500", bg: "bg-blue-50" },
-    { label: "Upcoming Events", value: events?.length || "8", icon: Calendar, color: "text-purple-500", bg: "bg-purple-50" },
-    { label: "Active Internships", value: internships?.length || "12", icon: Briefcase, color: "text-indigo-500", bg: "bg-indigo-50" },
-    { label: "Applications", value: apps ? apps.length : (user ? "0" : "45"), icon: FileText, color: "text-pink-500", bg: "bg-pink-50" },
+    { label: "Upcoming Events", value: events?.length || "0", icon: Calendar, color: "text-purple-500", bg: "bg-purple-50" },
+    { label: "Active Internships", value: internships?.length || "0", icon: Briefcase, color: "text-indigo-500", bg: "bg-indigo-50" },
+    { label: "Applications", value: apps?.length || "0", icon: FileText, color: "text-pink-500", bg: "bg-pink-50" },
   ];
 
   return (
     <div className="p-8 space-y-10">
-      <div>
-        <h1 className="text-3xl font-black tracking-tight">Community Dashboard</h1>
-        <p className="text-muted-foreground mt-1">Real-time metrics and latest opportunities at your fingertips.</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-black tracking-tight flex items-center gap-3">
+            Admin Dashboard <Lock className="h-6 w-6 text-primary" />
+          </h1>
+          <p className="text-muted-foreground mt-1">Confidential internal metrics and oversight portal.</p>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -62,7 +88,7 @@ export default function DashboardPage() {
               </div>
               <div className="mt-4 flex items-center text-xs text-green-600 font-bold">
                 <TrendingUp className="h-3 w-3 mr-1" />
-                +12% this week
+                Live Synchronization
               </div>
             </CardContent>
           </Card>
@@ -74,10 +100,10 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 space-y-8">
           <section>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-black tracking-tight">Featured Internships</h2>
+              <h2 className="text-2xl font-black tracking-tight">System Internships</h2>
               <Button variant="ghost" asChild className="font-bold text-primary hover:bg-primary/5">
-                <Link href="/internships" className="flex items-center gap-1">
-                  View all <ArrowUpRight className="h-4 w-4" />
+                <Link href="/admin/manage-internships" className="flex items-center gap-1">
+                  Manage <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -111,10 +137,10 @@ export default function DashboardPage() {
 
           <section>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-black tracking-tight">Latest News</h2>
+              <h2 className="text-2xl font-black tracking-tight">Platform News</h2>
               <Button variant="ghost" asChild className="font-bold text-primary hover:bg-primary/5">
-                <Link href="/announcements" className="flex items-center gap-1">
-                  All updates <ArrowUpRight className="h-4 w-4" />
+                <Link href="/admin/manage-announcements" className="flex items-center gap-1">
+                  Edit News <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -144,10 +170,10 @@ export default function DashboardPage() {
         {/* Sidebar Feed */}
         <div className="space-y-8">
           <section>
-            <h2 className="text-2xl font-black tracking-tight mb-6">Latest Events</h2>
+            <h2 className="text-2xl font-black tracking-tight mb-6">Internal Events</h2>
             <div className="space-y-4">
               {events?.map((event) => (
-                <Card key={event.id} className="overflow-hidden border-none shadow-lg hover:scale-[1.03] transition-transform">
+                <Card key={event.id} className="overflow-hidden border-none shadow-lg">
                   <div className="aspect-[2/1] bg-muted relative overflow-hidden">
                      <img src={event.bannerUrl || `https://picsum.photos/seed/${event.id}/400/200`} className="object-cover w-full h-full" alt={event.title} />
                      <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm">

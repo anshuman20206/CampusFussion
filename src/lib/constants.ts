@@ -20,15 +20,14 @@ import images from "@/app/lib/placeholder-images.json";
 
 export const NAV_LINKS = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/internships", label: "Internships", icon: Briefcase },
   { href: "/events", label: "Events", icon: Calendar },
   { href: "/announcements", label: "News", icon: Bell },
-  { href: "/admin/dashboard", label: "Admin", icon: Globe },
 ];
 
 export const ADMIN_NAV_LINKS = [
-  { href: "/admin/dashboard", label: "Overview", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/dashboard", label: "Overview", icon: Globe },
   { href: "/admin/add-internship", label: "Add Internship", icon: PlusCircle },
   { href: "/admin/manage-internships", label: "Manage Internships", icon: Briefcase },
   { href: "/admin/add-event", label: "Add Event", icon: PlusCircle },
