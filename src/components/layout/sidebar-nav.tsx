@@ -1,0 +1,97 @@
+
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { 
+  LayoutDashboard, 
+  Briefcase, 
+  Calendar, 
+  Bell, 
+  FileText, 
+  Settings,
+  Image as ImageIcon,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+
+const NAV_ITEMS = [
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/internships", label: "Internships", icon: Briefcase },
+  { href: "/events", label: "Events", icon: Calendar },
+  { href: "/announcements", label: "News", icon: Bell },
+  { href: "/gallery", label: "Gallery", icon: ImageIcon },
+  { href: "/admin/dashboard", label: "Admin", icon: Settings },
+];
+
+export function SidebarNav() {
+  const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  return (
+    <aside className={cn(
+      "fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300 ease-in-out",
+      isCollapsed ? "w-20" : "w-64"
+    )}>
+      <div className="flex h-full flex-col">
+        <div className="flex h-20 items-center justify-between px-6">
+          {!isCollapsed && (
+            <span className="text-xl font-black tracking-tighter text-primary">CAMPUS<span className="text-foreground">FUSION</span></span>
+          )}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="ml-auto rounded-full hover:bg-muted"
+          >
+            {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+          </Button>
+        </div>
+
+        <nav className="flex-1 space-y-1 px-3 py-4">
+          {NAV_ITEMS.map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "group flex items-center rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
+                  isActive 
+                    ? "bg-primary/10 text-primary shadow-sm" 
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                <Icon className={cn(
+                  "h-5 w-5 shrink-0",
+                  isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground",
+                  !isCollapsed && "mr-3"
+                )} />
+                {!isCollapsed && <span>{item.label}</span>}
+                {isActive && !isCollapsed && (
+                  <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="p-4 border-t">
+          {!isCollapsed && (
+            <div className="rounded-2xl bg-muted/50 p-4">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Storage</p>
+              <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                <div className="h-full w-[65%] bg-primary" />
+              </div>
+              <p className="mt-2 text-[10px] text-muted-foreground">6.5 GB of 10 GB used</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </aside>
+  );
+}
