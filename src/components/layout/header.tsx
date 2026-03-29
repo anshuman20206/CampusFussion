@@ -2,6 +2,7 @@
 
 import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { NAV_LINKS } from '@/lib/constants';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -74,6 +75,8 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <ThemeToggle />
+            
             <Button variant="ghost" size="icon" asChild className="md:hidden rounded-xl">
               <Link href="/admin">
                 <Lock className="h-4 w-4" />

@@ -19,7 +19,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   const showSidebarPersistent = isDashboard;
 
   return (
-    <div className="flex">
+    <div className="flex bg-page-gradient min-h-screen">
       {!isAdmin && <SidebarNav />}
       <main className={cn(
         "flex-1 min-h-[calc(100vh-80px)] transition-all duration-300 w-full",

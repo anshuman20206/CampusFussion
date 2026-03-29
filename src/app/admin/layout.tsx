@@ -44,9 +44,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
+    <div className="min-h-screen bg-page-gradient flex flex-col">
       {/* Horizontal Management Bar */}
-      <div className="bg-white border-b sticky top-20 z-40 shadow-sm overflow-x-auto no-scrollbar">
+      <div className="bg-card/80 backdrop-blur-xl border-b sticky top-20 z-40 shadow-sm overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-2">
           <div className="flex items-center gap-2 mr-6 shrink-0 border-r pr-6">
             <ShieldCheck className="h-5 w-5 text-primary" />
@@ -65,7 +65,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap",
                     isActive 
                       ? "bg-primary/10 text-primary shadow-sm" 
-                      : "text-slate-600 hover:bg-slate-50 hover:text-primary"
+                      : "text-muted-foreground hover:bg-muted hover:text-primary"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -79,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Button 
               variant="ghost" 
               size="sm"
-              className="text-slate-600 hover:text-destructive hover:bg-destructive/5 rounded-lg font-bold h-9"
+              className="text-muted-foreground hover:text-destructive hover:bg-destructive/5 rounded-lg font-bold h-9"
               onClick={handleLogout}
             >
               <LogOut className="mr-2 h-4 w-4" />
