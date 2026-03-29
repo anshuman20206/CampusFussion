@@ -14,7 +14,8 @@ import {
   FileText,
   Bell,
   Globe,
-  Home
+  Home,
+  Image as ImageIcon
 } from "lucide-react";
 import images from "@/app/lib/placeholder-images.json";
 
@@ -23,6 +24,7 @@ export const NAV_LINKS = [
   { href: "/internships", label: "Internships", icon: Briefcase },
   { href: "/events", label: "Events", icon: Calendar },
   { href: "/announcements", label: "News", icon: Bell },
+  { href: "/gallery", label: "Gallery", icon: ImageIcon },
 ];
 
 export const ADMIN_NAV_LINKS = [
