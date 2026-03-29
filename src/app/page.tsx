@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Hero } from '@/components/pages/home/hero';
@@ -14,7 +13,7 @@ import {
   Clock,
   Pin
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
