@@ -8,60 +8,68 @@ import {
   ChevronRight, 
   Menu, 
   X,
-  LayoutDashboard
+  LayoutDashboard,
+  LogOut
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { NAV_LINKS } from '@/lib/constants';
-import { useUser } from '@/firebase';
+import { useUser, useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 export function SidebarNav() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useUser();
+  const auth = useAuth();
 
   const isHome = pathname === '/';
+  const isAdmin = pathname.startsWith('/admin');
+  const isDashboard = pathname === '/dashboard';
+  const showSidebarPersistent = isAdmin || isDashboard;
 
   // Close sidebar on route change
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
   return (
     <>
-      {/* Universal Toggle Button */}
-      <div className={cn(
-        "fixed top-4 left-4 z-50 transition-all duration-300",
-        // Only hide on desktop if NOT the homepage (where it's fixed persistent)
-        !isHome && "md:hidden"
-      )}>
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={() => setIsOpen(!isOpen)}
-          className="bg-background/80 backdrop-blur-sm shadow-md rounded-xl border-primary/20 hover:bg-primary/10"
-        >
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </Button>
-      </div>
+      {/* Mobile Toggle Button (Visible only when sidebar is not persistent) */}
+      {!showSidebarPersistent && (
+        <div className="fixed top-5 left-6 z-[60] md:hidden">
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={() => setIsOpen(!isOpen)}
+            className="bg-background/80 backdrop-blur-md shadow-lg rounded-xl border-primary/20 h-10 w-10"
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+      )}
 
-      {/* Backdrop Overlay - Closes sidebar on click */}
-      {(isOpen || (isHome && isOpen)) && (
+      {/* Sidebar Overlay */}
+      {isOpen && (
         <div 
-          className="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm transition-all duration-300"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-all duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       <aside className={cn(
-        "fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-2xl",
+        "fixed left-0 top-0 z-50 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-2xl",
         isCollapsed ? "w-20" : "w-64",
-        // If Home: Always translate off-screen unless isOpen
-        // If NOT Home: Persistent on desktop, drawer on mobile
-        (isOpen || (!isHome && !isOpen)) ? "translate-x-0" : "-translate-x-full",
-        !isHome && "md:translate-x-0",
-        isHome && !isOpen && "-translate-x-full"
+        // Logic for translation:
+        // 1. If isOpen (mobile/homepage toggle): show
+        // 2. If showSidebarPersistent (admin/dashboard): show on desktop
+        isOpen ? "translate-x-0" : "-translate-x-full",
+        showSidebarPersistent && "md:translate-x-0"
       )}>
         <div className="flex h-full flex-col">
           <div className="flex h-20 items-center justify-between px-6">
@@ -74,10 +82,18 @@ export function SidebarNav() {
               onClick={() => setIsCollapsed(!isCollapsed)}
               className={cn(
                 "hidden md:flex ml-auto rounded-full hover:bg-muted",
-                isHome && "hidden" // No need for collapse on a floating drawer
+                !showSidebarPersistent && "hidden"
               )}
             >
               {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsOpen(false)}
+              className="md:hidden ml-auto rounded-full"
+            >
+              <X className="h-5 w-5" />
             </Button>
           </div>
 
@@ -131,14 +147,20 @@ export function SidebarNav() {
           </nav>
 
           <div className="p-4 border-t">
-            {!isCollapsed && (
+            {user && !isCollapsed && (
+              <Button 
+                variant="ghost" 
+                className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 rounded-xl"
+                onClick={handleLogout}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+            )}
+            {!isCollapsed && !user && (
               <div className="rounded-2xl bg-muted/50 p-4">
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Status</p>
-                <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                  <div className="h-full w-[100%] bg-primary" />
-                </div>
-                <p className="mt-2 text-[10px] text-muted-foreground font-bold uppercase">
-                  {user ? "Admin Mode Active" : "Public Mode Active"}
+                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest text-center">
+                  Campus Fusion Community
                 </p>
               </div>
             )}

@@ -11,14 +11,19 @@ import { cn } from '@/lib/utils';
 export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const isAdmin = pathname.startsWith('/admin');
+  const isDashboard = pathname === '/dashboard';
+
+  // We show the sidebar persistent only on Dashboard and Admin routes
+  const showSidebarPersistent = isAdmin || isDashboard;
 
   return (
     <div className="flex">
       <SidebarNav />
       <main className={cn(
-        "flex-1 min-h-screen transition-all duration-300 w-full",
-        // Only add persistent padding if we are NOT on the homepage
-        !isHome && "md:pl-64 lg:pl-64"
+        "flex-1 min-h-[calc(100vh-80px)] transition-all duration-300 w-full",
+        // Only add persistent padding on dashboard/admin routes
+        showSidebarPersistent && "md:pl-64 lg:pl-64"
       )}>
         <div className="max-w-[1600px] mx-auto">
           {children}
