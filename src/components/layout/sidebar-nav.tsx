@@ -4,12 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Calendar, 
-  Bell, 
-  Image as ImageIcon,
-  Settings,
   ChevronLeft,
   ChevronRight,
   Menu,
@@ -17,15 +11,7 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-
-const NAV_ITEMS = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/internships", label: "Internships", icon: Briefcase },
-  { href: "/events", label: "Events", icon: Calendar },
-  { href: "/announcements", label: "News", icon: Bell },
-  { href: "/gallery", label: "Gallery", icon: ImageIcon },
-  { href: "/admin/dashboard", label: "Admin", icon: Settings },
-];
+import { NAV_LINKS } from '@/lib/constants';
 
 export function SidebarNav() {
   const pathname = usePathname();
@@ -54,13 +40,13 @@ export function SidebarNav() {
       {/* Overlay for mobile */}
       {isOpenMobile && (
         <div 
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-[35] bg-black/40 backdrop-blur-sm md:hidden transition-all duration-300"
           onClick={() => setIsOpenMobile(false)}
         />
       )}
 
       <aside className={cn(
-        "fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-xl md:shadow-none",
+        "fixed left-0 top-0 z-40 h-screen border-r bg-card transition-all duration-300 ease-in-out shadow-2xl md:shadow-none",
         isCollapsed ? "w-20" : "w-64",
         isOpenMobile ? "translate-x-0" : "-translate-x-full md:translate-x-0"
       )}>
@@ -80,15 +66,16 @@ export function SidebarNav() {
           </div>
 
           <nav className="flex-1 space-y-1 px-3 py-4">
-            {NAV_ITEMS.map((item) => {
+            {NAV_LINKS.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => setIsOpenMobile(false)}
                   className={cn(
-                    "group flex items-center rounded-xl px-3 py-3 text-sm font-medium transition-all duration-200",
+                    "group flex items-center rounded-xl px-3 py-3 text-sm font-bold transition-all duration-200",
                     isActive 
                       ? "bg-primary/10 text-primary shadow-sm" 
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -115,7 +102,7 @@ export function SidebarNav() {
                 <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
                   <div className="h-full w-[85%] bg-primary" />
                 </div>
-                <p className="mt-2 text-[10px] text-muted-foreground">Community Sync: Active</p>
+                <p className="mt-2 text-[10px] text-muted-foreground font-bold">Community Sync: Active</p>
               </div>
             )}
           </div>

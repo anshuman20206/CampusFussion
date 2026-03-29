@@ -1,4 +1,3 @@
-
 import { 
   Users, 
   Calendar, 
@@ -14,15 +13,18 @@ import {
   PlusCircle,
   FileText,
   Bell,
-  Globe
+  Globe,
+  Home
 } from "lucide-react";
 import images from "@/app/lib/placeholder-images.json";
 
 export const NAV_LINKS = [
-  { href: "/", label: "Home", icon: Rocket },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/internships", label: "Internships", icon: Briefcase },
   { href: "/events", label: "Events", icon: Calendar },
-  { href: "/announcements", label: "News", icon: MessageCircle },
+  { href: "/announcements", label: "News", icon: Bell },
+  { href: "/admin/dashboard", label: "Admin", icon: Globe },
 ];
 
 export const ADMIN_NAV_LINKS = [
@@ -74,6 +76,7 @@ export const TEAM_MEMBERS = [
     image: images.team.anshuman.src,
     dataAiHint: images.team.anshuman.dataAiHint,
     linkedin: "https://www.linkedin.com/in/anshumansinghsdd/",
+    description: "Driving innovation and community growth through technology."
   },
   {
     name: "Aahana Soni",
@@ -81,6 +84,7 @@ export const TEAM_MEMBERS = [
     image: images.team.aahana.src,
     dataAiHint: images.team.aahana.dataAiHint,
     linkedin: "https://www.linkedin.com/in/aahana-soni-342865332/",
+    description: "Empowering students to build impactful digital solutions."
   },
   {
     name: "Hifza Arif",
@@ -88,6 +92,7 @@ export const TEAM_MEMBERS = [
     image: images.team.hifza.src,
     dataAiHint: images.team.hifza.dataAiHint,
     linkedin: "https://www.linkedin.com/in/hifza-arif-4b3243302/",
+    description: "Coordinating opportunities and fostering campus engagement."
   },
   {
     name: "Ankit",
@@ -95,6 +100,7 @@ export const TEAM_MEMBERS = [
     image: images.team.ankit.src,
     dataAiHint: images.team.ankit.dataAiHint,
     linkedin: "#",
+    description: "Bridging the gap between theory and real-world application."
   },
 ];
 
