@@ -22,10 +22,12 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       <SidebarNav />
       <main className={cn(
         "flex-1 min-h-[calc(100vh-80px)] transition-all duration-300 w-full",
-        // Only add persistent padding on dashboard/admin routes
         showSidebarPersistent && "md:pl-64 lg:pl-64"
       )}>
-        <div className="max-w-[1600px] mx-auto">
+        <div className={cn(
+          "max-w-[1600px] mx-auto",
+          !isHome && "pt-24" // Only add top padding for non-home pages
+        )}>
           {children}
         </div>
       </main>
