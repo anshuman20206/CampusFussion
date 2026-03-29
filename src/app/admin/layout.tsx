@@ -44,70 +44,62 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC]">
-      {/* Sleek Admin Sidebar */}
-      <aside className="w-72 bg-white border-r hidden lg:flex flex-col sticky top-0 h-screen shadow-sm">
-        <div className="p-8 border-b">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary/10 p-2 rounded-xl">
-              <ShieldCheck className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <span className="font-black text-lg tracking-tight block">Admin Center</span>
-              <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Secure Access</span>
-            </div>
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col">
+      {/* Horizontal Management Bar */}
+      <div className="bg-white border-b sticky top-20 z-40 shadow-sm overflow-x-auto no-scrollbar">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-2">
+          <div className="flex items-center gap-2 mr-6 shrink-0 border-r pr-6">
+            <ShieldCheck className="h-5 w-5 text-primary" />
+            <span className="font-black text-sm tracking-tight">Admin Control</span>
+          </div>
+          
+          <nav className="flex items-center gap-1">
+            {ADMIN_NAV_LINKS.map((link) => {
+              const Icon = link.icon;
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all whitespace-nowrap",
+                    isActive 
+                      ? "bg-primary/10 text-primary shadow-sm" 
+                      : "text-slate-600 hover:bg-slate-50 hover:text-primary"
+                  )}
+                >
+                  <Icon className="h-4 w-4" />
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="ml-auto flex items-center gap-4 pl-6 border-l">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              className="text-slate-600 hover:text-destructive hover:bg-destructive/5 rounded-lg font-bold h-9"
+              onClick={handleLogout}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign Out
+            </Button>
           </div>
         </div>
-        
-        <nav className="flex-1 p-6 space-y-1.5 overflow-y-auto">
-          <p className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-4">Management</p>
-          {ADMIN_NAV_LINKS.map((link) => {
-            const Icon = link.icon;
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 group",
-                  isActive 
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20" 
-                    : "text-slate-600 hover:bg-slate-50 hover:text-primary"
-                )}
-              >
-                <Icon className={cn("h-4.5 w-4.5", isActive ? "text-white" : "text-slate-400 group-hover:text-primary")} />
-                {link.label}
-                {isActive && <ChevronRight className="ml-auto h-4 w-4 opacity-50" />}
-              </Link>
-            );
-          })}
-        </nav>
+      </div>
 
-        <div className="p-6 border-t bg-slate-50/50">
-          <Button 
-            variant="ghost" 
-            className="w-full justify-start text-slate-600 hover:text-destructive hover:bg-destructive/5 rounded-xl font-bold"
-            onClick={handleLogout}
-          >
-            <LogOut className="mr-3 h-4 w-4" />
-            Sign Out
-          </Button>
-        </div>
-      </aside>
-
-      {/* Modern Main Content Area */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-6xl mx-auto p-8 md:p-12 animate-in fade-in duration-500">
-          {/* Internal Page Header (Breadcrumb style) */}
-          {!pathname.includes('/admin/dashboard') && (
-             <div className="mb-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-               <Link href="/admin/dashboard" className="hover:text-primary">Admin</Link>
-               <ChevronRight className="h-3 w-3" />
-               <span className="text-foreground">Current View</span>
-             </div>
-          )}
-          {children}
-        </div>
+      {/* Spacious Main Content Area */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-10 md:py-12 animate-in fade-in duration-500">
+        {/* Breadcrumb style navigation */}
+        {!pathname.includes('/admin/dashboard') && (
+           <div className="mb-8 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
+             <Link href="/admin/dashboard" className="hover:text-primary transition-colors">Admin</Link>
+             <ChevronRight className="h-3 w-3" />
+             <span className="text-foreground">Management Console</span>
+           </div>
+        )}
+        {children}
       </main>
     </div>
   );

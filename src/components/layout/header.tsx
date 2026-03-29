@@ -4,15 +4,18 @@ import { Logo } from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { NAV_LINKS } from '@/lib/constants';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Menu, Lock } from 'lucide-react';
-import { useUser } from '@/firebase';
+import { useUser, useAuth } from '@/firebase';
 import { useState, useEffect } from 'react';
+import { signOut } from 'firebase/auth';
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user } = useUser();
+  const auth = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -22,6 +25,16 @@ export function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = async () => {
+    if (user) {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error("Auto-logout error:", error);
+      }
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 px-4 py-4 md:px-8">
@@ -34,7 +47,10 @@ export function Header() {
         )}
       >
         <div className="container mx-auto flex h-full items-center justify-between px-6">
-          <Logo className={cn("transition-transform duration-500", isScrolled ? "scale-90" : "scale-100")} />
+          <Logo 
+            className={cn("transition-transform duration-500", isScrolled ? "scale-90" : "scale-100")} 
+            onClick={handleNavClick}
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
@@ -42,6 +58,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={handleNavClick}
                 className={cn(
                   "text-sm font-bold transition-all duration-300 relative group",
                   pathname === link.href ? "text-primary" : "text-muted-foreground hover:text-primary"
@@ -54,21 +71,6 @@ export function Header() {
                 )} />
               </Link>
             ))}
-            {user && (
-              <Link
-                href="/dashboard"
-                className={cn(
-                  "text-sm font-bold transition-all duration-300 relative group",
-                  pathname === "/dashboard" ? "text-primary" : "text-muted-foreground hover:text-primary"
-                )}
-              >
-                Dashboard
-                <span className={cn(
-                  "absolute -bottom-1 left-0 w-full h-0.5 bg-primary transition-transform duration-300 origin-left",
-                  pathname === "/dashboard" ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                )} />
-              </Link>
-            )}
           </nav>
 
           <div className="flex items-center gap-4">
@@ -86,8 +88,8 @@ export function Header() {
                 !isScrolled && "border-primary/20 bg-background/50 hover:bg-primary/5"
               )}
             >
-              <Link href="/admin">
-                {user ? "Admin Panel" : "Admin Login"}
+              <Link href={user ? "/admin/dashboard" : "/admin"}>
+                {user ? "Dashboard" : "Admin Login"}
               </Link>
             </Button>
           </div>
