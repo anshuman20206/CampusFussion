@@ -74,7 +74,7 @@ export function SidebarNav() {
         <div className="flex h-full flex-col">
           <div className="flex h-20 items-center justify-between px-6">
             {!isCollapsed && (
-              <span className="text-xl font-black tracking-tighter text-primary">CAMPUS<span className="text-foreground">FUSION</span></span>
+              <span className="text-xl font-headline font-black tracking-tighter text-primary">CAMPUS<span className="text-foreground">FUSION</span></span>
             )}
             <Button 
               variant="ghost" 

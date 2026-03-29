@@ -7,12 +7,12 @@ export function Logo({ className, onClick }: { className?: string, onClick?: () 
     <Link 
       href="/" 
       onClick={onClick}
-      className={cn("flex items-center gap-3 text-xl font-bold text-foreground hover:text-primary transition-colors", className)}
+      className={cn("flex items-center gap-3 text-xl font-headline font-black text-foreground hover:text-primary transition-colors", className)}
     >
-      <div className="rounded-lg bg-primary/10 p-2 text-primary">
+      <div className="rounded-xl bg-primary/10 p-2 text-primary shadow-inner">
         <Orbit className="h-6 w-6" />
       </div>
-      <span className="font-sans font-bold">CampusFusion</span>
+      <span className="tracking-tight">Campus<span className="text-primary">Fusion</span></span>
     </Link>
   );
 }

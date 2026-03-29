@@ -19,7 +19,7 @@ export function Hero() {
           <span>Next Generation Community Hub</span>
         </div>
         
-        <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-white mb-10 drop-shadow-2xl leading-[0.9]">
+        <h1 className="text-7xl md:text-9xl font-headline font-black tracking-tight text-white mb-10 drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)] leading-[0.85] animate-in zoom-in duration-700">
           Campus <span className="text-indigo-200">Fusion</span>
         </h1>
         
