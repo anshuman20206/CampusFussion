@@ -20,7 +20,7 @@ export function Hero() {
         </div>
         
         <h1 className="text-7xl md:text-9xl font-headline font-black tracking-tight text-white mb-10 drop-shadow-[0_10px_10px_rgba(0,0,0,0.3)] leading-[0.85] animate-in zoom-in duration-700">
-          Campus <span className="text-indigo-200">Fusion</span>
+          Campus <span className="text-indigo-200">Fussion</span>
         </h1>
         
         <p className="text-xl md:text-2xl text-indigo-50 max-w-3xl mx-auto mb-16 leading-relaxed font-medium opacity-90 drop-shadow-md">
